@@ -13,8 +13,7 @@
    - [[http://ruby.railstutorial.org/chapters/static-pages#code-spork_spec_helper][spec/spec_helper.rb]]
 6. add --drb to .rspec
 7. $ guard init spork
-8. don't update Guardfile (init does it already)
-   - http://ruby.railstutorial.org/chapters/static-pages#code-spork_guardfile
+8. move spork stuff to top of Guardfile
 ** Create static pages
 1. generate static pages controller
    - $ rails generate controller StaticPages home help --no-test-framework
