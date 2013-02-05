@@ -44,13 +44,18 @@
 
 * design
 ** header
-- always:
-  + home/ezra
-- not logged in:
-  - about
-  - log in
-- logged in:
-  - ??
-  - logged out
-- admin user:
-  - admin
+*** always:
+**** home/ezra
+*** not logged in:
+**** about
+**** log in
+*** logged in:
+**** log out
+*** admin user:
+**** admin
+** footer
+*** debug info
+-       <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+        
+** index body
