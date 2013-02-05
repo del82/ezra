@@ -1,0 +1,57 @@
+* workflow
+** Initialize everything
+1. $ rails new ezra0 --skip--test-unit
+2. update gemfile && $ bundle update; bundle install
+   - note that guard-spork version needs to be updated => 1.4.1
+** Rspec, guard, spork
+1. $ rails generate rspec:install
+2. $ guard init rspec
+3. update Guardfile
+   + http://ruby.railstutorial.org/chapters/static-pages#code-guardfile
+4. spork --bootstrap
+5. update spec helper
+   - [[http://ruby.railstutorial.org/chapters/static-pages#code-spork_spec_helper][spec/spec_helper.rb]]
+6. add --drb to .rspec
+7. $ guard init spork
+8. don't update Guardfile (init does it already)
+   - http://ruby.railstutorial.org/chapters/static-pages#code-spork_guardfile
+** Create static pages
+1. generate static pages controller
+   - $ rails generate controller StaticPages home help --no-test-framework
+   - results: (- for _)
+      create  app/controllers/static-pages-controller.rb
+       route  get "static-pages/help"
+       route  get "static-pages/home"
+      invoke  erb
+      create    app/views/static-pages
+      create    app/views/static-pages/home.html.erb
+      create    app/views/static-pages/help.html.erb
+      invoke  helper
+      create    app/helpers/static-pages-helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/static-pages.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/static-pages.css.scss
+2. $ rails generate integration-test static-pages (-_)
+
+** other workflows
+*** adding a static page
+1. write tests describing the content of the page
+2. update config/routes.rb
+3. update StaticPages controller
+4. add a view in app/views/static-pages/
+5. green
+
+* design
+** header
+- always:
+  + home/ezra
+- not logged in:
+  - about
+  - log in
+- logged in:
+  - ??
+  - logged out
+- admin user:
+  - admin
