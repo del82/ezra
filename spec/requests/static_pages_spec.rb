@@ -35,5 +35,19 @@ describe "Static pages" do
     
     it { should have_selector('title', text: full_title('Links')) }
   end
+
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    page.should have_selector 'title', text: full_title('About')
+    click_link "People"
+    page.should have_selector 'title', text: full_title('People')
+    click_link "Publications"
+    page.should have_selector 'title', text: full_title('Publications')
+    click_link "Links"
+    page.should have_selector 'title', text: full_title('Links')
+    click_link "ezra"
+    page.should have_selector 'title', text: full_title('')
+  end
   
 end
