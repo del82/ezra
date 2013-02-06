@@ -1,9 +1,17 @@
 Ezra::Application.routes.draw do
+  resources :users
   
+  get "users/new"
+  get "users/index"
+  get "users/view"
+
+
+  # static pages
   match '/about', to: "static_pages#about"
   match '/people', to: "static_pages#people"
   match '/publications', to: "static_pages#publications"
   match '/links', to: "static_pages#links"
+
 
   root to: 'static_pages#home'
 
