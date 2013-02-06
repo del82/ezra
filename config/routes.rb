@@ -1,4 +1,12 @@
 Ezra::Application.routes.draw do
+  
+  match '/about', to: "static_pages#about"
+  match '/people', to: "static_pages#people"
+  match '/publications', to: "static_pages#publications"
+  match '/links', to: "static_pages#links"
+
+  root to: 'static_pages#home'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

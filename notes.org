@@ -42,14 +42,25 @@
 4. add a view in app/views/static-pages/
 5. green
 
+* stories
+** public user
+- visit the site; learn about the project
+- learn about individual targets/sets of targets
+- listen to individual sound files
+
 * design
 ** header
 *** always:
 **** home/ezra
-*** not logged in:
 **** about
+**** links
+**** people?
+**** publications?
+*** not logged in:
 **** log in
+
 *** logged in:
+
 **** log out
 *** admin user:
 **** admin
