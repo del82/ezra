@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def index
   end
 
-  def view
+  def show  # requrired by signin, somehow
   end
+
 end
