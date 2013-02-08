@@ -3,8 +3,11 @@
     <%= link_to "ezra", root_path, class: "brand" %>
     <ul class="nav">
       <% if signed_in? %>
-        <li><%= link_to "Users", "#" %></li>
+        <% if admin? %>
+          <li><%= link_to "Users", "#" %></li>
+        <% end %>
         <li><%= link_to "Targets", "#" %></li>
+        <li><%= link_to "Features", "#" %></li>
         <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
       <% else %>
         <li><%= link_to "About",        about_path %></li>
@@ -13,7 +16,6 @@
         <li><%= link_to "Links",        links_path %></li>      
         <li><%= link_to "Sign in",      signin_path %></li>
       <% end %>
-      <%= signed_in? %>
     </ul>
   </div>
 </div>
