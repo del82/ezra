@@ -72,3 +72,5 @@
         
 ** index body
 
+* notes
+- consider simple-form gem for form stuff
