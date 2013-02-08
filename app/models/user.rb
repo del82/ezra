@@ -13,7 +13,9 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :username, :email, :password, :password_confirmation
   has_secure_password
-  
+
+  has_many :targets
+
   before_save do 
     self.email.downcase!
     self.username.downcase!

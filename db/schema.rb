@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207173544) do
+ActiveRecord::Schema.define(:version => 20130208020911) do
+
+  create_table "targets", :force => true do |t|
+    t.string   "target_string"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "targets", ["created_at"], :name => "index_targets_on_created_at"
+  add_index "targets", ["target_string"], :name => "index_targets_on_target_string"
+  add_index "targets", ["user_id"], :name => "index_targets_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
