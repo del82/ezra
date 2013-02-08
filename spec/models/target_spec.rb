@@ -30,4 +30,15 @@ describe Target do
     before { @target.user_id = nil }
     it { should_not be_valid }
   end
+
+  describe "with blank target_string" do
+    before { @target.target_string = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with target_string that is too long" do
+    before { @target.target_string = "a" * 31 }
+    it { should_not be_valid }
+  end
+
 end

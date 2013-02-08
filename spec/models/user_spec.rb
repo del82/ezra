@@ -175,4 +175,18 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
+  describe "target associations" do
+    before { @user.save }
+    let!(:older_target) do
+      FactoryGirl.create(:target, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_target) do
+      FactoryGirl.create(:target, user: @user, created_at: 1.hour.ago)
+    end
+    
+    it "should have the right targets in the right order" do
+      @user.targets.should == [older_target, newer_target]
+    end
+  end
 end

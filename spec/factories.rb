@@ -10,4 +10,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :target do
+    target_string "test target"
+    user
+  end
 end

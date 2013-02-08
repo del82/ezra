@@ -42,10 +42,7 @@
 4. add a view in app/views/static-pages/
 5. green
 
-** add targets:
-- write tests
-- create model
-- 
+
 * stories
 ** public user
 - visit the site; learn about the project
