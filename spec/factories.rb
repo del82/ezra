@@ -15,4 +15,10 @@ FactoryGirl.define do
     phrase "test target"
     user
   end
+
+  factory :feature do
+    name "test feature"
+    instructions "description of test feature"
+    user
+  end
 end
