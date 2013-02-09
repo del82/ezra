@@ -10,6 +10,8 @@ describe Target do
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   its(:user) { should == user }
+
+  it { should respond_to(:features) }
     
   it { should be_valid }
 
@@ -24,11 +26,6 @@ describe Target do
         Target.new(user_id: user.id)
       end.to raise_error (ActiveModel::MassAssignmentSecurity::Error)
     end
-  end
-  
-  describe "when user_id is not present" do
-    before { @target.user_id = nil }
-    it { should_not be_valid }
   end
 
   describe "with blank phrase" do

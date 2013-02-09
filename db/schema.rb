@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130209020550) do
+ActiveRecord::Schema.define(:version => 20130209161207) do
 
   create_table "features", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20130209020550) do
 
   add_index "features", ["name"], :name => "index_features_on_name"
   add_index "features", ["user_id"], :name => "index_features_on_user_id"
+
+  create_table "features_targets", :id => false, :force => true do |t|
+    t.integer "feature_id"
+    t.integer "target_id"
+  end
+
+  add_index "features_targets", ["feature_id"], :name => "index_features_targets_on_feature_id"
+  add_index "features_targets", ["target_id"], :name => "index_features_targets_on_target_id"
 
   create_table "targets", :force => true do |t|
     t.string   "phrase"
