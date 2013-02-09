@@ -74,3 +74,15 @@
 
 * notes
 - consider simple-form gem for form stuff
+
+
+* restful actions
+| HTTP req. | URI           | Action  | Named route          | Purpose         |
+|-----------+---------------+---------+----------------------+-----------------|
+| GET       | /users        | index   | users-path           | list all users  |
+| GET       | /users/1      | show    | user-path(user)      | show user       |
+| GET       | /users/new    | new     | new-user-path        | make a new user |
+| POST      | /users        | create  | users-path           | create new user |
+| GET       | /users/1/edit | edit    | edit-user-path(user) | edit user 1     |
+| PUT       | /users/1      | update  | user-path(user)      | update user     |
+| DELETE    | /users/1      | destroy | user-path(user)      | delete user     |
