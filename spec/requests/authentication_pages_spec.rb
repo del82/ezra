@@ -35,15 +35,16 @@ describe "Authentication" do
 
       #it { should have_selector('title', text: user.name) }
       it { should have_link('Sign out', href: signout_path) }
-      it { should have_link('Targets'), href: "#" }
-      it { should have_link('Features'), href: "#" }
+      it { should have_link('Targets', href: targets_path) }
+      it { should have_link('Features', href: features_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 
       describe "followed by signout" do
         before { click_link "Sign out" }
-        it { should have_link('Sign in') }
+        it { should have_link('Sign in', href: signin_path) }
       end
     end
+
     describe "as admin" do
       let(:admin) { FactoryGirl.create(:admin) }
       before do
@@ -51,7 +52,7 @@ describe "Authentication" do
         fill_in "Password", with: admin.password
         click_button "Sign in"
       end
-      it { should have_link('Users', href: "#") }
+      it { should have_link('Users', href: users_path) }
     end
   end
 end
