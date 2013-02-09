@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Target do
   let(:user) { FactoryGirl.create(:user) }
-  before { @target = user.targets.build(target_string: "target string") }
+  before { @target = user.targets.build(phrase: "target string") }
   
   subject { @target }
 
-  it { should respond_to(:target_string) } 
+  it { should respond_to(:phrase) } 
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   its(:user) { should == user }
@@ -31,13 +31,13 @@ describe Target do
     it { should_not be_valid }
   end
 
-  describe "with blank target_string" do
-    before { @target.target_string = " " }
+  describe "with blank phrase" do
+    before { @target.phrase = " " }
     it { should_not be_valid }
   end
 
-  describe "with target_string that is too long" do
-    before { @target.target_string = "a" * 31 }
+  describe "with phrase that is too long" do
+    before { @target.phrase = "a" * 31 }
     it { should_not be_valid }
   end
 

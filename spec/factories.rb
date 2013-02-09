@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :target do
-    target_string "test target"
+    phrase "test target"
     user
   end
 end

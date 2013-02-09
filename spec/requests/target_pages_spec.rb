@@ -21,7 +21,7 @@ describe "Target pages" do
     describe "should have the right title" do
       it_should_behave_like "all pages"
       it { should have_selector('title', 
-                                text: full_title('Target | '+target.target_string)) }
+                                text: full_title('Target | '+target.phrase)) }
     end
   end
 
@@ -42,7 +42,7 @@ describe "Target pages" do
     describe "should have the right title" do
       it_should_behave_like "all pages"
       it { should have_selector('title', 
-                                text: full_title('Edit | '+target.target_string)) }
+                                text: full_title('Edit | '+target.phrase)) }
     end
   end
 end
