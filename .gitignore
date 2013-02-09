@@ -17,3 +17,4 @@ vendor/ruby
 bundler_stubs/
 vendor/cache
 .#notes.org
+config/initializers/secret_token.rb
