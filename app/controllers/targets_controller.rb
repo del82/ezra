@@ -1,4 +1,5 @@
 class TargetsController < ApplicationController
+  before_filter :signed_in_user
   def index   # GET /targets          -> targets_path
   end
 
@@ -22,4 +23,8 @@ class TargetsController < ApplicationController
   def destroy # DELETE /targets/1     -> target_path(target)
   end
 
+private
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
 end
