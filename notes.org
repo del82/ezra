@@ -77,12 +77,39 @@
 
 
 * restful actions
-| HTTP req. | URI           | Action  | Named route          | Purpose         |
-|-----------+---------------+---------+----------------------+-----------------|
-| GET       | /users        | index   | users-path           | list all users  |
-| GET       | /users/1      | show    | user-path(user)      | show user       |
-| GET       | /users/new    | new     | new-user-path        | make a new user |
-| POST      | /users        | create  | users-path           | create new user |
-| GET       | /users/1/edit | edit    | edit-user-path(user) | edit user 1     |
-| PUT       | /users/1      | update  | user-path(user)      | update user     |
-| DELETE    | /users/1      | destroy | user-path(user)      | delete user     |
+** actions and permissions
+| HTTP req. | URI              | Action  | Named route                | Purpose            | Permission     |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| GET       | /users           | index   | users-path                 | list all users     | admin          |
+| GET       | /users/1         | show    | user-path(user)            | show user          | admin          |
+| GET       | /users/new       | new     | new-user-path              | make a new user    | admin          |
+| POST      | /users           | create  | users-path                 | create new user    | admin          |
+| GET       | /users/1/edit    | edit    | edit-user-path(user)       | edit user 1        | admin or owner |
+| PUT       | /users/1         | update  | user-path(user)            | update user        | admin or owner |
+| DELETE    | /users/1         | destroy | user-path(user)            | delete user        | nobody         |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| HTTP req. | URI              | Action  | Named route                | Purpose            | Permission     |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| GET       | /targets         | index   | targets-path               | list all targets   | user           |
+| GET       | /targets/1       | show    | target-path(target)        | show target        | user           |
+| GET       | /targets/new     | new     | new-target-path            | make a new target  | admin          |
+| POST      | /targets         | create  | targets-path               | create new target  | admin          |
+| GET       | /targets/1/edit  | edit    | edit-target-path(target)   | edit target 1      | admin owner    |
+| PUT       | /targets/1       | update  | target-path(target)        | update target      | admin owner    |
+| DELETE    | /targets/1       | destroy | target-path(target)        | delete target      | nobody         |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| HTTP req. | URI              | Action  | Named route                | Purpose            | Permission     |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| GET       | /features        | index   | features-path              | list all features  | admin          |
+| GET       | /features/1      | show    | feature-path(feature)      | show feature       | user           |
+| GET       | /features/new    | new     | new-feature-path           | make a new feature | admin          |
+| POST      | /features        | create  | features-path              | create new feature | admin          |
+| GET       | /features/1/edit | edit    | edit-feature-path(feature) | edit feature 1     | admin owner    |
+| PUT       | /features/1      | update  | feature-path(feature)      | update feature     | admin owner    |
+| DELETE    | /features/1      | destroy | feature-path(feature)      | delete feature     | admin owner    |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+
+* tests
+- unit tests: individual components
+- functional tests: individual controllers
+- integration tests: specific workflows
