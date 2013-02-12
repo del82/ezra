@@ -1,3 +1,9 @@
 <% provide(:title, "All targets") %>
-<h1>Targets#index</h1>
-<p>Find me in app/views/targets/index.html.erb</p>
+<%= will_paginate %>
+
+<ul class="targets">
+  <%= render @targets %>
+</ul>
+
+<%= will_paginate %>
+

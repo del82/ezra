@@ -1,3 +1,18 @@
 <% provide(:title, 'Edit | ' + @target.phrase) %>
-<h1>Targets#edit</h1>
-<p>Find me in app/shows/targets/edit.html.erb</p>
+<h1 Update target <%= @target.phrase %></h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@target) do |f| %>
+      <%= render 'error_messages' %>
+
+      <%= f.label :phrase, "Phrase" %>
+      <%= f.text_field :phrase %>
+
+      <%= f.label :features, "Features" %>
+      <%= f.text_field :features %>
+      
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+

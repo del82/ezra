@@ -1,6 +1,7 @@
 class TargetsController < ApplicationController
   before_filter :signed_in_user
   def index   # GET /targets          -> targets_path
+    @targets = Target.paginate(page: params[:page])
   end
 
   def show    # GET /targets/:id      -> target_path(target) 
