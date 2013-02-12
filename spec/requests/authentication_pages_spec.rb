@@ -39,6 +39,12 @@ describe "Authentication" do
       it { should have_link('Features', href: features_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 
+      # static page links
+      it { should have_link('About', href: about_path) }
+      it { should have_link('People', href: people_path) }
+      it { should have_link('Publications', href: publications_path) }
+      it { should have_link('Links', href: links_path) }
+
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in', href: signin_path) }
