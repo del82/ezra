@@ -1,3 +1,18 @@
 <% provide(:title, "New target") %>
 <h1>Targets#new</h1>
-<p>Find me in app/views/targets/new.html.erb</p>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@target) do |f| %>
+      <%= render 'error_messages' %>
+
+      <%= f.label :phrase, "Phrase" %>
+      <%= f.text_field :phrase %>
+
+      <%= f.label :features, "Features" %>
+      <%= f.text_field :features %>
+      
+      <%= f.submit "Create target", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+

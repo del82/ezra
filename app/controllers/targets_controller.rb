@@ -8,6 +8,7 @@ class TargetsController < ApplicationController
   end
 
   def new     # GET /targets/new      -> new_target_path
+    @target = Target.new
   end
 
   def create  # POST /targets         -> targets_path
