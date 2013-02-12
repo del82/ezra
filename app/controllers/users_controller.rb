@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   #before_filter :correct_user_or_admin
 
   def index   # GET /users          -> users_path
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   def show    # GET /users/:id      -> user_path(user) 
