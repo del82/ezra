@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user  
+  before_filter :signed_in_user
+  #before_filter :correct_user_or_admin
+
   def index   # GET /users          -> users_path
+    @users = User.all
   end
 
   def show    # GET /users/:id      -> user_path(user) 
@@ -26,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update  # PUT /users/1        -> user_path(user)
+    @user = User.find(params[:id])
   end
 
   def destroy # DELETE /users/1     -> user_path(user)
