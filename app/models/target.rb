@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: targets
+#
+#  id         :integer          not null, primary key
+#  phrase     :string(255)
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Target < ActiveRecord::Base
   attr_accessible :phrase
   belongs_to :user, :inverse_of => :targets

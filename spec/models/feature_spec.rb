@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: features
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  name         :string(255)
+#  instructions :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Feature do

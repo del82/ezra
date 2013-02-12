@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: features
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  name         :string(255)
+#  instructions :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Feature < ActiveRecord::Base
   attr_accessible :instructions, :name
   belongs_to :user, :inverse_of => :features
