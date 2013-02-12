@@ -1,7 +1,11 @@
+# -*- mode: ruby; -*-
+
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     make_users
+    make_targets
+    make_features
   end
 end
 
@@ -22,5 +26,21 @@ def make_users
                  username: username,
                  password: password,
                  password_confirmation: password)
+  end
+end
+
+def make_targets
+  admins = User.where(admin: true)
+  10.times do |u|
+    admins.sample.targets.create!(phrase:  Faker::Lorem.words.join(' '))
+  end
+end
+
+def make_features
+  admins = User.where(admin: true)
+  5.times do |f|
+    admins.sample.features.create!(
+                                   name:    Faker::Lorem.words.join(' '),
+                                   instructions: Faker::Lorem.sentence)
   end
 end
