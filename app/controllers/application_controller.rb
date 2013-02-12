@@ -8,12 +8,11 @@ protected
   end
 
   def correct_user_or_admin
-    @user = User.find(params[:id])
-    redirect_to(user_path(@user)) unless current_user?(@user) || admin_user
+    redirect_to(user_path(@user)) unless correct_user || admin_user
   end
 
   def admin_user
-    redirect_to(user_path(@user)) unless current_user.admin?
+    redirect_to(user_path(@user)) unless admin_user
   end
 
 end
