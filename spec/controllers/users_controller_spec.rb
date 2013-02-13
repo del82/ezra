@@ -144,9 +144,6 @@ describe UsersController do
       it "renders the :show view" do
         response.should render_template :show
       end
-      pending "renders the correct user page" do
-        response.should have_selector('title', user.username)
-      end
     end
     
     describe "should not allow access to GET #new" do
@@ -175,9 +172,6 @@ describe UsersController do
       before { get :edit, id: user }
       it "renders the :edit view" do
         response.should render_template :edit
-      end
-      pending "renders the correct edit view" do
-        response.should have_selector("title", user.username)
       end
     end
         
@@ -244,17 +238,24 @@ describe UsersController do
     
     describe "should allow access to POST #create" do
       context "with valid information" do
-        let(:new_user_1) { FactoryGirl.attributes_for(:user) }
-        let(:new_user_2) { FactoryGirl.attributes_for(:user) }
+        let(:new_user) { FactoryGirl.attributes_for(:user) }
         it "creates a new user" do
-          expect{ post :create, user: new_user_1 }.to change(User, :count).by(1)
+          expect{ post :create, user: new_user }.to change(User, :count).by(1)
         end
         it "redirects to the new user's page" do
-          post :create, user: new_user_2
+          post :create, user: new_user
           response.should render_template :show
         end
       end
-      pending "create with invalid information"
+      context "create with invalid information" do
+        let(:new_user) { FactoryGirl.attributes_for(:user, name: "") }
+        it "does not create a new user" do
+          expect{ post :create, user: new_user }.to_not change(User, :count)
+        end
+        it "remains on new user page" do
+          response.should render_template :new
+        end
+      end
     end
 
     describe "should allow access to GET #edit" do
@@ -278,8 +279,20 @@ describe UsersController do
         end
       end
 
-      pending "with invalid information"
+      context "with invalid information" do
+        before {
+          put :update, id: user,
+                       user: FactoryGirl.attributes_for(:user, name: "")
+        }
+        it "should not update the user" do
+          user.reload
+          user.name.should_not eq("")
+        end
+        it "should re-render the :edit template" do
+          response.should render_template :edit
+        end
+      end
+
     end
-    #pending "should allow access to DELETE #index"
   end
 end
