@@ -215,7 +215,7 @@ describe UsersController do
     let(:admin) { FactoryGirl.create(:admin) }
     before { sign_in admin }
 
-    describe "should not allow access to GET #index" do
+    describe "should allow access to GET #index" do
       before { get :index }
       it "renders the :index view" do
         response.should render_template :index
