@@ -28,7 +28,7 @@ describe "User pages" do
     end
   end
 
-  describe "while signed-in" do 
+  pending "while signed-in" do 
     before do
       visit signin_path
       fill_in "Password", with: user2.password
@@ -50,7 +50,7 @@ describe "User pages" do
       let(:user) { FactoryGirl.create(:user) }
       before { visit user_path(user) }
 
-      describe "should have the right title" do
+      pending "should have the right title" do
         it_should_behave_like "all pages"
         it { should have_selector('title', 
                                   text: full_title('User | '+user.username)) }
@@ -71,7 +71,7 @@ describe "User pages" do
       let(:user) { FactoryGirl.create(:user) }
       before { visit edit_user_path(user) }
 
-      describe "should have the right title" do
+      pending "should have the right title" do
         it_should_behave_like "all pages"
         it { should have_selector('title', 
                                   text: full_title('Edit | '+user.username)) }

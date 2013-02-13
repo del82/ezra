@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user
-  #before_filter :correct_user_or_admin
+  #before_filter :correct_user, only: []
+  before_filter :correct_user_or_admin, only: [:show, :edit, :update]
+  before_filter :admin_user, only: [:index, :new, :create]
+
 
   def index   # GET /users          -> users_path
     @users = User.paginate(page: params[:page])
@@ -18,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:success] = "User #{@user.username} created successfully."
-      redirect_to users_path
+      render 'show'
     else
       render 'new'
     end
@@ -30,9 +33,16 @@ class UsersController < ApplicationController
 
   def update  # PUT /users/1        -> user_path(user)
     @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Update successful."
+      sign_in @user
+      render 'show'
+    else
+      render 'edit'
+    end
   end
 
-  def destroy # DELETE /users/1     -> user_path(user)
-  end
+  # def destroy # DELETE /users/1     -> user_path(user)
+  # end
 
 end

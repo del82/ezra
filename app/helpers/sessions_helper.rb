@@ -23,11 +23,11 @@ module SessionsHelper
 
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(user_path(current_user)) unless current_user?(@user)
   end
 
   def admin?
-    current_user.admin
+    current_user.admin?
   end
 
   def signed_in_user
@@ -35,6 +35,15 @@ module SessionsHelper
       store_location
       redirect_to signin_url, notice: "Please sign in."
     end
+  end
+
+  def admin_user
+    redirect_to(user_path(current_user)) unless admin?
+  end
+
+  def correct_user_or_admin
+    @user = User.find(params[:id])
+    redirect_to(user_path(current_user)) unless current_user?(@user) || admin?
   end
 
   def sign_out
