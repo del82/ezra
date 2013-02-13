@@ -1,3 +1,18 @@
 <% provide(:title, "New feature") %>
 <h1>Features#new</h1>
-<p>Find me in app/views/features/new.html.erb</p>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@feature) do |f| %>
+      <%= render 'error_messages' %>
+
+      <%= f.label :phrase, "Name" %>
+      <%= f.text_field :phrase %>
+
+      <%= f.label :phrase, "Instructions" %>
+      <%= f.text_area :instructions %>
+      
+      <%= f.submit "Create feature", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
