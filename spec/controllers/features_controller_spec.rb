@@ -71,6 +71,7 @@ describe FeaturesController do
       end
     end
   end
+
 # ----  
   context "authenticated as user" do
     let(:user) { FactoryGirl.create(:user) }
@@ -153,6 +154,9 @@ describe FeaturesController do
       it "renders the :index view" do
         response.should render_template :index
       end
+      it "should render successfully" do
+        response.should be_success
+      end
     end 
 
     describe "should allow access to GET #show" do
@@ -160,12 +164,18 @@ describe FeaturesController do
       it "renders the :show view" do
         response.should render_template :show
       end
+      it "should render successfully" do
+        response.should be_success
+      end
     end
 
     describe "should allow access to GET #new" do
       before { get :new }
       it "renders the :new view" do
         response.should render_template :new
+      end
+      it "should render successfully" do
+        response.should be_success
       end
     end
 
@@ -198,6 +208,9 @@ describe FeaturesController do
       before { get :edit, id: feature }
       it "renders the :edit view" do
         response.should render_template :edit
+      end
+      it "should render successfully" do
+        response.should be_success
       end
     end
 

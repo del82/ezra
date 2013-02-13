@@ -11,6 +11,7 @@ class FeaturesController < ApplicationController
   end
 
   def new     # GET /features/new      -> new_feature_path
+    @feature = Feature.new
   end
 
   def create  # POST /features         -> features_path
