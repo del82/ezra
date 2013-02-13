@@ -29,7 +29,7 @@ describe "Target pages" do
 
   end
 
-  describe "while signed-in" do 
+  pending "while signed-in" do 
     before do
       visit signin_path
       fill_in "Username", with: user.username
