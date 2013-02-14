@@ -82,7 +82,7 @@
 |-----------+------------------+---------+----------------------------+--------------------+----------------|
 | GET       | /users           | index   | users-path                 | list all users     | admin          |
 | GET       | /users/1         | show    | user-path(user)            | show user          | admin          |
-| GET       | /users/new       | new     | new-user-path              | make a new user    | admin          |
+| GET       | /users/new       | new     | new-user-path              | new user  form     | admin          |
 | POST      | /users           | create  | users-path                 | create new user    | admin          |
 | GET       | /users/1/edit    | edit    | edit-user-path(user)       | edit user 1        | admin or owner |
 | PUT       | /users/1         | update  | user-path(user)            | update user        | admin or owner |
@@ -92,21 +92,31 @@
 |-----------+------------------+---------+----------------------------+--------------------+----------------|
 | GET       | /targets         | index   | targets-path               | list all targets   | user           |
 | GET       | /targets/1       | show    | target-path(target)        | show target        | user           |
-| GET       | /targets/new     | new     | new-target-path            | make a new target  | admin          |
+| GET       | /targets/new     | new     | new-target-path            | new target form    | admin          |
 | POST      | /targets         | create  | targets-path               | create new target  | admin          |
-| GET       | /targets/1/edit  | edit    | edit-target-path(target)   | edit target 1      | admin owner    |
-| PUT       | /targets/1       | update  | target-path(target)        | update target      | admin owner    |
+| GET       | /targets/1/edit  | edit    | edit-target-path(target)   | edit target 1      | admin          |
+| PUT       | /targets/1       | update  | target-path(target)        | update target      | admin          |
 | DELETE    | /targets/1       | destroy | target-path(target)        | delete target      | nobody         |
 |-----------+------------------+---------+----------------------------+--------------------+----------------|
 | HTTP req. | URI              | Action  | Named route                | Purpose            | Permission     |
 |-----------+------------------+---------+----------------------------+--------------------+----------------|
-| GET       | /features        | index   | features-path              | list all features  | admin          |
+| GET       | /features        | index   | features-path              | list all features  | user           |
 | GET       | /features/1      | show    | feature-path(feature)      | show feature       | user           |
-| GET       | /features/new    | new     | new-feature-path           | make a new feature | admin          |
+| GET       | /features/new    | new     | new-feature-path           | new feature form   | admin          |
 | POST      | /features        | create  | features-path              | create new feature | admin          |
-| GET       | /features/1/edit | edit    | edit-feature-path(feature) | edit feature 1     | admin owner    |
-| PUT       | /features/1      | update  | feature-path(feature)      | update feature     | admin owner    |
-| DELETE    | /features/1      | destroy | feature-path(feature)      | delete feature     | admin owner    |
+| GET       | /features/1/edit | edit    | edit-feature-path(feature) | edit feature       | admin          |
+| PUT       | /features/1      | update  | feature-path(feature)      | update feature     | admin          |
+| DELETE    | /features/1      | destroy | feature-path(feature)      | delete feature     | nobody         |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| HTTP req. | URI              | Action  | Named route                | Purpose            | Permission     |
+|-----------+------------------+---------+----------------------------+--------------------+----------------|
+| GET       | /hits            | index   | hits-path                  | list all hits      | user           |
+| GET       | /hits/1          | show    | hit-path(hit)              | show hit           | user           |
+| GET       | /hits/new        | new     | new-hit-path               | new hit form       | admin          |
+| POST      | /hits            | create  | hits-path                  | create new hit     | admin          |
+| GET       | /hits/1/edit     | edit    | edit-hit-path(hit)         | edit hit           | user           |
+| PUT       | /hits/1          | update  | hit-path(hit)              | update hit         | user           |
+| DELETE    | /hits/1          | destroy | hit-path(hit)              | delete hit         | nobody         |
 |-----------+------------------+---------+----------------------------+--------------------+----------------|
 
 * tests
