@@ -9,13 +9,13 @@ Set up:
 5. `$ bundle install`
 5. Consider generating a new secret token in `config/initializers/secret_token.rb`.  Until you do, the application is completely insecure.
 6. initialize the db:
-   `$ rake db:migrate`
-   `$ rake db:populate`
-   `$ rake db:test:prepare`
+  -  `$ rake db:migrate`
+  -  `$ rake db:populate`
+  -  `$ rake db:test:prepare`
 6. run the tests:
-   `$ rspec`
+  -  `$ rspec`
 7. If you like, start guard/spork to detect code changes and run tests automatically.
-`$ guard`
+  - `$ guard`
 8. Hack away
 
 
