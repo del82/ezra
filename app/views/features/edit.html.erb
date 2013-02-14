@@ -1,14 +1,14 @@
-<% provide(:title, 'Edit | ' + @feature.name) %>
+<% provide(:title, "Edit \"" + @feature.name + "\"") %>
 <h1 Update feature <%= @feature.name %></h1>
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@feature) do |f| %>
       <%= render 'error_messages' %>
 
-      <%= f.label :phrase, "Name" %>
-      <%= f.text_field :phrase %>
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
 
-      <%= f.label :phrase, "Instructions" %>
+      <%= f.label :name, "Instructions" %>
       <%= f.text_area :instructions %>
       
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>

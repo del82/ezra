@@ -2,10 +2,11 @@ require 'spec_helper'
   
 describe "Feature pages" do
   subject { page }
-  let(:user) { FactoryGirl.create(:user) }  
-  let(:feature) { FactoryGirl.create(:feature) }
 
-  describe "while not signed-in" do
+  context "while not signed-in" do
+    let(:user) { FactoryGirl.create(:user) }  
+    let(:feature) { FactoryGirl.create(:feature) }
+
     describe "visit features_path" do
       before { visit features_path }
       it { should have_selector('title', text: "Sign in") }        
@@ -28,7 +29,9 @@ describe "Feature pages" do
   end
 
 
-  pending "while signed-in" do
+  context "while signed-in as user" do
+    let(:user) { FactoryGirl.create(:user) }  
+    let(:feature) { FactoryGirl.create(:feature) }
     before do
       visit signin_path
       fill_in "Username", with: user.username
@@ -36,35 +39,27 @@ describe "Feature pages" do
       click_button "Sign in"
     end
 
-
     describe "feature index" do
       before { visit features_path }
 
-      describe "should have the right title" do
-        it_should_behave_like "all pages"
-        it { should have_selector('title', 
-                                  text: full_title('All features')) }
+      describe "should allow access and have the right title" do
+        it { should have_selector('title', text: 'Features') }
       end
     end
 
     describe "individual feature page" do
-      let(:feature) { FactoryGirl.create(:feature) }
       before { visit feature_path(feature) }
 
       describe "should have the right title" do
-        it_should_behave_like "all pages"
-        it { should have_selector('title', 
-                                  text: full_title('Feature | '+feature.name)) }
+        it { should have_selector('title', text: feature.name) }
       end
     end
 
     describe "create feature page" do
       before { visit new_feature_path }
 
-      describe "should have the right title" do
-        it_should_behave_like "all pages"
-        it { should have_selector('title', 
-                                  text: full_title('New feature')) }
+      describe "should be redirected to user page" do
+        it { should have_selector('title', text: user.username) }
       end
     end
 
@@ -72,10 +67,51 @@ describe "Feature pages" do
       let(:feature) { FactoryGirl.create(:feature) }
       before { visit edit_feature_path(feature) }
 
+      describe "should be redirected to user page" do
+        it { should have_selector('title', text: user.username) }
+      end
+    end
+  end
+
+  context "while signed-in as admin" do
+    let(:admin) { FactoryGirl.create(:admin) }
+    let(:feature) { FactoryGirl.create(:feature) }
+
+    before do
+      visit signin_path
+      fill_in "Password", with: admin.password
+      fill_in "Username", with: admin.username
+      click_button "Sign in"
+    end
+
+    describe "visiting feature index" do
+      before { visit features_path }
+
       describe "should have the right title" do
-        it_should_behave_like "all pages"
-        it { should have_selector('title', 
-                                  text: full_title('Edit | '+feature.name)) }
+        it { should have_selector('title', text: 'Features') }
+      end
+    end
+      
+    describe "individual feature page" do
+      before { visit feature_path(feature) }
+      
+      describe "should have the right title" do
+        it { should have_selector('title', text: feature.name) }
+      end
+    end
+
+    describe "create feature page" do
+      before { visit new_feature_path } 
+      
+      describe "should have the right title" do
+        it { should have_selector('title', text: 'New feature' ) }
+      end
+    end
+
+    describe "edit feature page" do
+      before { visit edit_feature_path(feature) }
+      describe "should have the right title" do
+        it { should have_selector('title', text: 'Edit "' + feature.name + '"') }
       end
     end
   end
