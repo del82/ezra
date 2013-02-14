@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'requests/all_pages'
   
 describe "Feature pages" do
   subject { page }

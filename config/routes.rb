@@ -4,7 +4,6 @@ Ezra::Application.routes.draw do
   resources :targets
   resources :features
 
-  # match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   

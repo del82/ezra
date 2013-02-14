@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'requests/all_pages'
   
 describe "Target pages" do
   subject { page }
@@ -9,7 +8,7 @@ describe "Target pages" do
   describe "while not signed-in" do
     describe "visit targets_path" do
       before { visit targets_path }
-      it { should have_selector('title', text: "Sign in") }        
+      it { should have_selector('title', text: "Sign in") }
     end
 
     describe "visit target_path" do
