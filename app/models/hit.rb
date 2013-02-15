@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: hits
+#
+#  id         :integer          not null, primary key
+#  location   :float
+#  confirmed  :integer
+#  flagged    :boolean
+#  audio_file :string(255)
+#  target_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Hit < ActiveRecord::Base
   attr_accessible :audio_file, :confirmed, :flagged, :location
   

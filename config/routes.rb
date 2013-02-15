@@ -3,6 +3,7 @@ Ezra::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
+  resources :hits
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

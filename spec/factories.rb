@@ -21,4 +21,12 @@ FactoryGirl.define do
     instructions "description of test feature"
     user
   end
+
+  factory :hit do
+    location 54.6
+    confirmed 0
+    flagged false
+    audio_file "path/to/audio.file"
+    target
+  end
 end

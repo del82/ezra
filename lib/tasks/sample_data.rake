@@ -6,6 +6,7 @@ namespace :db do
     make_users
     make_targets
     make_features
+    make_hits
   end
 end
 
@@ -42,5 +43,16 @@ def make_features
     admins.sample.features.create!(
                                    name:    Faker::Lorem.words.join(' '),
                                    instructions: Faker::Lorem.sentence)
+  end
+end
+
+def make_hits
+  targets = Target.all
+  30.times do |f|
+    targets.sample.hits.create!(location: (rand*10000).to_i / 100,
+                                confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
+                                flagged: [false, false, false, true].sample,
+                                audio_file: Faker::Lorem.words.join('/')
+                                )
   end
 end

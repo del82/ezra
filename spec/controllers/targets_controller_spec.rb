@@ -83,7 +83,8 @@ describe TargetsController do
     #   end
     # end
   end
-  
+
+# ----  
   context "authenticated as user" do
     let(:user) { FactoryGirl.create(:user) }
     let(:target) { FactoryGirl.create(:target) }
@@ -117,7 +118,7 @@ describe TargetsController do
     describe "should not allow access to POST #create" do
       it "does not create a new target" do
         expect { 
-          post :create, #user: user, 
+          post :create, user: user, 
                         target: FactoryGirl.attributes_for(:target) 
         }.to_not change(Target, :count)
       end
@@ -153,6 +154,7 @@ describe TargetsController do
     end
   end
 
+# ----
   context "authenticated as admin" do
     let(:admin) { FactoryGirl.create(:admin) }
     let(:target) { FactoryGirl.create(:target) }
@@ -163,6 +165,7 @@ describe TargetsController do
       before { get :index }
       it "renders the :index view" do
         response.should render_template :index
+        assigns(:targets).should eq([target])
       end
     end 
 
@@ -170,6 +173,7 @@ describe TargetsController do
       before { get :show, id: target }
       it "renders the :show view" do
         response.should render_template :show
+        assigns(:target).should eq(target)
       end
     end
 
@@ -177,9 +181,9 @@ describe TargetsController do
       before { get :new }
       it "renders the :new view" do
         response.should render_template :new
+        assigns(:target).should_not be_nil
       end
     end
-
 
     describe "should allow access to POST #create" do
       context "with valid information" do
