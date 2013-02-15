@@ -7,7 +7,7 @@ Set up:
 3. restart the shell
 4. `$ git clone git@github.com:del82/ezra.git`
 5. `$ bundle install`
-5. Consider generating a new secret token in `config/initializers/secret_token.rb`.  Until you do, the application is completely insecure.
+5. Consider generating a new secret token in `config/initializers/secret_token.rb`.  Until you do, the application is completely insecure. If it doesn't automatically create one for you on install, run `rake secret` and copy output into the file.
 6. initialize the db:
   -  `$ rake db:migrate`
   -  `$ rake db:populate`
