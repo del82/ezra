@@ -31,6 +31,7 @@ describe Hit do
   it { should respond_to(:audio_file) }
   it { should respond_to(:target_id) }
   it { should respond_to(:transcript) }
+  it { should respond_to(:feat_vals) }
  
   it { should be_valid }
 
