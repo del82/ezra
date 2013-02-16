@@ -17,7 +17,8 @@ describe Feature do
   let(:user) { FactoryGirl.create(:user) }
   before { @feature = user.features.build(name: "test feature",
                                    instructions: "test feature instructions",
-                                          ftype: 1) }
+                                          ftype: 0,
+                                          fvalues: [true,false] ) }
   subject { @feature }
 
   it { should respond_to(:name) }
@@ -25,6 +26,7 @@ describe Feature do
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   it { should respond_to(:ftype) }
+  it { should respond_to(:fvalues) }
 
   its(:user) { should == user }
 
@@ -82,6 +84,11 @@ describe Feature do
  
   describe "with ftype less than 0" do
     before { @feature.ftype = -1 }
+    it { should_not be_valid }
+  end
+  
+  describe "when fvalues is not present" do
+    before { @feature.fvalues = nil }
     it { should_not be_valid }
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216164238) do
+ActiveRecord::Schema.define(:version => 20130216174426) do
 
   create_table "features", :force => true do |t|
     t.integer  "user_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130216164238) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "ftype"
+    t.text     "fvalues"
   end
 
   add_index "features", ["ftype"], :name => "index_features_on_ftype"

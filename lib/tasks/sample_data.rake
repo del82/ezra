@@ -42,7 +42,8 @@ def make_features
   5.times do |f|
     admins.sample.features.create!(name:    Faker::Lorem.words(2).join(' '),
                                    instructions: Faker::Lorem.sentence,
-                                   ftype: [0,1,2,3].sample )
+                                   ftype: 0,
+                                   fvalues: [true, false])
   end
 end
 

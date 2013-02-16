@@ -12,7 +12,8 @@
 #
 
 class Feature < ActiveRecord::Base
-  attr_accessible :instructions, :name, :ftype
+  attr_accessible :instructions, :name, :ftype, :fvalues
+  serialize :fvalues, Array
   belongs_to :user, :inverse_of => :features
   has_and_belongs_to_many :targets
 
@@ -22,4 +23,5 @@ class Feature < ActiveRecord::Base
   validates :ftype, presence: true, numericality: { only_integer: true,
                                                    greater_than: -1,
                                                    less_than: 4 }
+  validates :fvalues, presence: true
 end
