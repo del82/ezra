@@ -29,6 +29,7 @@ describe "Target pages" do
 
   end
 
+# ----
   context "while signed-in as user" do
     let(:user) { FactoryGirl.create(:user) }  
     let(:target) { FactoryGirl.create(:target) }
@@ -74,6 +75,7 @@ describe "Target pages" do
     end
   end
 
+# ----
   context "while signed-in as admin" do
     let(:admin) { FactoryGirl.create(:admin) }
     let(:target) { FactoryGirl.create(:target) }
@@ -91,6 +93,24 @@ describe "Target pages" do
 
       describe "should have the right title" do
         it { should have_selector('title', text: 'Targets') }
+      end
+
+      describe "should display the right statistics" do
+        before do
+          target.hits.create(FactoryGirl.attributes_for(:hit, confirmed: -1,
+                                                              flagged: true))
+          target.hits.create(FactoryGirl.attributes_for(:hit, confirmed: 0))
+          target.hits.create(FactoryGirl.attributes_for(:hit, confirmed: 0,
+                                                              flagged: true))
+          target.hits.create(FactoryGirl.attributes_for(:hit, confirmed: 1))
+          visit targets_path
+        end
+        
+        it { should have_content('confirmed: 1') }
+        it { should have_content('unconfirmed: 2') } 
+        it { should have_content('not present: 1') }
+        it { should have_content('flagged: 2') }
+                               
       end
     end
       
@@ -116,5 +136,6 @@ describe "Target pages" do
         it { should have_selector('title', text: 'Edit "' + target.phrase + '"') }
       end
     end
-  end
+
+  end  # context: signed-in as admin
 end
