@@ -19,10 +19,10 @@ require 'spec_helper'
 describe Hit do
 
   let(:target) { FactoryGirl.create(:target) }
-  before { @hit = target.hits.build(location: 30.6,
-                                    confirmed: 0,
-                                    flagged: false,
-                                    audio_file: "path/to/audio.mp3") }
+  before { 
+    @hit = target.hits.build(location: 30.6, confirmed: 0, flagged: false,
+                                    audio_file: "path/to/audio.mp3")
+  }
   
   subject { @hit }
 
@@ -33,6 +33,7 @@ describe Hit do
   it { should respond_to(:target_id) }
   it { should respond_to(:transcript) }
   it { should respond_to(:feat_vals) }
+  it { should respond_to(:features) }
  
   it { should be_valid }
 
@@ -73,5 +74,10 @@ describe Hit do
     end
   end
   
+  describe "relation to feature through target should work" do
+  let(:feature) { FactoryGirl.create(:feature) }
+    before{ target.features.concat(feature) }
+    its(:features) { should eq([feature]) }
+  end
     
 end

@@ -20,6 +20,7 @@ class Hit < ActiveRecord::Base
   serialize :feat_vals, Hash
   
   belongs_to :target, :inverse_of => :hits
+  has_many :features, :through => :target
 
   validates :audio_file, presence: true
   validates :confirmed, presence: true, numericality: { only_integer: true,

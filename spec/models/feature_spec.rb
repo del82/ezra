@@ -28,6 +28,7 @@ describe Feature do
   it { should respond_to(:user) }
   it { should respond_to(:ftype) }
   it { should respond_to(:fvalues) }
+  it { should respond_to(:hits) }
 
   its(:user) { should == user }
 
