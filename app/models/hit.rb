@@ -13,7 +13,7 @@
 #
 
 class Hit < ActiveRecord::Base
-  attr_accessible :audio_file, :confirmed, :flagged, :location
+  attr_accessible :audio_file, :confirmed, :flagged, :location, :transcript
   
   belongs_to :target, :inverse_of => :hits
 

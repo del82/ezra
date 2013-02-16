@@ -27,6 +27,7 @@ FactoryGirl.define do
     confirmed 0
     flagged false
     audio_file "path/to/audio.file"
+    instructions { Faker::Lorem.sentences(2) }
     target
   end
 end

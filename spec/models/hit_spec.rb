@@ -29,6 +29,7 @@ describe Hit do
   it { should respond_to(:flagged) }
   it { should respond_to(:audio_file) }
   it { should respond_to(:target_id) }
+  it { should respond_to(:transcript) }
  
   it { should be_valid }
 
