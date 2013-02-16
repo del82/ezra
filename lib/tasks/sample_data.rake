@@ -80,12 +80,13 @@ end
 
 def make_hit target=nil
   target ||= Target.all.sample
-  target.hits.create!(location: (rand*10000+100).to_i / 100,
+
+  target.hits.create!(location: (rand*10000+100).to_i.to_f / 100,
                       confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
                       flagged: [false, false, false, true].sample,
                       audio_file: Faker::Lorem.words.join('/'),
-                      transcript: Faker::Lorem.sentences(2)
-                      )
+                      transcript: Faker::Lorem.sentences(2))
+                      
 end
 
 def make_hits n_hits=30
