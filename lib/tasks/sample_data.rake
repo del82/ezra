@@ -52,7 +52,7 @@ def make_hits
                                 confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
                                 flagged: [false, false, false, true].sample,
                                 audio_file: Faker::Lorem.words.join('/'),
-                                instructions: Faker::Lorem.sentences(2)
+                                transcript: Faker::Lorem.sentences(2)
                                 )
   end
 end

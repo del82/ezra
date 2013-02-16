@@ -10,6 +10,7 @@
 #  target_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  transcript :text
 #
 
 require 'spec_helper'
