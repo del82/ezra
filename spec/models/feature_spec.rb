@@ -8,6 +8,7 @@
 #  instructions :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  ftype        :integer
 #
 
 require 'spec_helper'
@@ -15,13 +16,16 @@ require 'spec_helper'
 describe Feature do
   let(:user) { FactoryGirl.create(:user) }
   before { @feature = user.features.build(name: "test feature",
-                                   instructions: "test feature instructions") }
+                                   instructions: "test feature instructions",
+                                          ftype: 1) }
   subject { @feature }
 
   it { should respond_to(:name) }
   it { should respond_to(:instructions) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:ftype) }
+
   its(:user) { should == user }
 
   it { should respond_to(:targets) }
@@ -58,6 +62,26 @@ describe Feature do
 
   describe "with blank instructions" do
     before { @feature.instructions = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with blank ftype" do
+    before { @feature.ftype = nil }
+    it { should_not be_valid } 
+  end
+
+  describe "with non-integer ftype" do
+    before { @feature.ftype = 1.1 }
+    it { should_not be_valid }
+  end
+
+  describe "with ftype greater than 3" do
+    before { @feature.ftype = 4 }
+    it { should_not be_valid }
+  end
+ 
+  describe "with ftype less than 0" do
+    before { @feature.ftype = -1 }
     it { should_not be_valid }
   end
 

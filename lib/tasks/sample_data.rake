@@ -41,14 +41,15 @@ def make_features
   admins = User.where(admin: true)
   5.times do |f|
     admins.sample.features.create!(name:    Faker::Lorem.words(2).join(' '),
-                                   instructions: Faker::Lorem.sentence)
+                                   instructions: Faker::Lorem.sentence,
+                                   ftype: [0,1,2,3].sample )
   end
 end
 
 def make_hits
   targets = Target.all
   30.times do |f|
-    targets.sample.hits.create!(location: (rand*10000).to_i / 100,
+    targets.sample.hits.create!(location: (rand*10000+100).to_i / 100,
                                 confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
                                 flagged: [false, false, false, true].sample,
                                 audio_file: Faker::Lorem.words.join('/'),

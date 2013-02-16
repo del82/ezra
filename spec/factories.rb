@@ -19,6 +19,7 @@ FactoryGirl.define do
   factory :feature do
     name "test feature"
     instructions "description of test feature"
+    ftype 1
     user
   end
 
