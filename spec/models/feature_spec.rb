@@ -9,6 +9,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  ftype        :integer
+#  fvalues      :text
 #
 
 require 'spec_helper'
@@ -58,7 +59,7 @@ describe Feature do
   end
 
   describe "with name that is too long" do
-    before { @feature.name = "z" * 26 }
+    before { @feature.name = "z" * 31 }
     it { should_not be_valid }
   end
 
@@ -77,8 +78,8 @@ describe Feature do
     it { should_not be_valid }
   end
 
-  describe "with ftype greater than 3" do
-    before { @feature.ftype = 4 }
+  describe "with ftype greater than 2" do
+    before { @feature.ftype = 3 }
     it { should_not be_valid }
   end
  

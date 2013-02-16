@@ -11,6 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  transcript :text
+#  feat_vals  :text
 #
 
 class Hit < ActiveRecord::Base
