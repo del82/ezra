@@ -17,4 +17,6 @@
 vendor/ruby
 bundler_stubs/
 vendor/cache
-.#notes.org
+
+# Ignore media files
+/public/audio

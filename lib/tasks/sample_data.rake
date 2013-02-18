@@ -78,13 +78,18 @@ def associate_features_with_targets density=10
 end
 
 
+def pick_random_audiofile
+  date = ["121409","121509","122109","122509","122909"].sample
+  "audio/audio.wnyc.org/takeaway/takeaway#{date}.mp3"
+end
+
 def make_hit target=nil
   target ||= Target.all.sample
 
   target.hits.create!(location: (rand*10000+100).to_i.to_f / 100,
                       confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
                       flagged: [false, false, false, true].sample,
-                      audio_file: Faker::Lorem.words.join('/'),
+                      audio_file: pick_random_audiofile,
                       transcript: Faker::Lorem.sentences(2))
                       
 end
