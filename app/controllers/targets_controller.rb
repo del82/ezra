@@ -8,6 +8,7 @@ class TargetsController < ApplicationController
 
   def show    # GET /targets/:id      -> target_path(target) 
     @target = Target.find(params[:id])
+    @hits   = @target.hits.where(params.slice(:confirmed, :flagged))
   end
 
   def new     # GET /targets/new      -> new_target_path

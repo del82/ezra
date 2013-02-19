@@ -1,3 +1,6 @@
+* todo items
+** TODO GET params should filter what the db returns
+** TODO the hit needs transcript boundary location times
 * workflow
 ** Initialize everything
 1. $ rails new ezra0 --skip--test-unit

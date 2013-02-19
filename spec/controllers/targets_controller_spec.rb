@@ -87,7 +87,7 @@ describe TargetsController do
 # ----  
   context "authenticated as user" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:target) { FactoryGirl.create(:target) }
+    let(:target) { FactoryGirl.create(:target, id: 500) }
 
     before { sign_in user }
 
@@ -95,6 +95,7 @@ describe TargetsController do
       before { get :index }
       it "renders the :index view" do
         response.should render_template :index
+        assigns(:targets).should eq([target])
       end
     end 
 
@@ -102,6 +103,29 @@ describe TargetsController do
       before { get :show, id: target }
       it "renders the :show view" do
         response.should render_template :show
+      end
+      describe "respects parameters" do
+        before do
+          FactoryGirl.create(:hit)
+          FactoryGirl.create(:hit, target_id: 500)
+          FactoryGirl.create(:hit, target_id: 500, confirmed: 1) 
+          FactoryGirl.create(:hit, target_id: 500, flagged: true) 
+        end
+        it "filters on target" do
+          get :show, id: target 
+          response.should render_template :show
+          assigns(:hits).length.should eq(3)
+        end
+        it "filters on confirmation parameter" do
+          get :show, id: target, confirmed: 1 
+          response.should render_template :show
+          assigns(:hits).length.should eq(1)
+        end
+        it "filters on flagged parameter" do
+          get :show, id: target, flagged: true
+          response.should render_template :show
+          assigns(:hits).length.should eq(1)
+        end
       end
     end
 
