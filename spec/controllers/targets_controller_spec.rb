@@ -103,28 +103,38 @@ describe TargetsController do
       before { get :show, id: target }
       it "renders the :show view" do
         response.should render_template :show
+        assigns(:target).should eq(target)
       end
-      describe "respects parameters" do
+      describe "returns hits and features" do
         before do
           FactoryGirl.create(:hit)
           FactoryGirl.create(:hit, target_id: 500)
           FactoryGirl.create(:hit, target_id: 500, confirmed: 1) 
           FactoryGirl.create(:hit, target_id: 500, flagged: true) 
+          FactoryGirl.create(:feature) # not assigned to target
+          feat = FactoryGirl.create(:feature)
+          feat.targets << target
         end
         it "filters on target" do
           get :show, id: target 
           response.should render_template :show
           assigns(:hits).length.should eq(3)
         end
-        it "filters on confirmation parameter" do
-          get :show, id: target, confirmed: 1 
-          response.should render_template :show
-          assigns(:hits).length.should eq(1)
+        it "returns correct features" do
+          get :show, id: target 
+          assigns(:features).length.should eq(1)
         end
-        it "filters on flagged parameter" do
-          get :show, id: target, flagged: true
-          response.should render_template :show
-          assigns(:hits).length.should eq(1)
+        describe "respects parameters" do
+          it "filters on confirmation parameter" do
+            get :show, id: target, confirmed: 1 
+            response.should render_template :show
+            assigns(:hits).length.should eq(1)
+          end
+          it "filters on flagged parameter" do
+            get :show, id: target, flagged: true
+            response.should render_template :show
+            assigns(:hits).length.should eq(1)
+          end
         end
       end
     end
