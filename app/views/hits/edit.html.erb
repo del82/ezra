@@ -3,6 +3,7 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@hit) do |f| %>
+      
       <%= render 'error_messages' %>
 
       <%= f.label :confirmed, "confirmed" %>
@@ -10,6 +11,133 @@
       
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
+
+    <h2 id="target-name"><%= @target.phrase %></h2>
+    <div class="hit-container confirmed" id="hit-container"> 
+      <div id="check-div" class="check-div">
+          <input id="check" class="check" type="checkbox">
+        </div>
+
+        <!--  Hide Button -->
+      <!--<div class="mini-button-div button-div" id="mini-button-div">
+        <span class="mini-button button" id="mini-button">[hide]</span>
+      </div>-->
+      <div id="window-start-static" style="display:none;"></div>
+
+
+      <!-- Hit info box -->
+        <div id="hit-info" class="hit-info">
+
+        <!-- Summary Row -->
+        <div id="summary-row" class="summary-row">
+          <span id="hit-num" class="hit-num">{{#target}}{{id}}{{/target}}</span>
+          <span id="target" class="target">{{#target}}{{phrase}}{{/target}}</span> 
+          located at
+          <span id="location" class="location"></span>
+          <span id="mark-hit" class="button">mark hit</span>
+          <span id="message" class="message">&nbsp;</span>
+
+        </div>
+
+        <div id="transcript-row" class="transcript-row">
+          <div id="transcript-input-div" class="transcript-input-div">
+            <div style="float: left;">
+              <div id="add-trans-beg" class="button">+10 beg</div>
+              <div id="add-trans-end" class="button">+10 end</div>
+            </div>
+            <textarea id="textarea" class="clip-textarea" rows="2" cols="80">Should and will be suspended. I don't think there's any question he'll be suspended. And I I feel more strongly about it now than I did then and again I quote</textarea>
+            
+            <br/><br/>
+            <div id="transcript-time-div" class="transcript-time-div">
+                transcript start: 
+                <div class="start-time-box" style="display: inline;">
+                  <span class="beginning-time transcript-time-span">
+                  <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000"> 
+                </span>
+                <span class="button now" id="start-now" title="set start to current time">current time</span> 
+              </div>
+              <br/><br/>
+              transcript end:
+              <div class="end-time-box" style="display: inline;">
+                  <span class="ending-time transcript-time-span">
+                  <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000"> 
+                  </span>
+                  <span class="button now" id="end-now" title="set end to current time">current time</span>
+                </div>
+                <br/><br/>
+                <span class="button play-span" id="play-span" href="#">play from transcript start</span>
+                <br/><br/>
+            </div>
+            </div> <!-- transcript-input-div -->
+        </div>
+
+        <!-- AUDIO -->
+        <div id="audio-row" class="audio-row">
+          <!-- Edit "getTime" in page-player.js -->
+          <div id="sm-container">
+              <ul class="playlist">
+              <li><a href="/{{clip}}">Click to play</a></li>
+              </ul>
+          </div>
+          
+        </div> <!-- audio row -->
+        
+
+        <!-- notes -->
+        <div>
+          <input id="item-notes" class="item-notes" type="text" value="{{notes}}">
+        </div>
+      </div>
+      <!-- End Hit Div -->
+      
+      <!-- Begin button div -->
+      <div id="button-div" class="button-div">      
+        <div id="confirm-radio" class="confirm-radio">
+          <div id="conf-div" class="confirmed cfm-div">
+            <input id="cnf-radio" class="cnf-radio cfm-radio" value="1" type="radio" name="radio">
+            <span class="cnf-location" id="cnf-location"></span>
+            Confirmed
+          </div>
+          <div id="unconf-div" class="unconfirmed cfm-div">
+            <input id="unc-radio" class="unc-radio cfm-radio" value="0" type="radio" name="radio">
+            Unconfirmed
+          </div>
+          <div id="notpres-div" class="notpresent cfm-div">
+            <input id="np-radio" class="np-radio cfm-radio" value="-1" type="radio" name="radio">
+            Not Present
+          </div>
+          <div id="dupe-div" class="duplicate cfm-div">
+            <input id="dup-radio" class="dup-radio cfm-radio" value="-2" type="radio" name="radio">
+            Duplicate
+          </div>
+        </div>
+        <div class="flag-check-div">
+          <span class="flag-span"><input type="checkbox" class="flag-checkbox" id="flag-checkbox" {{#flagged}}checked="checked"{{/flagged}}> flag this</span>
+        </div>
+        <!-- Save Button -->
+        <div class="conf-canc-div button-div">
+          <span class="button confirm-button" id="confirm-button" style="margin-right: 0 !important">[save]</span>
+        </div>
+        <div class="placeholder">&nbsp;</div>
+      </div>
+    </div>
+    <div id="next-hit" class="button" style="float:right;">Next Hit</div>
+    <div id="prev-hit" class="button" style="width:4em;">Prev Hit</div>
+
+    <div id="feature-box">
+        {{#features}}
+        <div id="{{id}}" class="feature pull-left" style="margin-right: 45px">
+          <h2>{{id}}: {{name}}</h2>
+          <span id="feature-type-{{id}}">{{feature-type}}</span><br/>
+          {{created-by-id}} on {{created}}<br/>
+          {{description}}<br/>
+          <div id="possible-values-{{id}}">{{possible-values}}</div><br/>
+          {{instructions}}<br/>
+          {{notes}}
+        </div>
+        {{/features}}
+    </div>
+
   </div>
 </div>
 

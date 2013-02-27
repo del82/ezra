@@ -20,6 +20,9 @@ class HitsController < ApplicationController
 
   def edit
     @hit = Hit.find(params[:id])
+    @yeahBuddy = @hit.id
+    @target = @hit.target
+   # @target = Target.find(params[@hit.target_id])
   end
 
   def update  # PUT /hits/:id  -> hit_path(hit)
