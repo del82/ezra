@@ -7,6 +7,9 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore Gemfile.lock
+Gemfile.lock
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -17,4 +20,6 @@
 vendor/ruby
 bundler_stubs/
 vendor/cache
-.#notes.org
+
+# Ignore media files
+/public/audio

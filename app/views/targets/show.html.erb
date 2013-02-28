@@ -1,10 +1,12 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h3>
-        <%= @target.phrase %>
-      </h3>
-    </section>
-  </aside>
-</div>
+
+  <h3><%= @target.phrase %></h3>
+  <table>
+    <%= render @features %>
+  </table>
+  <table>
+    <%= render @hits %>
+  </table>
+  
+<br />
+

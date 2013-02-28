@@ -28,8 +28,13 @@ FactoryGirl.define do
     location 54.6
     confirmed 0
     flagged false
-    audio_file "path/to/audio.file"
+    audio_file "audio/audio.wnyc.org/takeaway/takeaway121409.mp3"
     transcript { Faker::Lorem.sentences(2) }
     target
   end
 end
+
+# def pick_random_audiofile
+#   date = ["121409","121509","122109","122509","122909"].sample
+#   "audio/audio.wnyc.org/takeaway/takeaway#{date}.mp3"
+# end

@@ -106,10 +106,10 @@ describe "Target pages" do
           visit targets_path
         end
         
-        it { should have_content('confirmed: 1') }
-        it { should have_content('unconfirmed: 2') } 
-        it { should have_content('not present: 1') }
-        it { should have_content('flagged: 2') }
+        it { should have_selector('td.tgt-conf',    content: "1") }
+        it { should have_selector('td.tgt-unconf',  content: "2") }
+        it { should have_selector('td.tgt-notpres', content: "1") }
+        it { should have_selector('td.tgt-flag',    content: "2") }
                                
       end
     end
