@@ -64,5 +64,8 @@ module Ezra
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #Add swf assets
+    config.assets.paths << Rails.root.join("app", "assets", "swf")
   end
 end

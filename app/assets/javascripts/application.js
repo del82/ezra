@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+//= require mousetrap.min
+//= require soundmanager2
+//= require soundmanager2.page-player

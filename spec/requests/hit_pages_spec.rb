@@ -58,6 +58,18 @@ describe "Hit pages" do
       describe "should have the right title" do
         it { should have_selector('title', text: 'Edit hit '+hit.id.to_s) }
       end
+
+      describe "should display the target and hit number" do
+        it { should have_selector('#hit-title', text: hit.target.phrase+' '+hit.id.to_s)}
+      end
+
+      describe "should display the transcript in a textarea" do
+        it { should have_selector('#transcript', :content => hit.transcript)}
+      end
+
+      describe "should load the correct audio file" do
+        it { should have_selector('#sm-container ul li a', :href => hit.audio_file)}
+      end
     end
   end
 end

@@ -1,3 +1,176 @@
 // Place all the styles related to the Hits controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$confirmed: #bfb;
+$unconfirmed: #ccf;
+$not-present: #fbb;
+$duplicate: #eee;
+
+@mixin rounded {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -o-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -khtml-border-radius: 15px;
+}
+
+@mixin status-box {
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 15px;
+}
+
+@mixin unselected {
+	border: 5px solid grey;
+}
+
+@mixin selected {
+	border: 5px solid black !important;
+	cursor: pointer !important;
+}
+
+/****
+General
+*****/
+
+.unsaved {
+    border-left: 15px solid red;
+}
+
+.selected {
+    @include selected;
+}
+/*******
+Status-boxes
+********/
+
+#selections {
+	float: left;
+	margin-left: 20px;
+}
+
+.status-box {
+	@include unselected;
+}
+
+.status-box:hover {
+	@include selected;
+}
+
+#confirmed {
+	@include status-box;
+    background-color: $confirmed;
+}
+
+#unconfirmed {
+	@include status-box;
+	background-color: $unconfirmed;
+}
+
+#not-present {
+	@include status-box;
+    background-color: $not-present;
+}
+
+#duplicate {
+	@include status-box;
+    background-color: $duplicate;
+}
+
+#flag {
+	float: left;
+	margin-top: 17px;
+	margin-left: 10px;
+}
+
+/*****
+Hit container
+******/
+
+#hit-container {
+	clear: both;
+}
+
+/*****
+Rows
+******/
+.summary-row, .transcript-row, .audio-row {
+    @include rounded;
+    margin: 5px;
+    padding: 10px;
+    background: white;
+}
+
+
+
+/******
+Summary Row
+*******/
+
+
+#summary-row span {
+    padding: 0 5px;
+}
+
+.hit-num {
+    float:left;
+    min-width: 6%;
+}
+
+.target {
+    font-style: italic;
+}
+
+.message {
+    float: right;
+    background: #fff;
+    @include rounded;
+    padding: 2px;
+    min-width: 40%;
+    font-family: monospace;
+    font-size: 110%;
+}
+
+/******
+Transcript
+*******/
+
+.now {
+	margin-left: -40px;
+}
+
+/* no reason to make users click to edit */
+span.transcript {
+    display: none;
+}
+
+.transcript-time-div * {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border: none;
+}
+
+.transcript-time {
+    width:25px;
+    border-radius: inherit;
+    text-align: center;
+}
+
+.transcript-time-span {
+    margin: -5px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.clip-textarea {
+    margin-top: 5px;
+    width:90%;
+    font-size: 1.2em;
+}
