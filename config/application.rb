@@ -66,6 +66,6 @@ module Ezra
     config.assets.version = '1.0'
 
     #Add swf assets
-    config.assets.paths << Rails.root.join("app", "assets", "swf")
+    config.assets.paths << Rails.root.join("lib", "soundmanager", "flash")
   end
 end

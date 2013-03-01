@@ -151,8 +151,8 @@ span.transcript {
 }
 
 .transcript-time-div * {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
+    margin: 0;
+    padding: 0;
     border: none;
 }
 
@@ -171,6 +171,7 @@ span.transcript {
 
 .clip-textarea {
     margin-top: 5px;
-    width:90%;
     font-size: 1.2em;
+    height: 4em;
+    width: 70%;
 }

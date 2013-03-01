@@ -8,104 +8,106 @@
       <%= render 'error_messages' %>
 
       <%= f.label :confirmed, "confirmed" %>
-      <%= f.text_field :confirmed %>
+      <%= f.hidden_field :confirmed, :value => @hit.confirmed %>
       
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <div id="title">
+        <div style="float: left">
+          <h2 id="hit-title"><%= @target.phrase+' '+@hit.id.to_s %></h2>
+        </div>
+        <div id="selections" data-loaded="<%= @hit.confirmed %>">
+          <div id="confirmed" class="status-box" data-toggle="tooltip" data-status="1" title="Confirmed"></div>
+          <div id="unconfirmed" class="status-box" data-toggle="tooltip" data-status="0" title="Unconfirmed"></div>
+          <div id="not-present" class="status-box" data-toggle="tooltip" data-status="-1" title="Not Present"></div>
+          <div id="duplicate" class="status-box" data-toggle="tooltip" data-status="-2" title="Duplicate"></div>
+          <span id="flag">
+            <input type="checkbox" id="flag-checkbox" 
+            <%  if(@hit.flagged) 
+                  concat 'checked="checked"'
+                end %>
+            >
+            flag this
+          </span>
+
+        </div>
+      </div>
+      <div id="hit-container"> 
+        <div id="window-start-static" style="display:none;"></div>
+
+        <div id="audio-row" class="row">
+          <!-- Edit "getTime" in page-player.js -->
+          <div id="sm-container">
+              <ul class="playlist">
+              <li><a href="<%= asset_path('Tromboon-sample.mp3') %>">Click to play</a></li>
+              </ul>
+          </div>
+        </div>
+
+        <div id="hit-info" class="row">
+          located at
+          <span id="location" data-value="<%= @hit.location %>"></span>
+          <span id="mark-hit" class="button">mark hit</span>
+        </div>
+
+        </div>
+
+        <div id="transcript" class="row">
+          <div class="row">
+            <div class="span12">
+              <%= f.text_area :transcript, :value => @hit.transcript, :class => 'clip-textarea'%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span4">
+              transcript start 
+              <div class="start-time-box" style="display: inline;">
+                <span class="beginning-time transcript-time-span">
+                  <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000"> 
+                </span>
+              </div>
+            </div>
+            <div class="span4">
+              <button class="now" id="start-now" title="set start to current time">current time</button> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="span4">
+              transcript end
+              <div class="end-time-box" style="display: inline;">
+                <span class="ending-time transcript-time-span">
+                  <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000"> 
+                </span>
+              </div>
+            </div>
+            <div class="span4">
+              <button class="now" id="end-now" title="set end to current time">current time</button>
+            </div>  
+          </div>
+        </div>
+        <div class="row">
+            <button id="play-span">play from transcript start</button>
+        </div>
+      </div>
+
+
+      <div id="feature-box">
+        <div id="{{id}}" class="feature pull-left" style="margin-right: 45px">
+          <h2>{{id}}: {{name}}</h2>
+          <span id="feature-type-{{id}}">{{feature-type}}</span><br/>
+          {{created-by-id}} on {{created}}<br/>
+          {{description}}<br/>
+          <div id="possible-values-{{id}}">{{possible-values}}</div><br/>
+          {{instructions}}<br/>
+          {{notes}}
+        </div>
+      </div>
+    </div>
+  </div>
     <% end %>
-  </div>
+
 </div>
-<div class="row">
-  <div class="span12">
-    <div id="title">
-      <div style="float: left">
-        <h2 id="hit-title"><%= @target.phrase+' '+@hit.id.to_s %></h2>
-      </div>
-      <div id="selections" data-loaded="<%= @hit.confirmed %>">
-        <div id="confirmed" class="status-box" data-toggle="tooltip" data-value="1" title="Confirmed"></div>
-        <div id="unconfirmed" class="status-box" data-toggle="tooltip" data-value="0" title="Unconfirmed"></div>
-        <div id="not-present" class="status-box" data-toggle="tooltip" data-value="-1" title="Not Present"></div>
-        <div id="duplicate" class="status-box" data-toggle="tooltip" data-value="-2" title="Duplicate"></div>
-        <span id="flag">
-          <input type="checkbox" id="flag-checkbox" 
-          <%  if(@hit.flagged) 
-                concat 'checked="checked"'
-              end %>
-          >
-          flag this
-        </span>
 
-      </div>
-    </div>
-    <div id="hit-container"> 
-      <div id="window-start-static" style="display:none;"></div>
-
-      <div id="audio-row" class="row">
-        <!-- Edit "getTime" in page-player.js -->
-        <div id="sm-container">
-            <ul class="playlist">
-            <li><a href="/<%= @hit.audio_file %>">Click to play</a></li>
-            </ul>
-        </div>
-      </div>
-
-      <div id="hit-info" class="row">
-        located at
-        <span id="location" data-value="<%= @hit.location %>"></span>
-        <span id="mark-hit" class="button">mark hit</span>
-      </div>
-
-      </div>
-
-      <div id="transcript" class="row">
-        <div class="row">
-          <div class="span12">
-            <textarea id="transcript" class="clip-textarea" rows="2" cols="80"><%= @hit.transcript %></textarea>
-          </div>
-        </div>
-        <div class="row">
-          <div class="span4">
-            transcript start 
-            <div class="start-time-box" style="display: inline;">
-              <span class="beginning-time transcript-time-span">
-                <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000"> 
-              </span>
-            </div>
-          </div>
-          <div class="span4">
-            <button class="now" id="start-now" title="set start to current time">current time</button> 
-          </div>
-        </div>
-        <div class="row">
-          <div class="span4">
-            transcript end
-            <div class="end-time-box" style="display: inline;">
-              <span class="ending-time transcript-time-span">
-                <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000"> 
-              </span>
-            </div>
-          </div>
-          <div class="span4">
-            <button class="now" id="end-now" title="set end to current time">current time</button>
-          </div>  
-        </div>
-      </div>
-      <div class="row">
-          <button id="play-span">play from transcript start</button>
-      </div>
-    </div>
-
-
-    <div id="feature-box">
-      <div id="{{id}}" class="feature pull-left" style="margin-right: 45px">
-        <h2>{{id}}: {{name}}</h2>
-        <span id="feature-type-{{id}}">{{feature-type}}</span><br/>
-        {{created-by-id}} on {{created}}<br/>
-        {{description}}<br/>
-        <div id="possible-values-{{id}}">{{possible-values}}</div><br/>
-        {{instructions}}<br/>
-        {{notes}}
-      </div>
-    </div>
-  </div>
-</div>
 

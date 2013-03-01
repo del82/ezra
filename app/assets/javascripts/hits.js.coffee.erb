@@ -21,9 +21,15 @@ $(document).ready ->
 
 	confirmed = $('#selections').attr("data-loaded")
 	$('.status-box').tooltip()
-	$('[data-value='+confirmed+']').addClass('selected')
+	$('[data-status='+confirmed+']').addClass('selected')
 	parseLocation($('#location').attr("data-value"))
 
+	$('.status-box').click ->
+		value = $(this).attr("data-status")
+		$('.status-box').filter( -> $(this).attr("data-status") isnt value).removeClass('selected')
+		$(this).addClass("selected")
+		$('#hit_confirmed').val(value)
 
 parseLocation = (time) ->
 	$('#location').html(time)
+
