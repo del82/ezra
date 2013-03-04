@@ -34,6 +34,8 @@ describe Hit do
   it { should respond_to(:transcript) }
   it { should respond_to(:feat_vals) }
   it { should respond_to(:features) }
+  it { should respond_to(:window_start) }
+  it { should respond_to(:window_duration) }
  
   it { should be_valid }
 

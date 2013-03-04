@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216181336) do
+ActiveRecord::Schema.define(:version => 20130304015412) do
 
   create_table "features", :force => true do |t|
     t.integer  "user_id"
@@ -41,10 +41,12 @@ ActiveRecord::Schema.define(:version => 20130216181336) do
     t.boolean  "flagged"
     t.string   "audio_file"
     t.integer  "target_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.text     "transcript"
     t.text     "feat_vals"
+    t.float    "window_start"
+    t.float    "window_duration"
   end
 
   add_index "hits", ["confirmed"], :name => "index_hits_on_confirmed"
