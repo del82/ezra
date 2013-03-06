@@ -30,6 +30,8 @@ FactoryGirl.define do
     flagged false
     audio_file "audio/audio.wnyc.org/takeaway/takeaway121409.mp3"
     transcript { Faker::Lorem.sentences(2) }
+    window_start = 17.6
+    window_duration = 10.3
     target
   end
 end

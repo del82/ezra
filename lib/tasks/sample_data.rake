@@ -90,7 +90,11 @@ def make_hit target=nil
                       confirmed: [-2, -1, 0, 0, 0, 0, 1, 1].sample,
                       flagged: [false, false, false, true].sample,
                       audio_file: pick_random_audiofile,
-                      transcript: Faker::Lorem.sentences(2))
+                      transcript: Faker::Lorem.sentences(2),
+                      window_start: 17.6,
+                      window_duration: 10.3,
+                      )
+  
                       
 end
 

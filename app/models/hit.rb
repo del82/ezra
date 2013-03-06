@@ -17,6 +17,7 @@
 class Hit < ActiveRecord::Base
   attr_accessible :audio_file, :confirmed, :flagged
   attr_accessible :location, :transcript, :feat_vals
+  attr_accessible :window_start, :window_duration
   serialize :feat_vals, Hash
   
   belongs_to :target, :inverse_of => :hits
