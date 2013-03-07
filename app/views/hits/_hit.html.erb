@@ -1,6 +1,12 @@
 <tr>
-  <td><%= link_to hit.id, hit %></td>
+  <td><a class="btn btn-small" href="<%= edit_hit_path(hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a><%= link_to hit.id, hit %></td>
   <td><%= link_to hit.target.phrase, hit.target %></td>
   <td><%= hit.confirmed %></td>
   <td><%= hit.flagged %></td>
+  <td>
+  	<audio>
+  		<!--<source src="<%= asset_path('Tromboon-sample.mp3') %>" type='audio/mpeg; codecs="mp3"'>-->
+  			Audio temporarily disabled
+  	</audio>
+  </td>
 </tr>

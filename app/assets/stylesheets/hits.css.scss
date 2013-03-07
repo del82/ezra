@@ -2,11 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-$confirmed: #bfb;
-$unconfirmed: #ccf;
-$not-present: #fbb;
-$duplicate: #eee;
+@import "custom";
 
 @mixin rounded {
     -webkit-border-radius: 15px;

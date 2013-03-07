@@ -1,3 +1,12 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.admin:nth-of-type(odd) > td {
+	background: rgb(201,183,146) !important;
+}
+
+.admin:nth-of-type(even) > td {
+	background: rgb(252,233,195) !important;
+}

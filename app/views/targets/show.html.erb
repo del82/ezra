@@ -1,12 +1,31 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
 
-  <h3><%= @target.phrase %></h3>
-  <table>
+  <h2><%= @target.phrase %></h2>
+  Total: <%= @hits.count %> <br/> 
+  Confirmed: <span class="confirmed"> <%= @hits.where(:confirmed => 1).count %> </span> <br/>
+  Unconfirmed: <span class="unconfirmed"> <%= @hits.where(:confirmed => 0).count %> </span> <br/>
+  Not Present: <span class="not-present"> <%= @hits.where(:confirmed => -1).count %> </span>
+  <h3>Features <a href="#addFeature" role="button" class="btn" data-toggle="modal">add</a></h3>
+  
+  <div id="addFeature" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addFeatureLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Feature manager</h3>
+    </div>
+    <div class="modal-body">
+      <p>Add some things</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <button class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+  <table class="table table-striped">
     <%= render @features %>
   </table>
-  <table>
+  <h3>Hits</h3>
+  <table class="table table-striped">
     <%= render @hits %>
   </table>
-  
 <br />
 
