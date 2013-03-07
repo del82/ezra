@@ -7,7 +7,7 @@ $(document).ready ->
 	soundManager.useHighPerformance = true
 	soundManager.useFastPolling = true
 	soundManager.useHTML5Audio = true
-
+	window.smt = soundManagerTime();
 
 	PP_CONFIG = {
 		autoStart: false,      # begin playing first sound when page loads
@@ -22,7 +22,7 @@ $(document).ready ->
 	confirmed = $('#selections').attr("data-loaded")
 	$('.status-box').tooltip()
 	$('[data-status='+confirmed+']').addClass('selected')
-	parseLocation($('#location').attr("data-value"))
+	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
 
 	$('.status-box').click ->
 		value = $(this).attr("data-status")
@@ -30,6 +30,69 @@ $(document).ready ->
 		$(this).addClass("selected")
 		$('#hit_confirmed').val(value)
 
-parseLocation = (time) ->
-	$('#location').html(time)
+	$('#mark-hit').click ->
+		$('#location').html(smt.toText(smt.getTime()))
+		$('#hit_location').val(smt.toSeconds(smt.getTime()))
+
+	$('.now').click ->
+		setWindowBound($(this))
+
+	windowStart = smt.secondsToRaw($('#hit_window_start').val())
+	windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
+	setWindowTime('start', windowStart)
+	setWindowTime('end', windowDuration)
+
+
+
+window.setWindowTime = (loc, time) ->
+	$('#'+loc+'-time-hours').val(~~(time.hours))
+	$('#'+loc+'-time-minutes').val(~~(time.minutes))
+	$('#'+loc+'-time-seconds').val(~~(time.seconds))
+	$('#'+loc+'-time-milliseconds').val(~~(time.milliseconds))
+
+
+window.setWindowBound = (loc) ->
+	loc = loc.attr("id").split("-")[0]
+	time = smt.getTime()
+	setWindowTime(loc, time)
+	if(loc is 'start')
+		$('#hit_window_start').val(smt.toSeconds(time))
+	else 
+		$('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+
+
+soundManagerTime = () -> 
+	getTime: ->
+		time = $('.sm2_position').text()
+		if(time isnt "")
+			splitTime = time.split(":")
+			hours = Math.floor(splitTime[0]/60)
+			minutes = splitTime[0]-(hours*60)
+			seconds = splitTime[1]
+			milliseconds = splitTime[2]
+			return {hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
+		else
+			return {hours: 0, minutes: 0, seconds: 0, milliseconds: 0}
+	#getTimeText: ->
+	#	time = @getTime()
+	#	hours = if time.hours < 10 then '0'+time.hours else time.hours
+	#	minutes = if time.minutes < 10 then '0'+time.minutes else time.minutes
+	#	seconds = time.seconds
+	#	milliseconds = if time.milliseconds < 100 then '0'+time.milliseconds else time.milliseconds
+	#	milliseconds = if time.milliseconds < 10 then '0'+time.milliseconds else time.milliseconds
+	#	return {hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
+	toText: (time) ->
+		time.hours + ":" + time.minutes + ":" + time.seconds + ":" + time.milliseconds
+	#must be a time object in the format above
+	toSeconds: (time) ->
+		return time.hours*60*60*1000+time.minutes*60+parseInt(time.seconds,10)+time.milliseconds/1000
+	secondsToRaw: (seconds) ->
+		milliseconds = seconds*1000
+		hours = Math.floor(milliseconds/(1000*60*60))
+		milliseconds = milliseconds-(hours*1000*60*60)
+		minutes = Math.floor(milliseconds/(1000*60))
+		milliseconds = milliseconds-(minutes*1000*60)
+		seconds = Math.floor(milliseconds/1000)
+		milliseconds = milliseconds-seconds*1000
+		{hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
 

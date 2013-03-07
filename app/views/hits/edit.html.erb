@@ -7,8 +7,10 @@
       
       <%= render 'error_messages' %>
 
-      <%= f.label :confirmed, "confirmed" %>
       <%= f.hidden_field :confirmed, :value => @hit.confirmed %>
+      <%= f.hidden_field :location, :value => @hit.location %>
+      <%= f.hidden_field :window_duration, :value => @hit.window_duration %>
+      <%= f.hidden_field :window_start, :value => @hit.window_start %>
       
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
   </div>
@@ -45,11 +47,11 @@
               </ul>
           </div>
         </div>
-
+        <br/>
         <div id="hit-info" class="row">
           located at
           <span id="location" data-value="<%= @hit.location %>"></span>
-          <span id="mark-hit" class="button">mark hit</span>
+          <span id="mark-hit" class="btn">mark hit</span>
         </div>
 
         </div>
@@ -70,7 +72,7 @@
               </div>
             </div>
             <div class="span4">
-              <button class="now" id="start-now" title="set start to current time">current time</button> 
+              <span class="now btn" id="start-now" title="set start to current time">current time</span> 
             </div>
           </div>
           <div class="row">
@@ -83,12 +85,12 @@
               </div>
             </div>
             <div class="span4">
-              <button class="now" id="end-now" title="set end to current time">current time</button>
+              <span class="now btn" id="end-now" title="set end to current time">current time</span>
             </div>  
           </div>
         </div>
         <div class="row">
-            <button id="play-span">play from transcript start</button>
+            <span class="btn" id="play-span">play from transcript start</span>
         </div>
       </div>
 
