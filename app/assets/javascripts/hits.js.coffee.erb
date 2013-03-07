@@ -23,16 +23,17 @@ $(document).ready ->
 	$('.status-box').tooltip()
 	$('[data-status='+confirmed+']').addClass('selected')
 	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
+	$('#alertBox').hide()
 
 	$('.status-box').click ->
 		value = $(this).attr("data-status")
-		$('.status-box').filter( -> $(this).attr("data-status") isnt value).removeClass('selected')
-		$(this).addClass("selected")
-		$('#hit_confirmed').val(value)
+		setStatus(value)
+		changeSave()
 
 	$('#mark-hit').click ->
 		$('#location').html(smt.toText(smt.getTime()))
 		$('#hit_location').val(smt.toSeconds(smt.getTime()))
+		changeSave()
 
 	$('.now').click ->
 		setWindowBound($(this))
@@ -42,6 +43,10 @@ $(document).ready ->
 	setWindowTime('start', windowStart)
 	setWindowTime('end', windowDuration)
 
+
+changeSave = () ->
+	validate()
+	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save Changes")
 
 
 window.setWindowTime = (loc, time) ->
@@ -59,7 +64,29 @@ window.setWindowBound = (loc) ->
 		$('#hit_window_start').val(smt.toSeconds(time))
 	else 
 		$('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+	changeSave()
 
+window.setStatus = (num) ->
+	$('.status-box').filter( -> $(this).attr("data-status") isnt num).removeClass('selected')
+	$('[data-status='+num+']').addClass("selected")
+	$('#hit_confirmed').val(num)
+
+#Seek in a direction (1 forward, -1 backwards) in the audio file
+window.seeker = (dir) ->
+	orig = soundManager.onPosition("pagePlayerMP3Sound0").position
+	step = dir*20
+	time = orig+step
+
+	soundManager.setPosition("pagePlayerMP3Sound0",time)
+
+	#If the time doesn't change, increment by the step again to try forcing a change
+	#This is due to the variable size of the frames of the mp3 as stored by the flash player (which is what's being used
+	#instead of HTML5 audio at the moment)
+
+	#Note: not sure why seeking backwards can only have one step back, but it seems to work, so I'll chalk that up to
+	#Flash being weird.
+	if(soundManager.onPosition("pagePlayerMP3Sound0").position is orig+step and dir isnt -1)
+		soundManager.setPosition("pagePlayerMP3Sound0",time+step)
 
 soundManagerTime = () -> 
 	getTime: ->
@@ -96,3 +123,40 @@ soundManagerTime = () ->
 		milliseconds = milliseconds-seconds*1000
 		{hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
 
+#Go to the starting saved audio window
+window.toStart = (e) ->
+	time = smt.toSeconds(smt.getTime())*100;
+	if(soundLoaded)
+		soundManager.setPosition("pagePlayerMP3Sound0",time);
+
+window.togglePlayer = () ->
+	#Not sure how to get it to start playing with spacebar
+	if(not soundLoaded)
+		soundManager.createSound()
+	else
+		soundManager.togglePause("pagePlayerMP3Sound0");
+		$('.sm2_link').click();
+
+
+validate = () ->
+	alertBox = $('#alertBox')
+	if(+$('#hit_confirmed').val() is 1)
+		alertBox.text("")
+		if(+$('#hit_location').val() is 0)
+			alertBox.text("Location cannot be 0")
+		else if(+$('#hit_window_start').val() is 0)
+			alertBox.text("Transcript start cannot be 0")
+		else if(+$('#hit_window_end').val() is 0)
+			alertBox.text("Transcript end cannot be 0")
+		else if(+$('#hit_window_end').val() < -1)
+			alertBox.text("Transcript end must be after transcript start")
+
+		if(alertBox.text() isnt "")
+			alertBox.show()
+			$('[name=commit]').addClass("disabled")
+		else
+			alertBox.text("").hide()
+			$('[name=commit]').removeClass("disabled")
+	else
+		alertBox.text("").hide()
+		$('[name=commit]').removeClass("disabled")

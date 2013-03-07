@@ -46,6 +46,10 @@ General
 .selected {
     @include selected;
 }
+
+.row {
+    margin: 0
+}
 /*******
 Status-boxes
 ********/
