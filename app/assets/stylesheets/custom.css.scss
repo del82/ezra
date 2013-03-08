@@ -1,5 +1,26 @@
 @import "bootstrap";
 
+$confirmed: rgb(156,212,156);
+$unconfirmed: rgb(156,156,212);
+$not-present: rgb(212,156,156);
+$duplicate: #eee;
+
 body {
   padding-top: 60px;
+}
+
+.confirmed {
+	color: $confirmed;
+}
+
+.unconfirmed {
+	color: $unconfirmed;
+}
+
+.not-present {
+	color: $not-present;
+}
+
+.duplicate {
+	color: $duplicate;
 }

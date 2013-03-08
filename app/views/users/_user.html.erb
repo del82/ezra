@@ -1,4 +1,7 @@
-<tr>
+<tr <% if user.admin
+  		concat "class=admin"
+  	end
+  	%>>
   <td><%= link_to user.username, user %></td>
-  <td> <%= user.name %></td>
+  <td><%= user.name %></td>
 </tr>
