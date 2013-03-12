@@ -1086,5 +1086,6 @@ var soundLoaded = false; //Used so that one cannot seek to start of transcript b
 soundManager.onready(function() {
   pagePlayer = new PagePlayer();
   pagePlayer.init(typeof PP_CONFIG !== 'undefined' ? PP_CONFIG : null);
-  soundLoaded = true;
+ // pagePlayer.handleClick({target:pagePlayer.getByClassName('playlist', 'ul')[0].getElementsByTagName('a')[0]});
+ // window.togglePlayer();
 });

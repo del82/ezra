@@ -7,6 +7,7 @@ $(document).ready ->
 	soundManager.useHighPerformance = true
 	soundManager.useFastPolling = true
 	soundManager.useHTML5Audio = true
+	soundManager.autoLoad = true
 	window.smt = soundManagerTime();
 
 	PP_CONFIG = {
@@ -38,6 +39,9 @@ $(document).ready ->
 	$('.now').click ->
 		setWindowBound($(this))
 
+	$('#play-span').click ->
+		toWindowStart()
+
 	windowStart = smt.secondsToRaw($('#hit_window_start').val())
 	windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
 	setWindowTime('start', windowStart)
@@ -47,6 +51,11 @@ $(document).ready ->
 changeSave = () ->
 	validate()
 	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save Changes")
+
+window.toWindowStart = () ->
+	time = ""+smt.toMilliseconds(smt.getWindowTime('start'))
+	if(soundLoaded)
+		soundManager.setPosition("pagePlayerMP3Sound0",time)
 
 
 window.setWindowTime = (loc, time) ->
@@ -100,6 +109,12 @@ soundManagerTime = () ->
 			return {hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
 		else
 			return {hours: 0, minutes: 0, seconds: 0, milliseconds: 0}
+	getWindowTime: (loc) ->
+		hours = parseInt($('#'+loc+'-time-hours').val(),10)
+		minutes = parseInt($('#'+loc+'-time-minutes').val(),10)
+		seconds = parseInt($('#'+loc+'-time-seconds').val(),10)
+		milliseconds = parseInt($('#'+loc+'-time-milliseconds').val(),10)
+		return {hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
 	#getTimeText: ->
 	#	time = @getTime()
 	#	hours = if time.hours < 10 then '0'+time.hours else time.hours
@@ -108,6 +123,8 @@ soundManagerTime = () ->
 	#	milliseconds = if time.milliseconds < 100 then '0'+time.milliseconds else time.milliseconds
 	#	milliseconds = if time.milliseconds < 10 then '0'+time.milliseconds else time.milliseconds
 	#	return {hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
+	toMilliseconds: (time) ->
+		@toSeconds(time) * 1000
 	toText: (time) ->
 		time.hours + ":" + time.minutes + ":" + time.seconds + ":" + time.milliseconds
 	#must be a time object in the format above
@@ -132,7 +149,7 @@ window.toStart = (e) ->
 window.togglePlayer = () ->
 	#Not sure how to get it to start playing with spacebar
 	if(not soundLoaded)
-		soundManager.createSound()
+		pagePlayer.handleClick({target:pagePlayer.getByClassName('playlist', 'ul')[0].getElementsByTagName('a')[0]});
 	else
 		soundManager.togglePause("pagePlayerMP3Sound0");
 		$('.sm2_link').click();
