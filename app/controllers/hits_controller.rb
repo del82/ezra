@@ -20,16 +20,16 @@ class HitsController < ApplicationController
 
   def edit
     @hit = Hit.find(params[:id])
-    @yeahBuddy = @hit.id
     @target = @hit.target
-   # @target = Target.find(params[@hit.target_id])
   end
 
   def update  # PUT /hits/:id  -> hit_path(hit)
     @hit = Hit.find(params[:id])
+    @target = @hit.target
+    @next = Target.find(@target.id).hits.where(confirmed: '0').first
     if @hit.update_attributes(params[:hit], user: @user)
-      flash[:success] = "Update successful."
-      render 'show'
+      flash[:success] = "Successfully updated hit #"+params[:id]
+      redirect_to :action => 'edit', :id => @next.id
     else
       render 'edit'
     end
