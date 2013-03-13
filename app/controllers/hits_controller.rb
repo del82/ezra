@@ -29,7 +29,11 @@ class HitsController < ApplicationController
     @next = Target.find(@target.id).hits.where(confirmed: '0').first
     if @hit.update_attributes(params[:hit], user: @user)
       flash[:success] = "Successfully updated hit #"+params[:id]
-      redirect_to :action => 'edit', :id => @next.id
+      if @next.nil?
+        render 'show'
+      else
+        redirect_to :action => 'edit', :id => @next.id
+      end
     else
       render 'edit'
     end

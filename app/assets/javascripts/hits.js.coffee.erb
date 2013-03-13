@@ -53,10 +53,12 @@ changeSave = () ->
 	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save Changes")
 
 window.toWindowStart = () ->
+	if(soundManager.getSoundById('pagePlayerMP3Sound0').paused)
+		togglePlayer()
 	time = ""+smt.toMilliseconds(smt.getWindowTime('start'))
-	if(soundLoaded)
-		soundManager.setPosition("pagePlayerMP3Sound0",time)
-
+	soundManager.setPosition("pagePlayerMP3Sound0",time)
+	end = ""+smt.toMilliseconds(smt.getWindowTime('end'))
+	soundManager.onPosition("pagePlayerMP3Sound0",end,(eventPosition) -> togglePlayer())
 
 window.setWindowTime = (loc, time) ->
 	$('#'+loc+'-time-hours').val(~~(time.hours))
@@ -140,19 +142,10 @@ soundManagerTime = () ->
 		milliseconds = milliseconds-seconds*1000
 		{hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds}
 
-#Go to the starting saved audio window
-window.toStart = (e) ->
-	time = smt.toSeconds(smt.getTime())*100;
-	if(soundLoaded)
-		soundManager.setPosition("pagePlayerMP3Sound0",time);
 
 window.togglePlayer = () ->
-	#Not sure how to get it to start playing with spacebar
-	if(not soundLoaded)
-		pagePlayer.handleClick({target:pagePlayer.getByClassName('playlist', 'ul')[0].getElementsByTagName('a')[0]});
-	else
-		soundManager.togglePause("pagePlayerMP3Sound0");
-		$('.sm2_link').click();
+	pagePlayer.handleClick({target:pagePlayer.getByClassName('playlist', 'ul')[0].getElementsByTagName('a')[0]});
+
 
 
 validate = () ->
