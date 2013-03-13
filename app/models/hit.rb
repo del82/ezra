@@ -2,16 +2,18 @@
 #
 # Table name: hits
 #
-#  id         :integer          not null, primary key
-#  location   :float
-#  confirmed  :integer
-#  flagged    :boolean
-#  audio_file :string(255)
-#  target_id  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  transcript :text
-#  feat_vals  :text
+#  id              :integer          not null, primary key
+#  location        :float
+#  confirmed       :integer
+#  flagged         :boolean
+#  audio_file      :string(255)
+#  target_id       :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  transcript      :text
+#  feat_vals       :text
+#  window_start    :float
+#  window_duration :float
 #
 
 class Hit < ActiveRecord::Base
