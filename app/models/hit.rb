@@ -19,7 +19,7 @@
 class Hit < ActiveRecord::Base
   attr_accessible :audio_file, :confirmed, :flagged
   attr_accessible :location, :transcript, :feat_vals
-  attr_accessible :window_start, :window_duration
+  attr_accessible :window_start, :window_duration, :notes
   serialize :feat_vals, Hash
   
   belongs_to :target, :inverse_of => :hits
@@ -31,5 +31,7 @@ class Hit < ActiveRecord::Base
                                                         less_than:     2 }
   validates :location, presence: true, numericality: { greater_than: 0 }
   validates :target_id, presence: true
+  validates :window_start, numericality: { greater_than_or_equal_to: 0, }
+  validates :window_duration, numericality: { greater_than: 0, }
 
 end

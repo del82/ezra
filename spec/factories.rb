@@ -32,6 +32,7 @@ FactoryGirl.define do
     transcript { Faker::Lorem.sentences(2) }
     window_start = 17.6
     window_duration = 10.3
+    notes = "here is an example note."
     target
   end
 end

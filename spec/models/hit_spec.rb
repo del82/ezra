@@ -23,7 +23,8 @@ describe Hit do
   let(:target) { FactoryGirl.create(:target) }
   before { 
     @hit = target.hits.build(location: 30.6, confirmed: 0, flagged: false,
-                                    audio_file: "path/to/audio.mp3")
+                                    audio_file: "path/to/audio.mp3",
+                             window_start: 10.4, window_duration: 15)
   }
   
   subject { @hit }
@@ -38,6 +39,7 @@ describe Hit do
   it { should respond_to(:features) }
   it { should respond_to(:window_start) }
   it { should respond_to(:window_duration) }
+  it { should respond_to(:notes) }
  
   it { should be_valid }
 
@@ -78,10 +80,34 @@ describe Hit do
     end
   end
   
+  describe "window_start" do
+    describe "must be non-negative" do
+      before { @hit.window_start = -1 }
+      it { should_not be_valid }
+    end
+  end
+
+  describe "window_duration" do
+    describe "must be non-negative" do
+      before { @hit.window_duration = -1 }
+      it { should_not be_valid }
+    end
+    describe "must not be 0" do
+      before { @hit.window_duration = 0 }
+      it { should_not be_valid }
+    end
+  end
+
+  # describe "notes" do
+  #   pending
+  # end
+
   describe "relation to feature through target should work" do
   let(:feature) { FactoryGirl.create(:feature) }
     before{ target.features.concat(feature) }
     its(:features) { should eq([feature]) }
   end
-    
+
+
+  
 end

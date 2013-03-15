@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304015412) do
+ActiveRecord::Schema.define(:version => 20130315143046) do
 
   create_table "features", :force => true do |t|
     t.integer  "user_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20130304015412) do
     t.text     "feat_vals"
     t.float    "window_start"
     t.float    "window_duration"
+    t.text     "notes"
   end
 
   add_index "hits", ["confirmed"], :name => "index_hits_on_confirmed"

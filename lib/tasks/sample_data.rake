@@ -93,6 +93,7 @@ def make_hit target=nil
                       transcript: Faker::Lorem.sentences(2),
                       window_start: 17.6,
                       window_duration: 10.3,
+                      notes: Faker::Lorem.sentences(1)
                       )
   
                       
