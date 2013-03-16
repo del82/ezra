@@ -91,6 +91,10 @@
       <div class="row">
           <span class="btn" id="play-span">play transcript</span>
       </div>
+      <div class="row">
+        Notes: <br/>
+        <%= f.text_area :notes, :value => @hit.notes, :class => 'clip-textarea'%>
+      </div>
     </div>
 
 

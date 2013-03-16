@@ -1,8 +1,8 @@
 <tr>
   <td> <%= link_to target.phrase, target %> </td>
   <td class="tgt-total"><%= target.hits.count %></td>
-  <td class="tgt-conf"><%= target.hits.where(confirmed: 1).count %></td>
-  <td class="tgt-unconf"><%= target.hits.where(confirmed: 0).count %></td>
-  <td class="tgt-notpres"><%= target.hits.where(confirmed: -1).count %></td>
-  <td class="tgt-flag"><%= target.hits.where(flagged: true).count %></td>
+  <td class="confirmed"><%= target.hits.where(confirmed: 1).count %></td>
+  <td class="unconfirmed"><%= target.hits.where(confirmed: 0).count %></td>
+  <td class="not-present"><%= target.hits.where(confirmed: -1).count %></td>
+  <td class="flags"><%= target.hits.where(flagged: true).count %></td>
 </tr>

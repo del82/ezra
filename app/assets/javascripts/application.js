@@ -17,3 +17,4 @@
 //= require mousetrap.min
 //= require soundmanager2
 //= require soundmanager2.page-player
+//= require jquery.tablesorter.min.js

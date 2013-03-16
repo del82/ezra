@@ -30,7 +30,7 @@ class HitsController < ApplicationController
     if @hit.update_attributes(params[:hit], user: @user)
       flash[:success] = "Successfully updated hit #"+params[:id]
       if @next.nil?
-        render 'show'
+        redirect_to current_user, :notice => "No more unconfirmed hits"
       else
         redirect_to :action => 'edit', :id => @next.id
       end

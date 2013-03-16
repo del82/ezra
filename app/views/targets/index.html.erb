@@ -1,8 +1,16 @@
 <% provide(:title, "Targets") %>
 <%= will_paginate %>
 <h2>Targets</h2>
-<table class="targets table">
-  <%= render @targets %>
+<table class="targets table tablesorter">
+	<thead>
+		<th>Name</th>
+		<th>Confirmed</th>
+		<th>Unconfirmed</th>
+		<th>Not Present</th>
+		<th>Duplicate</th>
+		<th>Flagged</th>
+	</thead>
+	<%= render @targets %>
 </table>
 
 <%= will_paginate %>

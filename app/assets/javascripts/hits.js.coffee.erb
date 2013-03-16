@@ -26,6 +26,9 @@ $(document).ready ->
 	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
 	$('#alertBox').hide()
 
+	$('.clip-textarea').change ->
+		changeSave()
+
 	$('.status-box').click ->
 		value = $(this).attr("data-status")
 		setStatus(value)
