@@ -70,6 +70,39 @@ describe "Hit pages" do
       describe "should load the correct audio file" do
         it { should have_selector('#sm-container ul li a', :href => hit.audio_file)}
       end
+
+      describe "commit button" do
+        it "should start by saying 'No changes'" do
+          page.should have_button("No changes")
+          page.should_not have_button("Save changes")
+        end
+
+        describe "should change to 'Save changes'" do
+          it "when transcript is changed" do
+            fill_in "hit_transcript", with: "test notes go here"
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
+
+          it "when flag is changed"  do
+            find('#flag-checkbox').click
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
+ 
+          it "when notes field is changed" do
+            fill_in "hit_notes", with: "test notes go here"
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
+
+          it "when transcript boundary is changed" do
+            fill_in "start-time-hours", with: 1
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
+        end
+      end
     end
   end
 end
