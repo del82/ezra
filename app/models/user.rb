@@ -14,18 +14,20 @@
 #
 
 class User < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :name, :username, :email, :password, :password_confirmation
   has_secure_password
 
   has_many :targets,  :inverse_of => :user
   has_many :features, :inverse_of => :user
 
-  before_save do 
+  before_save do
     self.email.downcase!
     self.username.downcase!
 
   end
-  
+
   before_save :create_remember_token
 
   validates :name, presence: true, length: { maximum: 50 }
