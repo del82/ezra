@@ -6,9 +6,13 @@ class TargetsController < ApplicationController
     @targets = Target.paginate(page: params[:page])
   end
 
-  def show    # GET /targets/:id      -> target_path(target) 
+  def show    # GET /targets/:id      -> target_path(target)
     @target = Target.find(params[:id])
-    @hits   = @target.hits.where(params.slice(:confirmed, :flagged))
+    hits_params = params.slice(:confirmed, :flagged)
+    if hits_params.has_key?(:flagged)
+      hits_params[:flagged] = (hits_params[:flagged] == "true")
+    end
+    @hits   = @target.hits.where(hits_params)
     @features = @target.features
   end
 
