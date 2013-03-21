@@ -14,7 +14,7 @@ gem 'rdiscount', '~> 2.0.7'
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
   gem 'guard-rspec', '~> 1.2.1'
-  gem 'guard-spork', '~> 1.4.1'  
+  gem 'guard-spork', '~> 1.4.1'
   gem 'spork', '~> 0.9.2'
   gem 'annotate', '~> 2.5.0'
 end

@@ -16,7 +16,7 @@ describe "Static pages" do
   describe "People page" do
     before { visit people_path }
   end
-  
+
   describe "Publications page" do
     before { visit publications_path }
   end
@@ -39,5 +39,5 @@ describe "Static pages" do
     click_link "ezra"
     page.should have_selector 'title', text: ''
   end
-  
+
 end

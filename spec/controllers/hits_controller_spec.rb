@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HitsController do
-  
+
   context "unauthenticated" do
     let(:user) { FactoryGirl.create(:user) }
     let(:hit)  { FactoryGirl.create(:hit) }
@@ -14,7 +14,7 @@ describe HitsController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to GET #show" do
       before { get :show, id: hit }
@@ -24,7 +24,7 @@ describe HitsController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to GET #new" do
       before { get :new }
@@ -34,12 +34,12 @@ describe HitsController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to POST #create" do
       it "does not create a new hit" do
-        expect { 
-          post :create, hit: FactoryGirl.attributes_for(:hit) 
+        expect {
+          post :create, hit: FactoryGirl.attributes_for(:hit)
         }.to_not change(User, :count)
       end
       it "redirects to signin page" do
@@ -56,13 +56,13 @@ describe HitsController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to PUT #update" do
       let(:user) { FactoryGirl.create(:user) }
       let(:hit) { FactoryGirl.create(:hit) }
-      before { 
-             put :update, id: hit, 
+      before {
+             put :update, id: hit,
              hit: FactoryGirl.attributes_for(:hit, audio_file: "wrong") }
       it "does not change the user" do
         hit.reload
@@ -94,8 +94,8 @@ describe HitsController do
         before do
           FactoryGirl.create(:target, id: 500)
           FactoryGirl.create(:hit, target_id: 500)
-          FactoryGirl.create(:hit, confirmed: 1) 
-         FactoryGirl.create(:hit, flagged: true) 
+          FactoryGirl.create(:hit, confirmed: 1)
+         FactoryGirl.create(:hit, flagged: true)
         end
 
         pending "filtering by target" do
@@ -113,12 +113,12 @@ describe HitsController do
         pending "filtering by flagged status" do
           before { get :index, flagged: 'true' }
           it "returns the right results" do
-            assigns(:hits).length.should eq(1)            
+            assigns(:hits).length.should eq(1)
           end
         end
       end
     end # GET #index
-    
+
     describe "should allow access to GET #show" do
       before { get :show, id: hit }
       it "renders the :show view" do
@@ -135,7 +135,7 @@ describe HitsController do
       it "redirects to signin page" do
         response.should redirect_to(user_path(user))
       end
-    end 
+    end
 
     describe "should not allow access to POST #create" do
       it "does not create a new hit" do
@@ -160,7 +160,7 @@ describe HitsController do
       end
     end
   end
-  
+
 # ----
   #  "authenticated as admin" do
   #   let(:admin) { FactoryGirl.create(:admin) }
@@ -178,7 +178,7 @@ describe HitsController do
   #   describe "should allow access to POST #create" do
   #     context "with valid information" do
   #       let(:new_hit) { FactoryGirl.attributes_for(:hit) }
-  #       it "creates a new hit" do 
+  #       it "creates a new hit" do
   #         expect{ post :create, hit: new_hit }.to change(Hit, :count).by(1)
   #       end
   #       it "redirects to new hit's page" do

@@ -29,7 +29,7 @@ class Feature < ActiveRecord::Base
 end
 
 
-# ftype: 
+# ftype:
 #  0:  choice, single [true, false]
 #  1:  choice, multiple [a, b, c]
 #  2:  string

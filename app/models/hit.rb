@@ -21,7 +21,7 @@ class Hit < ActiveRecord::Base
   attr_accessible :location, :transcript, :feat_vals
   attr_accessible :window_start, :window_duration, :notes
   serialize :feat_vals, Hash
-  
+
   belongs_to :target, :inverse_of => :hits
   has_many :features, :through => :target
 

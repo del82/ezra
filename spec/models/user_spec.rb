@@ -26,7 +26,7 @@ describe User do
   subject { @user }
 
   it { should respond_to(:name) }
-  it { should respond_to(:username) } 
+  it { should respond_to(:username) }
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
@@ -35,8 +35,8 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:targets) }
-  
-  
+
+
   it { should be_valid }
   it { should_not be_admin }
 
@@ -68,12 +68,12 @@ describe User do
     end
     it { should_not be_valid }
   end
-    
+
   describe "when username is too long" do
     before { @user.username = 'b' * 21 }
     it { should_not be_valid }
   end
-    
+
   describe "when username is too short" do
     before { @user.username = 'bb' }
     it { should_not be_valid }
@@ -81,7 +81,7 @@ describe User do
 
   describe "username with mixed case" do
     let (:mixed_case_username) { "MixedCaseUsername" }
-    
+
     it "should be saved as all lower-case" do
       @user.username = mixed_case_username
       @user.save
@@ -106,7 +106,7 @@ describe User do
       addresses.each do |invalid_address|
         @user.email = invalid_address
         @user.should_not be_valid
-      end      
+      end
     end
   end
 
@@ -116,13 +116,13 @@ describe User do
       addresses.each do |valid_address|
         @user.email = valid_address
         @user.should be_valid
-      end      
+      end
     end
   end
 
   describe "email address with mixed case" do
     let (:mixed_case_email) { "Foo@ExAmple.Com" }
-    
+
     it "should be saved as all lower-case" do
       @user.email = mixed_case_email
       @user.save
@@ -134,7 +134,7 @@ describe User do
     before { @user.password = @user.password_confirmation = " " }
     it { should_not be_valid }
   end
-    
+
   describe "when password is too short" do
     before { @user.password = @user.password_confirmation = "g"*5 }
     it { should be_invalid }
@@ -153,14 +153,14 @@ describe User do
   describe "return value of authenticate method" do
     before { @user.save }
     let(:found_user) { User.find_by_email(@user.email) }
-    
+
     describe "with valid password" do
       it { should == found_user.authenticate(@user.password) }
     end
 
     describe "with invalid password" do
       let(:user_for_invalid_password) { found_user.authenticate("invalid") }
-      
+
       it { should_not == user_for_invalid_password }
       specify { user_for_invalid_password.should be_false }
     end
@@ -187,7 +187,7 @@ describe User do
     let!(:newer_target) do
       FactoryGirl.create(:target, user: @user, created_at: 1.hour.ago)
     end
-    
+
     it "should have the right targets in the right order" do
       @user.targets.should == [older_target, newer_target]
     end

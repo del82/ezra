@@ -7,7 +7,7 @@ class CreateFeatures < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :features, :user_id
     add_index :features, :name
   end

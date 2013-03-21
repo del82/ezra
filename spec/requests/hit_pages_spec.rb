@@ -1,5 +1,5 @@
 require 'spec_helper'
-  
+
 describe "Hit pages" do
   subject { page }
   let(:hit) { FactoryGirl.create(:hit) }
@@ -15,7 +15,7 @@ describe "Hit pages" do
       before { visit hits_path(hit) }
       it { should have_selector('title', text: "Sign in") }
     end
-    
+
     describe "visit new_hit_path" do
       before { visit new_hit_path }
       it { should have_selector('title', text: "Sign in") }
@@ -25,10 +25,10 @@ describe "Hit pages" do
       before { visit edit_hit_path(hit) }
       it { should have_selector('title', text: "Sign in") }
     end
-  end 
+  end
 
 
-  context "while signed-in as user" do 
+  context "while signed-in as user" do
     before do
       visit signin_path
       fill_in "Password", with: user.password
@@ -89,7 +89,7 @@ describe "Hit pages" do
             page.should have_button("Save changes")
             page.should_not have_button("No changes")
           end
- 
+
           it "when notes field is changed" do
             fill_in "hit_notes", with: "test notes go here"
             page.should have_button("Save changes")

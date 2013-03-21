@@ -21,12 +21,12 @@ require 'spec_helper'
 describe Hit do
 
   let(:target) { FactoryGirl.create(:target) }
-  before { 
+  before {
     @hit = target.hits.build(location: 30.6, confirmed: 0, flagged: false,
                                     audio_file: "path/to/audio.mp3",
                              window_start: 10.4, window_duration: 15)
   }
-  
+
   subject { @hit }
 
   it { should respond_to(:location) }
@@ -40,7 +40,7 @@ describe Hit do
   it { should respond_to(:window_start) }
   it { should respond_to(:window_duration) }
   it { should respond_to(:notes) }
- 
+
   it { should be_valid }
 
   describe "location" do
@@ -66,7 +66,7 @@ describe Hit do
     describe "must be at most 1" do
       before { @hit.confirmed = 2 }
       it { should_not be_valid }
-    end      
+    end
     describe "must be at least -2" do
       before { @hit.confirmed = -3 }
       it { should_not be_valid }
@@ -79,7 +79,7 @@ describe Hit do
       it { should_not be_valid }
     end
   end
-  
+
   describe "window_start" do
     describe "must be non-negative" do
       before { @hit.window_start = -1 }
@@ -109,5 +109,5 @@ describe Hit do
   end
 
 
-  
+
 end

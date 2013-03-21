@@ -6,7 +6,7 @@ class FeaturesController < ApplicationController
     @features = Feature.paginate(page: params[:page])
   end
 
-  def show    # GET /features/:id      -> feature_path(feature) 
+  def show    # GET /features/:id      -> feature_path(feature)
     @feature = Feature.find(params[:id])
   end
 

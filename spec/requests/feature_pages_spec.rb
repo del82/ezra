@@ -1,22 +1,22 @@
 require 'spec_helper'
-  
+
 describe "Feature pages" do
   subject { page }
 
   context "while not signed-in" do
-    let(:user) { FactoryGirl.create(:user) }  
+    let(:user) { FactoryGirl.create(:user) }
     let(:feature) { FactoryGirl.create(:feature) }
 
     describe "visit features_path" do
       before { visit features_path }
-      it { should have_selector('title', text: "Sign in") }        
+      it { should have_selector('title', text: "Sign in") }
     end
 
     describe "visit feature_path" do
       before { visit feature_path(feature) }
       it { should have_selector('title', text: "Sign in") }
     end
-    
+
     describe "visit new_feature_path" do
       before { visit new_feature_path }
       it { should have_selector('title', text: "Sign in") }
@@ -30,7 +30,7 @@ describe "Feature pages" do
 
 
   context "while signed-in as user" do
-    let(:user) { FactoryGirl.create(:user) }  
+    let(:user) { FactoryGirl.create(:user) }
     let(:feature) { FactoryGirl.create(:feature) }
     before do
       visit signin_path
@@ -91,18 +91,18 @@ describe "Feature pages" do
         it { should have_selector('title', text: 'Features') }
       end
     end
-      
+
     describe "individual feature page" do
       before { visit feature_path(feature) }
-      
+
       describe "should have the right title" do
         it { should have_selector('title', text: feature.name) }
       end
     end
 
     describe "create feature page" do
-      before { visit new_feature_path } 
-      
+      before { visit new_feature_path }
+
       describe "should have the right title" do
         it { should have_selector('title', text: 'New feature' ) }
       end

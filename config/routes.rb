@@ -7,7 +7,7 @@ Ezra::Application.routes.draw do
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  
+
 
 
   # static pages

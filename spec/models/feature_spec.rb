@@ -33,7 +33,7 @@ describe Feature do
   its(:user) { should == user }
 
   it { should respond_to(:targets) }
-  
+
   it { should be_valid }
 
   describe "when user_id is not present" do
@@ -48,12 +48,12 @@ describe Feature do
       end.to raise_error (ActiveModel::MassAssignmentSecurity::Error)
     end
   end
-  
+
   describe "with blank name" do
     before { @feature.name = " " }
     it { should_not be_valid }
     end
-  
+
   describe "with name that is too short" do
     before { @feature.name = 'a'*3 }
     it { should_not be_valid }
@@ -71,7 +71,7 @@ describe Feature do
 
   describe "with blank ftype" do
     before { @feature.ftype = nil }
-    it { should_not be_valid } 
+    it { should_not be_valid }
   end
 
   describe "with non-integer ftype" do
@@ -83,12 +83,12 @@ describe Feature do
     before { @feature.ftype = 3 }
     it { should_not be_valid }
   end
- 
+
   describe "with ftype less than 0" do
     before { @feature.ftype = -1 }
     it { should_not be_valid }
   end
-  
+
   describe "when fvalues is not present" do
     before { @feature.fvalues = nil }
     it { should_not be_valid }

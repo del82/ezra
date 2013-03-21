@@ -6,7 +6,7 @@ class CreateHits < ActiveRecord::Migration
       t.boolean :flagged
       t.string :audio_file
       t.integer :target_id
-      
+
       t.timestamps
     end
 

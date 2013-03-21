@@ -20,12 +20,12 @@ class User < ActiveRecord::Base
   has_many :targets,  :inverse_of => :user
   has_many :features, :inverse_of => :user
 
-  before_save do 
+  before_save do
     self.email.downcase!
     self.username.downcase!
 
   end
-  
+
   before_save :create_remember_token
 
   validates :name, presence: true, length: { maximum: 50 }

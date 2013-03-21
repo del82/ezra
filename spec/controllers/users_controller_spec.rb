@@ -13,7 +13,7 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to GET #show" do
       before { get :show, id: user }
@@ -23,7 +23,7 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to GET #new" do
       before { get :new }
@@ -33,12 +33,12 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to POST #create" do
       it "does not create a new user" do
-        expect { 
-          post :create, user: FactoryGirl.attributes_for(:user) 
+        expect {
+          post :create, user: FactoryGirl.attributes_for(:user)
         }.to_not change(User, :count)
       end
       it "redirects to signin page" do
@@ -55,7 +55,7 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(signin_path)
       end
-    end 
+    end
 
     describe "should not allow access to PUT #update" do
       let(:user) { FactoryGirl.create(:user) }
@@ -76,7 +76,7 @@ describe UsersController do
     #     user # create the user before it's needed
     #     expect { delete :destroy, id: user }.to_not change(User, :count)
     #   end
-    #   it "redirects to signin page" do 
+    #   it "redirects to signin page" do
     #     delete :destroy, id: user
     #     response.should redirect_to(signin_path)
     #   end
@@ -97,7 +97,7 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(user_path(non_owner))
       end
-    end 
+    end
 
     describe "should not allow access to GET #edit" do
       before { get :edit, id: user }
@@ -107,7 +107,7 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(user_path(non_owner))
       end
-    end 
+    end
 
     describe "should not allow access to PUT #update" do
       let(:user) { FactoryGirl.create(:user) }
@@ -127,7 +127,7 @@ describe UsersController do
   context "authenticated as owner user" do
     let(:user) { FactoryGirl.create(:user) }
     before { sign_in user }
-    
+
     describe "should not allow access to GET #index" do
       before { get :index }
       it "does not render the :index view" do
@@ -136,8 +136,8 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(user_path(user))
       end
-    end 
-  
+    end
+
 
     describe "should allow access to GET #show" do
       before { get :show, id: user }
@@ -145,7 +145,7 @@ describe UsersController do
         response.should render_template :show
       end
     end
-    
+
     describe "should not allow access to GET #new" do
       before { get :new }
       it "does not render the :new view" do
@@ -154,12 +154,12 @@ describe UsersController do
       it "redirects to signin page" do
         response.should redirect_to(user_path(user))
       end
-    end 
+    end
 
     describe "should not allow access to POST #create" do
       it "does not create a new user" do
-        expect { 
-          post :create, user: FactoryGirl.attributes_for(:user) 
+        expect {
+          post :create, user: FactoryGirl.attributes_for(:user)
         }.to_not change(User, :count)
       end
       it "redirects to signin page" do
@@ -174,11 +174,11 @@ describe UsersController do
         response.should render_template :edit
       end
     end
-        
+
     describe "should allow access to PUT #update" do
       context "with valid information" do
-        before { 
-          put :update, id: user, 
+        before {
+          put :update, id: user,
                        user: FactoryGirl.attributes_for(:user, name: "New Name")
         }
         it "should update the user" do
@@ -203,7 +203,7 @@ describe UsersController do
           response.should render_template :edit
         end
       end
-    end  
+    end
 
     #pending "should not allow access to DELETE #index"
   end
@@ -220,7 +220,7 @@ describe UsersController do
       it "renders the :index view" do
         response.should render_template :index
       end
-    end 
+    end
 
     describe "should allow access to GET #show" do
       before { get :show, id: user }
@@ -235,7 +235,7 @@ describe UsersController do
         response.should render_template :new
       end
     end
-    
+
     describe "should allow access to POST #create" do
       context "with valid information" do
         let(:new_user) { FactoryGirl.attributes_for(:user) }
@@ -265,7 +265,7 @@ describe UsersController do
       end
     end
 
-    
+
     describe "should allow access to PUT #update" do
       let(:new_user) { FactoryGirl.attributes_for(:user, name: "New Name") }
       context "with valid information" do

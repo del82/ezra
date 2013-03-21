@@ -1,5 +1,5 @@
 require 'spec_helper'
-  
+
 describe "User pages" do
   subject { page }
   let(:user) { FactoryGirl.create(:user) }
@@ -14,7 +14,7 @@ describe "User pages" do
       before { visit user_path(user) }
       it { should have_selector('title', text: "Sign in") }
     end
-    
+
     describe "visit new_user_path" do
       before { visit new_user_path }
       it { should have_selector('title', text: "Sign in") }
@@ -26,7 +26,7 @@ describe "User pages" do
     end
   end
 
-  context "while signed-in as user" do 
+  context "while signed-in as user" do
     before do
       visit signin_path
       fill_in "Password", with: user.password
@@ -76,31 +76,31 @@ describe "User pages" do
       fill_in "Username", with: admin.username
       click_button "Sign in"
     end
-    
+
     describe "user index" do
       before { visit users_path }
-      
+
       describe "should have the right title" do
         it { should have_selector('title', text: 'Users' ) }
       end
     end
-    
+
     describe "individual user page" do
       before { visit user_path(admin) }
-      
+
       describe "should have the right title" do
         it { should have_selector('title', text: admin.username) }
       end
     end
-    
+
     describe "create user page" do
       before { visit new_user_path }
-      
+
       describe "should have the right title" do
         it { should have_selector('title', text: 'New user' ) }
       end
     end
-    
+
     describe "edit user page" do
 
       describe "for admin user" do
@@ -118,11 +118,11 @@ describe "User pages" do
         end
       end
     end
-  end  
+  end
 end
   # describe "create user" do
   #   before { visit new_user_path }
-  
+
   #   let(:submit) { "Create user" }
 
     #   describe "with invalid information" do

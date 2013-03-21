@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
 
-protected  
+protected
   def signed_in_user
     unless signed_in?
       store_location

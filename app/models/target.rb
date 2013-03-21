@@ -16,6 +16,6 @@ class Target < ActiveRecord::Base
   has_many :hits
 
   validates :user_id, presence: true
-  validates :phrase, presence: true, length: { maximum: 30 } 
+  validates :phrase, presence: true, length: { maximum: 30 }
   default_scope order: 'targets.created_at ASC'
 end

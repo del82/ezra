@@ -37,5 +37,5 @@ class HitsController < ApplicationController
     else
       render 'edit'
     end
-  end  
+  end
 end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
-  def show    # GET /users/:id      -> user_path(user) 
+  def show    # GET /users/:id      -> user_path(user)
     @user = User.find(params[:id])
   end
 
