@@ -126,10 +126,10 @@ describe "Target pages" do
           visit targets_path
         end
 
-        it { should have_selector('td.confirmed',    content: "1") }
-        it { should have_selector('td.unconfirmed',  content: "2") }
-        it { should have_selector('td.not-present', content: "1") }
-        it { should have_selector('td.flags',    content: "2") }
+        it { should have_selector('a.confirmed',    content: "1") }
+        it { should have_selector('a.unconfirmed',  content: "2") }
+        it { should have_selector('a.not-present', content: "1") }
+        it { should have_selector('a.flags',    content: "2") }
 
       end
     end

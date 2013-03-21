@@ -1,8 +1,8 @@
 <tr>
   <td> <%= link_to target.phrase, target %> </td>
-  <td class="tgt-total"><%=   link_to target.hits.count, target %></td>
-  <td class="confirmed"><%=   link_to target.hits.where(confirmed: 1).count,  target_path(target, {confirmed: 1})  %></td>
-  <td class="unconfirmed"><%= link_to target.hits.where(confirmed: 0).count,  target_path(target, {confirmed: 0}) %></td>
-  <td class="not-present"><%= link_to target.hits.where(confirmed: -1).count, target_path(target, {confirmed: -1}) %></td>
-  <td class="flags"><%=       link_to target.hits.where(flagged: true).count, target_path(target, {flagged: true}) %></td>
+  <td><%=  link_to target.hits.count, target, class: "tgt-total" %></td>
+  <td><%=  link_to target.hits.where(confirmed: 1).count,  target_path(target, { confirmed: 1 }),  class: "confirmed"  %></td>
+  <td><%=  link_to target.hits.where(confirmed: 0).count,  target_path(target, { confirmed: 0 }),  class: "unconfirmed" %></td>
+  <td><%=  link_to target.hits.where(confirmed: -1).count, target_path(target, { confirmed: -1 }), class: "not-present" %></td>
+  <td><%=  link_to target.hits.where(flagged: true).count, target_path(target, { flagged: true }), class: "flags"  %></td>
 </tr>
