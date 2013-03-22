@@ -1,5 +1,7 @@
-<h1>Activities</h1>
+<% provide(:title, "Activity") %>
+<%= will_paginate %>
+<h2>Activities</h2>
 <% @activities.each do |activity| %>
   <%= render_activity(activity) %>
 <% end %>
-
+<%= will_paginate %>
