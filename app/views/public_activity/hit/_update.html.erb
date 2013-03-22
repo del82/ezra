@@ -5,7 +5,7 @@
 updated hit
 <%= link_to activity.trackable_id, hit_path(activity.trackable_id) %>
 of
-<%= link_to activity.parameters[:phrase], target_path(activity.parameters[:target_id].to_i) %>
+<%= link_to activity.parameters[:phrase], target_path(activity.recipient_id.to_i) %>
 at
 <%= activity.updated_at %>
  </p>

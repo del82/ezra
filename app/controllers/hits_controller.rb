@@ -29,7 +29,8 @@ class HitsController < ApplicationController
     @next = Target.find(@target.id).hits.where(confirmed: '0').first
     if @hit.update_attributes(params[:hit], user: @user)
       flash[:success] = "Successfully updated hit #"+params[:id]
-      @hit.create_activity :update, owner: current_user, params: {target_id: @target.id, phrase: @target.phrase}
+      @hit.create_activity(:update, owner: current_user, recipient: @target,
+                           params: { phrase: @target.phrase })
       if @next.nil?
         redirect_to current_user, :notice => "No more unconfirmed hits"
       else
