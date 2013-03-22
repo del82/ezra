@@ -10,6 +10,8 @@
 #
 
 class Target < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :phrase
   belongs_to :user, :inverse_of => :targets
   has_and_belongs_to_many :features

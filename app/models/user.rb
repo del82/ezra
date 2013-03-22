@@ -14,6 +14,8 @@
 #
 
 class User < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :name, :username, :email, :password, :password_confirmation
   has_secure_password
 

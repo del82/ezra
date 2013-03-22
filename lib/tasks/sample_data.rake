@@ -8,6 +8,7 @@ namespace :db do
     make_features
     associate_features_with_targets
     make_hits
+    create_activity
   end
 end
 
@@ -60,7 +61,7 @@ def make_feature(ftype = 0, admin = nil)
                                    ftype: ftype,
                                    fvalues: fvalues)
 end
-  
+
 
 def make_features(n=5)
   n.times do |f|
@@ -71,7 +72,7 @@ end
 def associate_features_with_targets density=10
   features = Feature.all
   targets = Target.all
-  
+
   density.times do |n|
     targets.sample.features.concat features.sample
   end
@@ -95,8 +96,8 @@ def make_hit target=nil
                       window_duration: 10.3,
                       notes: Faker::Lorem.sentences(1)
                       )
-  
-                      
+
+
 end
 
 def make_hits n_hits=30
@@ -105,3 +106,16 @@ def make_hits n_hits=30
     make_hit
   end
 end
+
+ def create_activity n_times=20
+   hits = Hit.all
+   users = User.all
+   targets = Target.all
+   n_times.times do |n|
+     t = targets.sample
+     hits.sample.create_activity(:update, owner: users.sample, recipient: t,
+                                 params: { phrase: t.phrase })
+   end
+ end
+
+

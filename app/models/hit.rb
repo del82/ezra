@@ -17,6 +17,8 @@
 #
 
 class Hit < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :audio_file, :confirmed, :flagged
   attr_accessible :location, :transcript, :feat_vals
   attr_accessible :window_start, :window_duration, :notes

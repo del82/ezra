@@ -13,6 +13,8 @@
 #
 
 class Feature < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :instructions, :name, :ftype, :fvalues
   serialize :fvalues, Array
   belongs_to :user, :inverse_of => :features

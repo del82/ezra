@@ -1,9 +1,12 @@
 Ezra::Application.routes.draw do
+  get "activities/index"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
   resources :hits
+  resources :activities, only: [:index]
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

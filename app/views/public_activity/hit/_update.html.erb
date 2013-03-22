@@ -1,0 +1,12 @@
+<div>
+<p class="muted debug_dump"><small><%= activity.attributes.to_options %></small></p>
+<p>
+<%= link_to activity.owner.username, activity.owner %>
+updated hit
+<%= link_to activity.trackable_id, hit_path(activity.trackable_id) %>
+of
+<%= link_to activity.parameters[:phrase], target_path(activity.recipient_id.to_i) %>
+at
+<%= activity.updated_at %>
+ </p>
+</div>
