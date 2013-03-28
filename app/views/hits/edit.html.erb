@@ -8,8 +8,8 @@
 
     <%= f.hidden_field :confirmed, :value => @hit.confirmed %>
     <%= f.hidden_field :location, :value => @hit.location %>
-    <%= f.hidden_field :window_duration, :value => @hit.window_duration %>
-    <%= f.hidden_field :window_start, :value => @hit.window_start %>
+    <%= f.hidden_field :window_duration, :value => @hit.window_duration, :class => 'needs-validation' %>
+    <%= f.hidden_field :window_start, :value => @hit.window_start, :class => 'needs-validation' %>
     
     <%= f.submit "No changes", id: "commit-button", class: "btn btn-large btn-primary" %>
   <br/>
@@ -20,11 +20,11 @@
         <h2 id="hit-title"><%= @target.phrase+' '+@hit.id.to_s %></h2>
       </div>
       <div id="selections" data-loaded="<%= @hit.confirmed %>">
-        <div id="confirmed" class="status-box" data-toggle="tooltip" data-status="1" title="Confirmed"></div>
-        <div id="unconfirmed" class="status-box" data-toggle="tooltip" data-status="0" title="Unconfirmed"></div>
-        <div id="not-present" class="status-box" data-toggle="tooltip" data-status="-1" title="Not Present"></div>
-        <div id="duplicate" class="status-box" data-toggle="tooltip" data-status="-2" title="Duplicate"></div>
-        <span id="flag">
+        <div id="confirmed" class="status-box needs-validation" data-toggle="tooltip" data-status="1" title="Confirmed"></div>
+        <div id="unconfirmed" class="status-box needs-validation" data-toggle="tooltip" data-status="0" title="Unconfirmed"></div>
+        <div id="not-present" class="status-box needs-validation" data-toggle="tooltip" data-status="-1" title="Not Present"></div>
+        <div id="duplicate" class="status-box needs-validation" data-toggle="tooltip" data-status="-2" title="Duplicate"></div>
+        <span id="flag" class="needs-validation">
           <input type="checkbox" id="flag-checkbox" 
           <%  if(@hit.flagged) 
                 concat 'checked="checked"'
@@ -50,7 +50,7 @@
       <div id="hit-info" class="row">
         located at
         <span id="location" data-value="<%= @hit.location %>"></span>
-        <span id="mark-hit" class="btn">mark hit</span>
+        <span id="mark-hit" class="btn needs-validation">mark hit</span>
       </div>
 
       </div>
@@ -58,7 +58,7 @@
       <div id="transcript" class="row">
         <div class="row">
           <div class="span12">
-            <%= f.text_area :transcript, :value => @hit.transcript, :class => 'clip-textarea'%>
+            <%= f.text_area :transcript, :value => @hit.transcript, :id => 'hit-transcript', :class => 'clip-textarea needs-validation'%>
           </div>
         </div>
         <div class="row">
@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="span4">
-            <span class="now btn" id="start-now" title="set start to current time">current time</span> 
+            <span class="now btn needs-validation" id="start-now" title="set start to current time">current time</span> 
           </div>
         </div>
         <div class="row">
@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="span4">
-            <span class="now btn" id="end-now" title="set end to current time">current time</span>
+            <span class="now btn needs-validation" id="end-now" title="set end to current time">current time</span>
           </div>  
         </div>
       </div>
@@ -93,7 +93,7 @@
       </div>
       <div class="row">
         Notes: <br/>
-        <%= f.text_area :notes, :value => @hit.notes, :class => 'clip-textarea'%>
+        <%= f.text_area :notes, :value => @hit.notes, :class => 'clip-textarea needs-validation'%>
       </div>
     </div>
 

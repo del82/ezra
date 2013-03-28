@@ -26,21 +26,29 @@ $(document).ready ->
 	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
 	$('#alertBox').hide()
 
-	$('.clip-textarea').change ->
+	$('.needs-validation, .transcript-time').change ->
+		changeSave()
+
+	$('.needs-validation').click ->
 		changeSave()
 
 	$('.status-box').click ->
 		value = $(this).attr("data-status")
 		setStatus(value)
-		changeSave()
 
 	$('#mark-hit').click ->
 		$('#location').html(smt.toText(smt.getTime()))
 		$('#hit_location').val(smt.toSeconds(smt.getTime()))
-		changeSave()
 
 	$('.now').click ->
 		setWindowBound($(this))
+
+	$('.start-time-box input').change ->
+		manuallySetWindowBound('start')
+
+	$('.end-time-box input').change ->
+		manuallySetWindowBound('end')
+
 
 	$('#play-span').click ->
 		toWindowStart()
@@ -53,7 +61,7 @@ $(document).ready ->
 
 changeSave = () ->
 	validate()
-	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save Changes")
+	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save changes")
 
 window.toWindowStart = () ->
 	if(soundManager.getSoundById('pagePlayerMP3Sound0').paused)
@@ -69,7 +77,20 @@ window.setWindowTime = (loc, time) ->
 	$('#'+loc+'-time-seconds').val(~~(time.seconds))
 	$('#'+loc+'-time-milliseconds').val(~~(time.milliseconds))
 
+# Set the window bound by manually typing in the numbers
+# loc is a string, rather than an actual node
+window.manuallySetWindowBound = (loc) ->
+	time = smt.getWindowTime(loc)
+	if(loc is 'start')
+		end = smt.getWindowTime('end')
+		$('#hit_window_start').val(smt.toSeconds(time))
+		$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
+	else 
+		start = smt.getWindowTime('start')
+		$('#hit_window_duration').val((smt.toSeconds(time)-smt.toSeconds(start)))
+	changeSave()
 
+# Set window bound by clicking the one of the buttons
 window.setWindowBound = (loc) ->
 	loc = loc.attr("id").split("-")[0]
 	time = smt.getTime()
@@ -157,7 +178,7 @@ validate = () ->
 		alertBox.text("")
 		if(+$('#hit_location').val() is 0)
 			alertBox.text("Location cannot be 0")
-		else if(+$('#hit_window_start').val() is 0)
+		else if(not +$('#hit_window_start').val())
 			alertBox.text("Transcript start cannot be 0")
 		else if(+$('#hit_window_end').val() is 0)
 			alertBox.text("Transcript end cannot be 0")
