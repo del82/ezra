@@ -103,22 +103,47 @@
       <% @features.each_with_index do |feature,index| %>
       <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
         <h2><%= feature.name %></h2>
-        <%= feature.ftype %><br/>
         <%= feature.created_at %> by <%= feature.user.name %><br/>
         <%= feature.instructions %><br/>
         <div class="feature-form">
+          <%  has_saved_feature = true
+              if(@hit.feat_vals.blank?)
+                has_saved_feature = false
+              end
+          %>
           <%  if(feature.ftype == 0) %>
-            <% feature.fvalues.each_with_index do |value,val_index| %>
+            <% feature.fvalues.each do |value| %>
               <label class="radio">
-                <%= check_box_tag("hit[feat_vals][#{index}][]",value,!@hit.feat_vals["#{index}"][val_index].blank?) %>
+                <% if(has_saved_feature)
+                    has_value = (@hit.feat_vals["#{index}"][0] == value)
+                  end
+                %>
+                <%= radio_button_tag("hit[feat_vals][#{index}][]",value,has_value) %>
                 <%= value %>
               </label>
             <% end %>
           <% end %>
+          <%  if(feature.ftype == 1) %>
+            <%= hidden_field_tag "hit[feat_vals][#{index}][]", 'dummy'%>
+            <% feature.fvalues.each_with_index do |value,val_index| %>
+              <label class="checkbox">
+                <% if(has_saved_feature)
+                    has_value = @hit.feat_vals["#{index}"].include?(value)
+                  end
+                %>
+                <%= check_box_tag("hit[feat_vals][#{index}][]",value,has_value) %>
+                <%= value %>
+              </label>
+            <% end %>
+          <% end %>
+          <%  if(feature.ftype == 2) %>
+            <% feature.fvalues.each_with_index do |value,val_index| %>
+              <label class="textbox">
+                <%= text_field_tag("hit[feat_vals][#{index}][]",value) %>
+              </label>
+            <% end %>
+          <% end %>
         </div>
-        <div id="possible-values-{{id}}">{{possible-values}}</div><br/>
-        {{instructions}}<br/>
-        {{notes}}
       </div>
       <% end %>
     </div>
