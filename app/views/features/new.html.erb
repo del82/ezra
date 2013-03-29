@@ -14,9 +14,10 @@
       <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]])) %>
       Options:
       <div id="feature-list">
-        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %>
-        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %>
         <div class="btn" id="add-new">Add</div>
+        <br/><br/>
+        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %><br/>
+        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %><br/>
       </div>    
       <%= f.submit "Create feature", class: "btn btn-large btn-primary" %>
     <% end %>

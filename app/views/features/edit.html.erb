@@ -10,7 +10,16 @@
 
       <%= f.label :name, "Instructions" %>
       <%= f.text_area :instructions %>
-      
+      <br/>
+      <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]],:selected => @feature.ftype)) %>
+      <div id="feature-list">
+        <div class="btn" id="add-new">Add</div>
+        <br/><br/>
+        <% @feature.fvalues.each_with_index do |value,index| %>
+          <%= text_field_tag("feature[fvalues][]",value,:placeholder => "Add feature", 'data-count'=>index) %>
+          <br/>
+        <% end %>
+      </div>
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
