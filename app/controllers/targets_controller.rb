@@ -8,6 +8,7 @@ class TargetsController < ApplicationController
 
   def show    # GET /targets/:id      -> target_path(target)
     @target = Target.find(params[:id])
+    @user = current_user
     hits_params = params.slice(:confirmed, :flagged)
     if hits_params.has_key?(:flagged)
       hits_params[:flagged] = (hits_params[:flagged] == "true")

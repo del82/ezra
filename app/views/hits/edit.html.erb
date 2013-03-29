@@ -99,15 +99,17 @@
 
 
     <div id="feature-box">
-      <div id="{{id}}" class="feature pull-left" style="margin-right: 45px">
-        <h2>{{id}}: {{name}}</h2>
-        <span id="feature-type-{{id}}">{{feature-type}}</span><br/>
-        {{created-by-id}} on {{created}}<br/>
-        {{description}}<br/>
+      <% @features.each_with_index do |feature,index| %>
+      <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
+        <h2><%= feature.name %></h2>
+        <%= feature.ftype %><br/>
+        <%= feature.created_at %> by <%= feature.user.name %><br/>
+        <%= feature.instructions %><br/>
         <div id="possible-values-{{id}}">{{possible-values}}</div><br/>
         {{instructions}}<br/>
         {{notes}}
       </div>
+      <% end %>
     </div>
   </div>
 </div>
