@@ -12,21 +12,12 @@
       <%= f.text_area :instructions %>
 
       <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]])) %>
-      Choose default:
-      <div id="ftype-1">
-        <%= f.select(:fvalues, options_for_select([['True',1],['False',0]])) %>
-      </div>
-
-      <div id="ftype-2">
-        <% ['A','B','C'].each do |feature| %>
-          <br><%= check_box_tag 'features[]',feature,(params[:fvalues] || {}).include?(feature) %>
-          <%= feature.humanize %>
-        <% end %>
-      </div>
-
-      <div id="ftype-3" style="display: none">
-
-      </div>      
+      Options:
+      <div id="feature-list">
+        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %>
+        <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %>
+        <div class="btn" id="add-new">Add</div>
+      </div>    
       <%= f.submit "Create feature", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

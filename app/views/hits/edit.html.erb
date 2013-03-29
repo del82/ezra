@@ -139,7 +139,7 @@
           <%  if(feature.ftype == 2) %>
             <% feature.fvalues.each_with_index do |value,val_index| %>
               <label class="textbox">
-                <%= text_field_tag("hit[feat_vals][#{index}][]",value) %>
+                <%= text_field_tag("hit[feat_vals][#{index}][]",@hit.feat_vals["#{index}"][0],:placeholder => value) %>
               </label>
             <% end %>
           <% end %>
