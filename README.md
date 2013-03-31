@@ -18,11 +18,12 @@ Set up:
   -  `$ rake db:migrate`
   -  `$ rake db:populate`
   -  `$ rake db:test:prepare`
-8. run the tests:
+8. annotate the source: `bundle exec annotate`
+9. run the tests:
   -  `$ rspec`
-9. If you like, start guard/spork to detect code changes and run tests
+10. If you like, start guard/spork to detect code changes and run tests
   automatically.
   - `$ guard`
-10. Hack away
+11. Hack away
 
 
