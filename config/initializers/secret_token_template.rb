@@ -4,4 +4,9 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Ezra::Application.config.secret_token = 'bfade3f12aa17cfaa7720786543cffd682e3b02125a50e73f825d44e21d6b82f9a5df560f837809d47987e005d33fd9feecae46d54face15ec9573b3713a9bde'
+
+# Copy this file to secret_token.rb, run 'rake secret' to generate a
+# secret token, replace 'your secret token' below with that secret token,
+# and uncomment the last line.
+
+# Ezra::Application.config.secret_token = 'your secret token.'

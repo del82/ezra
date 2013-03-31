@@ -23,3 +23,7 @@ vendor/cache
 
 # Ignore media files
 /public/audio
+
+# ignore session secret file, forcing users to generate their own
+config/initializers/secret_token.rb
+
