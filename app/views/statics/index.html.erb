@@ -1,0 +1,27 @@
+<h1>Listing statics</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Slug</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @statics.each do |static| %>
+  <tr>
+    <td><%= static.title %></td>
+    <td><%= static.content %></td>
+    <td><%= static.slug %></td>
+    <td><%= link_to 'Show', static %></td>
+    <td><%= link_to 'Edit', edit_static_path(static) %></td>
+    <td><%= link_to 'Destroy', static, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Static', new_static_path %>

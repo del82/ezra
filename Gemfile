@@ -11,6 +11,7 @@ gem 'jquery-rails', '~> 2.0.2'
 gem 'sqlite3', '~> 1.3.5'
 gem 'rdiscount', '~> 2.0.7'
 gem 'public_activity', '~> 1.0.3'
+gem 'friendly_id', '~> 4.0.9'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'

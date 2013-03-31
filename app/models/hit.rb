@@ -14,6 +14,7 @@
 #  feat_vals       :text
 #  window_start    :float
 #  window_duration :float
+#  notes           :text
 #
 
 class Hit < ActiveRecord::Base
