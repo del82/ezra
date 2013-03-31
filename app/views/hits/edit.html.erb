@@ -114,11 +114,13 @@
           <%  if(feature.ftype == 0) %>
             <% feature.fvalues.each do |value| %>
               <label class="radio">
-                <% if(has_saved_feature)
-                    has_value = (@hit.feat_vals["#{index}"][0] == value)
-                  end
+                <%  if(has_saved_feature)
+                      if(!@hit.feat_vals["#{index}"].blank?)
+                        has_value = (@hit.feat_vals["#{index}"][0] == value)
+                      end
+                    end
                 %>
-                <%= radio_button_tag("hit[feat_vals][#{index}][]",value,has_value) %>
+                <%= radio_button_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
                 <%= value %>
               </label>
             <% end %>
@@ -131,7 +133,7 @@
                     has_value = @hit.feat_vals["#{index}"].include?(value)
                   end
                 %>
-                <%= check_box_tag("hit[feat_vals][#{index}][]",value,has_value) %>
+                <%= check_box_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
                 <%= value %>
               </label>
             <% end %>
@@ -139,7 +141,13 @@
           <%  if(feature.ftype == 2) %>
             <% feature.fvalues.each_with_index do |value,val_index| %>
               <label class="textbox">
-                <%= text_field_tag("hit[feat_vals][#{index}][]",@hit.feat_vals["#{index}"][0],:placeholder => value) %>
+                <%  if(@hit.feat_vals["#{index}"].blank?)
+                      feat_val = ""
+                    else
+                      feat_val = @hit.feat_vals["#{index}"][val_index]
+                    end
+                  %>
+                <%= text_field_tag("hit[feat_vals][#{index}][]",feat_val,:placeholder => value,:class => "needs-validation") %>
               </label>
             <% end %>
           <% end %>
