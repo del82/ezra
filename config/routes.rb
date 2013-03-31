@@ -1,4 +1,7 @@
 Ezra::Application.routes.draw do
+  resources :statics
+
+
   get "activities/index"
 
   resources :users
@@ -19,6 +22,7 @@ Ezra::Application.routes.draw do
   match '/publications', to: "static_pages#publications"
   match '/links', to: "static_pages#links"
 
+  match '/:id', to: "statics#show"
 
   root to: 'static_pages#home'
 
