@@ -23,8 +23,8 @@ Ezra::Application.routes.draw do
   match '/links', to: "static_pages#links"
 
   match '/:id', to: "statics#show"
-
-  root to: 'static_pages#home'
+  match '/' => redirect("/home")
+  #root to: 'static_pages#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
