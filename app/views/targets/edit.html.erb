@@ -9,6 +9,8 @@
       <%= f.text_field :phrase %>
       
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+
+      <%= f.select :feature_ids, Feature.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
     <% end %>
   </div>
 </div>

@@ -39,7 +39,7 @@ class TargetsController < ApplicationController
     @target = Target.find(params[:id])
     if @target.update_attributes(params[:target], user: @user)
       flash[:success] = "Update successful."
-      render 'show'
+      redirect_to target_path(@target)
     else
       render 'edit'
     end

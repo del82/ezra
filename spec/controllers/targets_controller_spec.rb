@@ -260,7 +260,7 @@ describe TargetsController do
           target.phrase.should eq("New Phrase")
         end
         it "should render the :show template on success" do
-          response.should render_template :show
+          response.should redirect_to target_path(target)
         end
       end
     end

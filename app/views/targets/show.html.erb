@@ -6,10 +6,6 @@
   Unconfirmed: <span class="unconfirmed"> <%= @hits.where(:confirmed => 0).count %> </span> <br/>
   Not Present: <span class="not-present"> <%= @hits.where(:confirmed => -1).count %> </span>
   <h3>Features 
-  <% if(@user.admin) %>
-    <a href="#addFeature" role="button" class="btn" data-toggle="modal">add</a></h3>
-  <% end %>
-
   <table class="table table-striped">
     <%= render @features %>
   </table>

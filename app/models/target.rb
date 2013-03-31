@@ -12,7 +12,7 @@
 class Target < ActiveRecord::Base
   include PublicActivity::Common
 
-  attr_accessible :phrase
+  attr_accessible :phrase, :feature_ids
   belongs_to :user, :inverse_of => :targets
   has_and_belongs_to_many :features
   has_many :hits
