@@ -22,9 +22,10 @@ Ezra::Application.routes.draw do
   match '/publications', to: "static_pages#publications"
   match '/links', to: "static_pages#links"
 
-  match '/:id', to: "statics#show"
-  match '/' => redirect("/home")
-  #root to: 'static_pages#home'
+  # Comment back in when ready to move static pages fully into database. 
+  # match '/:id', to: "statics#show"
+  # match '/' => redirect("/home")
+  root to: 'static_pages#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

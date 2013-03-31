@@ -14,9 +14,17 @@ class StaticsController < ApplicationController
   # GET /statics/1
   # GET /statics/1.json
   def show
-    @static = Static.find(params[:id])
-    render 'public/404', :status => 404 if @static.nil?
+    @static = Static.find_by_slug(params[:id])
+    if @static.nil?
+      @static = Static.new
+      render 'new'
+      #@static = Static.new
+      #@static.title = "Page not found"
+      #@static.content = "404 LOLZ"
+    end
+    #render 'public/404', :status => 404 if @static.nil?
   end
+
 
   # GET /statics/new
   # GET /statics/new.json
