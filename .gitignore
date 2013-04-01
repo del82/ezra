@@ -27,3 +27,5 @@ vendor/cache
 # ignore session secret file, forcing users to generate their own
 config/initializers/secret_token.rb
 
+# ignore compiled assets
+/public/assets
