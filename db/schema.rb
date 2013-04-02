@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402004538) do
+ActiveRecord::Schema.define(:version => 20130402025418) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -78,9 +78,11 @@ ActiveRecord::Schema.define(:version => 20130402004538) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "short_title"
+    t.integer  "sort"
   end
 
   add_index "statics", ["slug"], :name => "index_statics_on_slug", :unique => true
+  add_index "statics", ["sort"], :name => "index_statics_on_sort"
 
   create_table "targets", :force => true do |t|
     t.string   "phrase"

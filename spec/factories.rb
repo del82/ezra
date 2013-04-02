@@ -40,6 +40,7 @@ FactoryGirl.define do
     sequence(:title) { |n| "Static page #{n}" }
     sequence(:short_title) { |n| "Static #{n}" }
     sequence(:slug) { |n| "static_#{n}" }
+    sequence(:sort) { |n| n }
     sequence(:content) do
       |n| "
 # Example page #{n}
