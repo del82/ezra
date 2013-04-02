@@ -27,7 +27,7 @@ describe StaticsController do
         end
 
         it "redirects to 404 page" do
-          response.should redirect_to('/404')
+          response.status.should eq(404)
         end
       end
     end
