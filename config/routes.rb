@@ -1,8 +1,8 @@
 Ezra::Application.routes.draw do
-  resources :statics
 
 
-  get "activities/index"
+
+
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
@@ -10,21 +10,20 @@ Ezra::Application.routes.draw do
   resources :features
   resources :hits
   resources :activities, only: [:index]
+  resources :statics, only: [:show]
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-
-
 
   # static pages
   match '/about', to: "static_pages#about"
   match '/people', to: "static_pages#people"
   match '/publications', to: "static_pages#publications"
   match '/links', to: "static_pages#links"
+  match '/', to: "static_pages#home"
 
-  # Comment back in when ready to move static pages fully into database. 
-  # match '/:id', to: "statics#show"
-  # match '/' => redirect("/home")
+  match '/:id', to: "statics#show"
+
   root to: 'static_pages#home'
 
   # The priority is based upon order of creation:
