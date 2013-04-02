@@ -9,6 +9,7 @@ namespace :db do
     associate_features_with_targets
     make_hits
     create_activity
+    create_static_pages
   end
 end
 
@@ -96,8 +97,6 @@ def make_hit target=nil
                       window_duration: 10.3,
                       notes: Faker::Lorem.sentences(1)
                       )
-
-
 end
 
 def make_hits n_hits=30
@@ -107,15 +106,83 @@ def make_hits n_hits=30
   end
 end
 
- def create_activity n_times=20
-   hits = Hit.all
-   users = User.all
-   targets = Target.all
-   n_times.times do |n|
-     t = targets.sample
-     hits.sample.create_activity(:update, owner: users.sample, recipient: t,
-                                 params: { phrase: t.phrase })
-   end
- end
+def create_activity n_times=20
+  hits = Hit.all
+  users = User.all
+  targets = Target.all
+  n_times.times do |n|
+    t = targets.sample
+    hits.sample.create_activity(:update, owner: users.sample, recipient: t,
+                                params: { phrase: t.phrase })
+  end
+end
+
+def create_home_page
+  title = "Home"
+  short_title = "Home"
+  slug = "home"
+  sort = -1
+  content = "#### Home page
+
+Distinctions of prosody (rhythm, stress, and intonation) are
+ubiquitous in spoken language. It often seems obvious to a native
+speakers of English what prosody is most appropriate in a given
+sentence and context, and researchers in Linguistics and related
+fields have proposed numerous formalized hypotheses about it. But
+establishing the validity of these hypotheses is remarkably
+elusive. Much of the problem is that it is difficult to observe enough
+examples of a given phenomenon to evaluate hypotheses. The project
+aims to address this problem of a dearth of data by collecting or
+\"harvesting\" examples of specific word sequences or word patterns
+from web sources. It is often possible to find hundreds or thousands
+of examples of people using the very same word pattern. If these
+examples are collected together into a dataset and made available to
+the research community, it will be possible to evaluate theories about
+the form and meaning of prosody on an unprecedented scale.
+"
+
+  Static.create!(title: title, short_title: short_title,
+                 slug: slug, content: content, sort: sort)
+
+end
+
+def create_static_page n=0
+  title = "Static Page #{n}"
+  short_title = "Page #{n}"
+  slug = "page#{n}"
+  sort = n
+  content = "
+sample page #{n}
+====================
+
+A Second Level Header
+---------------------
+
+https://github.com
+Now is the time for all good men to come to
+the aid of their country. This is just a
+regular paragraph.
+
+The quick brown fox jumped over the lazy
+dog's back.
+
+### Header 3
+
+> This is a blockquote.
+>
+> This is the second paragraph in the blockquote.
+>
+> ## This is an H2 in a blockquote
+"
+  Static.create!(title: title, short_title: short_title,
+                 slug: slug, content: content, sort: sort)
+end
+
+def create_static_pages n_pages=4
+  create_home_page
+  n_pages.times do |n|
+    create_static_page n
+  end
+end
 
 

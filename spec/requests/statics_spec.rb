@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 describe "Statics" do
-  describe "GET /statics" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get statics_path
-      response.status.should be(200)
-    end
+  describe "home static"do
+    pending "GET / should return home static"
+    pending "GET /home should return home static"
+    pending "should not have delete link"
   end
 end

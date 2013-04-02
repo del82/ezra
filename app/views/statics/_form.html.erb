@@ -1,4 +1,4 @@
-<%= form_for(@static) do |f| %>
+<%# form_for(@static) do |f| %>
   <% if @static.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@static.errors.count, "error") %> prohibited this static from being saved:</h2>
@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%# f.label :title %><br />
+    <%# f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%# f.label :content %><br />
+    <%# f.text_area :content %>
   </div>
   <div class="field">
-    <%= f.label :slug %><br />
-    <%= f.text_field :slug %>
+    <%# f.label :slug %><br />
+    <%# f.text_field :slug %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%# f.submit %>
   </div>
-<% end %>
+<%# end %>

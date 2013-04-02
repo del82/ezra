@@ -1,5 +1,3 @@
-<li><%= link_to "About",        about_path %></li>
-<li><%= link_to "People",       people_path %></li>
-<li><%= link_to "Publications", publications_path %></li>
-<li><%= link_to "Links",        links_path %></li>      
-
+<% @statics.each do |static| %>
+<li><%= link_to static.short_title, static_path(static) %></li>
+<% end %>

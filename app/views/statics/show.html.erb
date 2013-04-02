@@ -1,2 +1,3 @@
 <% provide(:title, @static.title.to_s) %>
-<%= raw @static.content %>
+
+<%= render_markdown(@static.content) %>

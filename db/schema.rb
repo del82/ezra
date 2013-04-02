@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331194429) do
+ActiveRecord::Schema.define(:version => 20130402025418) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -75,11 +75,14 @@ ActiveRecord::Schema.define(:version => 20130331194429) do
     t.string   "title"
     t.text     "content"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "short_title"
+    t.integer  "sort"
   end
 
   add_index "statics", ["slug"], :name => "index_statics_on_slug", :unique => true
+  add_index "statics", ["sort"], :name => "index_statics_on_sort"
 
   create_table "targets", :force => true do |t|
     t.string   "phrase"
@@ -101,7 +104,6 @@ ActiveRecord::Schema.define(:version => 20130331194429) do
     t.string   "password_digest"
     t.boolean  "admin",           :default => false
     t.string   "remember_token"
-    t.integer  "recent_target"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
