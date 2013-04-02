@@ -16,15 +16,15 @@ Ezra::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   # static pages
-  match '/about', to: "static_pages#about"
-  match '/people', to: "static_pages#people"
-  match '/publications', to: "static_pages#publications"
-  match '/links', to: "static_pages#links"
-  match '/', to: "static_pages#home"
+  # match '/about', to: "static_pages#about"
+  # match '/people', to: "static_pages#people"
+  # match '/publications', to: "static_pages#publications"
+  # match '/links', to: "static_pages#links"
+  # match '/', to: "static_pages#home"
 
   match '/:id', to: "statics#show"
 
-  root to: 'static_pages#home'
+  root to: 'statics#show', id: 'home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

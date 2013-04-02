@@ -117,6 +117,35 @@ def create_activity n_times=20
   end
 end
 
+def create_home_page
+  title = "Home"
+  short_title = "Home"
+  slug = "home"
+  sort = -1
+  content = "#### Home page
+
+Distinctions of prosody (rhythm, stress, and intonation) are
+ubiquitous in spoken language. It often seems obvious to a native
+speakers of English what prosody is most appropriate in a given
+sentence and context, and researchers in Linguistics and related
+fields have proposed numerous formalized hypotheses about it. But
+establishing the validity of these hypotheses is remarkably
+elusive. Much of the problem is that it is difficult to observe enough
+examples of a given phenomenon to evaluate hypotheses. The project
+aims to address this problem of a dearth of data by collecting or
+\"harvesting\" examples of specific word sequences or word patterns
+from web sources. It is often possible to find hundreds or thousands
+of examples of people using the very same word pattern. If these
+examples are collected together into a dataset and made available to
+the research community, it will be possible to evaluate theories about
+the form and meaning of prosody on an unprecedented scale.
+"
+
+  Static.create!(title: title, short_title: short_title,
+                 slug: slug, content: content, sort: sort)
+
+end
+
 def create_static_page n=0
   title = "Static Page #{n}"
   short_title = "Page #{n}"
@@ -149,8 +178,11 @@ dog's back.
                  slug: slug, content: content, sort: sort)
 end
 
-def create_static_pages n_pages=5
+def create_static_pages n_pages=4
+  create_home_page
   n_pages.times do |n|
     create_static_page n
   end
 end
+
+

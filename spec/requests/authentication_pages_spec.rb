@@ -27,6 +27,7 @@ describe "Authentication" do
 
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
+      let!(:static) { FactoryGirl.create(:static) }
       before do
         fill_in "Username", with: user.username
         fill_in "Password", with: user.password
@@ -40,10 +41,7 @@ describe "Authentication" do
       it { should_not have_link('Sign in', href: signin_path) }
 
       # static page links
-      it { should have_link('About', href: about_path) }
-      it { should have_link('People', href: people_path) }
-      it { should have_link('Publications', href: publications_path) }
-      it { should have_link('Links', href: links_path) }
+      it { should have_link(static.short_title, href: static_path(static)) }
 
       describe "followed by signout" do
         before { click_link "Sign out" }

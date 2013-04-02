@@ -36,6 +36,18 @@ FactoryGirl.define do
     target
   end
 
+  factory :homepage do
+    title 'Home'
+    short_title 'Home'
+    slug 'home'
+    sort -1
+    content "
+### Home page
+
+This is the home page!
+"
+  end
+
   factory :static do
     sequence(:title) { |n| "Static page #{n}" }
     sequence(:short_title) { |n| "Static #{n}" }
