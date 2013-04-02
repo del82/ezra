@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: statics
+#
+#  id          :integer          not null, primary key
+#  title       :string(255)
+#  content     :text
+#  slug        :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  short_title :text
+#  sort        :integer
+#
+
 require 'spec_helper'
 
 describe Static do

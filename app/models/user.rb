@@ -11,7 +11,6 @@
 #  password_digest :string(255)
 #  admin           :boolean          default(FALSE)
 #  remember_token  :string(255)
-#  recent_target   :integer
 #
 
 class User < ActiveRecord::Base
