@@ -35,9 +35,25 @@ FactoryGirl.define do
     notes "here is an example note."
     target
   end
-end
 
-# def pick_random_audiofile
-#   date = ["121409","121509","122109","122509","122909"].sample
-#   "audio/audio.wnyc.org/takeaway/takeaway#{date}.mp3"
-# end
+  factory :static do
+    sequence(:title) { |n| "Static page #{n}" }
+    sequence(:short_title) { |n| "Static #{n}" }
+    sequence(:slug) { |n| "static_#{n}" }
+    sequence(:content) do
+      |n| "
+# Example page #{n}
+
+Here is some *example* content.
+
+1.  list item
+2.  list item
+3.  list item
+
+Here's a [link to github](https://github.com).
+
+And here's the end of the example content.
+"
+    end
+  end
+end
