@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
 
   has_many :targets,  :inverse_of => :user
   has_many :features, :inverse_of => :user
+  has_one :stats
 
   before_save do
     self.email.downcase!

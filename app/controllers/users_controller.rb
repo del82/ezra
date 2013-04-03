@@ -19,6 +19,8 @@ class UsersController < ApplicationController
 
   def create  # POST /users         -> users_path
     @user = User.new(params[:user])
+    @stats = Stats.new(:recent => @user.id)
+    @user.stats = @stats
     if @user.save
       flash[:success] = "User #{@user.username} created successfully."
       render 'show'
