@@ -21,17 +21,19 @@ def make_users n_admins=2, n_users=10
                          password: "foobar",
                          password_confirmation: "foobar")
     admin.toggle!(:admin)
+    admin.stats = Stats.create(:recent => 1)
   end
   n_users.times do |n|
     name  = Faker::Name.name
     email = "example-#{n+1}@cornell.edu"
     username = "example-#{n+1}"
     password  = "password"
-    User.create!(name:     name,
+    user = User.create!(name:     name,
                  email:    email,
                  username: username,
                  password: password,
                  password_confirmation: password)
+    user.stats = Stats.create(:recent => 1)
   end
 end
 
