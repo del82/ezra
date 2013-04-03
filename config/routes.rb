@@ -5,6 +5,7 @@ Ezra::Application.routes.draw do
 
 
   resources :users
+  match '/users/:id/recent', to: 'users#recent'
   resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
