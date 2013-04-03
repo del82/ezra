@@ -49,8 +49,9 @@ class UsersController < ApplicationController
     if @user.stats.recent.blank?
       render 'show'
     else
-      @hit = Hit.find(@user.stats.recent.to_s)
-      redirect_to :controller => 'hits', :action => 'edit', :id => @hit.id
+      @target = Target.find(@user.stats.recent.to_s)
+      @next = Target.find(@target.id).hits.where(confirmed: '0').first
+      redirect_to :controller => 'hits', :action => 'edit', :id => @next.id
     end
   end
     # def destroy # DELETE /users/1     -> user_path(user)
