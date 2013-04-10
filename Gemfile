@@ -20,6 +20,8 @@ group :development, :test do
   gem 'guard-spork', '~> 1.4.1'
   gem 'spork', '~> 0.9.2'
   gem 'annotate', '~> 2.5.0'
+  gem 'better_errors'
+  gem "binding_of_caller"
 end
 
 # Gems used only for assets and not required

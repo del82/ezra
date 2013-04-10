@@ -54,7 +54,22 @@ class UsersController < ApplicationController
       redirect_to :controller => 'hits', :action => 'edit', :id => @next.id
     end
   end
-    # def destroy # DELETE /users/1     -> user_path(user)
-  # end
+  
 
+  def manage #GET/users/manage/:id
+    @user = User.find(params[:id])
+    @stats = @user.stats
+    @targets = Target.all
+
+  end
+
+  def manage_save
+    @user = User.find(params[:id])
+    @user.stats.availableTargets = params[:availableTargets]
+    if @user.stats.save
+      render 'show'
+    else
+      render 'manage'
+    end
+  end
 end

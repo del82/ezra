@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403221946) do
+ActiveRecord::Schema.define(:version => 20130409211355) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -84,14 +84,8 @@ ActiveRecord::Schema.define(:version => 20130403221946) do
   add_index "statics", ["slug"], :name => "index_statics_on_slug", :unique => true
   add_index "statics", ["sort"], :name => "index_statics_on_sort"
 
-  create_table "stats", :force => true do |t|
-    t.integer  "recent"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "stats", ["user_id"], :name => "index_stats_on_user_id"
+# Could not dump table "stats" because of following StandardError
+#   Unknown type 'array' for column 'availableTargets'
 
   create_table "targets", :force => true do |t|
     t.string   "phrase"

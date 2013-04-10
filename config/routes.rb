@@ -4,8 +4,10 @@ Ezra::Application.routes.draw do
 
 
 
-  resources :users
+  match '/users/manage/save', to: 'users#manage_save'
+  match '/users/manage/:id', to: 'users#manage'
   match '/users/:id/recent', to: 'users#recent'
+  resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
