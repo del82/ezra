@@ -1,6 +1,7 @@
 class TargetsController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, only: [:new, :create, :edit, :update]
+  before_filter :check_available_targets, only: [:show,:edit]
 
   def index   # GET /targets          -> targets_path
     @targets = Target.paginate(page: params[:page])
@@ -47,4 +48,13 @@ class TargetsController < ApplicationController
 
   #def destroy # DELETE /targets/1     -> target_path(target)
   #end
+  private
+
+  def check_available_targets
+    if !current_user.stats.availableTargets.include?(params[:id]) && !current_user.stats.availableTargets.empty?
+      flash[:notice] = "You are not authorized to edit this target"
+      @targets = Target.paginate(page: params[:page])
+      redirect_to '/targets'
+    end
+  end
 end

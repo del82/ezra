@@ -1,5 +1,4 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
-
   <h2><%= @target.phrase %></h2>
   Total: <%= @hits.count %> <br/> 
   Confirmed: <span class="confirmed"> <%= @hits.where(:confirmed => 1).count %> </span> <br/>
