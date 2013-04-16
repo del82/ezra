@@ -49,9 +49,21 @@ $(document).ready ->
 	$('.end-time-box input').change ->
 		manuallySetWindowBound('end')
 
-
 	$('#play-span').click ->
 		toWindowStart()
+
+	$('#download-clip').click ->
+		console.log("Downloading...")
+		$.ajax 'download',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id: $('#id').val()
+			},
+			success: (response) ->
+				console.log(response.link)
+			
+		
 
 	windowStart = smt.secondsToRaw($('#hit_window_start').val())
 	windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))

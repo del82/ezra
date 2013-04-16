@@ -36,7 +36,10 @@ class HitsController < ApplicationController
     #     file.write(mp3.read)
     #   end
     # end
-    @cmd = `cutmp3 -i app/assets/audios/Tromboon-sample.mp3 -a 0:03 -b 0:09 -O app/assets/audios/test.mp3`
+    startTime = '0:09'
+    endTime = '0:13'
+    command = 'cutmp3 -i app/assets/audios/Tromboon-sample.mp3 -a '+startTime+' -b '+endTime+' -O app/assets/audios/test.mp3'
+    @cmd = `#{command}`
     # @cmd = system 'cutmp3 -i app/assets/audios/voluptas_in.mp3 -a 0:03 -b 0:05 -O app/assets/audios/test.mp3'
     flash[:success] = @cmd
     render 'show'
