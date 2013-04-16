@@ -1,0 +1,10 @@
+<% provide(:title, "Manage \"" + @user.name + "\"") %>
+<h1> Manage user "<%= @user.name %>"</h1>
+<div class="row">
+  <div class="span6 offset3">
+		<%= form_tag(:controller => "users", :action => "manage_save", :method => "post", :remote => true) %>
+		<%= select_tag "availableTargets", options_from_collection_for_select(@targets, "id", "phrase",@user.stats.availableTargets), :multiple => true %>
+		<%= hidden_field_tag "id",@user.id %>
+		<%= submit_tag "Save changes", class: "btn btn-large btn-primary" %>
+	</div>
+</div>

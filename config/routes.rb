@@ -12,6 +12,7 @@ Ezra::Application.routes.draw do
   resources :targets
   resources :features
   resources :hits
+  match '/hits/:id/download', to: 'hits#download_file'
   resources :activities, only: [:index]
   resources :statics, only: [:show]
 

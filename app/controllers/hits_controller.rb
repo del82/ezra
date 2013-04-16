@@ -1,3 +1,5 @@
+require 'open-uri'
+require 'securerandom'
 class HitsController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, only: [:new, :create]
@@ -22,6 +24,22 @@ class HitsController < ApplicationController
     @hit = Hit.find(params[:id])
     @target = @hit.target
     @features = Target.find(@target.id).features
+  end
+
+  def download_file
+    @hit = Hit.find(params[:id])
+    # url = "http://"+@hit.audio_file[6,@hit.audio_file.length]
+    # name = params[:phrase].sub(/ /,'_') #+SecureRandom.uuid #is it better to use a timestamp?
+    # loc = 'app/assets/audios/'+name+'.mp3'
+    # open(url, 'rb') do |mp3|
+    #   File.open(loc, 'wb') do |file|
+    #     file.write(mp3.read)
+    #   end
+    # end
+    @cmd = `cutmp3 -i app/assets/audios/Tromboon-sample.mp3 -a 0:03 -b 0:09 -O app/assets/audios/test.mp3`
+    # @cmd = system 'cutmp3 -i app/assets/audios/voluptas_in.mp3 -a 0:03 -b 0:05 -O app/assets/audios/test.mp3'
+    flash[:success] = @cmd
+    render 'show'
   end
 
   def update  # PUT /hits/:id  -> hit_path(hit)

@@ -1,5 +1,9 @@
 <% provide(:title, "Edit hit " + @hit.id.to_s ) %>
 
+<%= form_tag(:controller => "hits", :action => "download_file", :method => "post", :remote => true) %>
+<%= hidden_field_tag "phrase",@target.phrase %>
+<%= hidden_field_tag "id",@hit.id %>
+<%= submit_tag "Save changes", class: "btn btn-large btn-primary" %>
 <div class="row">
 
 <%= form_for(@hit) do |f| %>

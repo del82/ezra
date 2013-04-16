@@ -29,3 +29,6 @@ config/initializers/secret_token.rb
 
 # ignore compiled assets
 /public/assets
+
+# ignore downloaded audio files
+/app/assets/audios
