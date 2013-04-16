@@ -24,7 +24,7 @@ $(document).ready ->
 	$('.status-box').tooltip()
 	$('[data-status='+confirmed+']').addClass('selected')
 	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
-	$('#alertBox').hide()
+	$('#alertBox,#downloading').hide()
 
 	$('.needs-validation, .transcript-time').change ->
 		changeSave()
@@ -53,15 +53,21 @@ $(document).ready ->
 		toWindowStart()
 
 	$('#download-clip').click ->
-		console.log("Downloading...")
+		$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
 		$.ajax 'download',
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				id: $('#id').val()
+				id: $('#id').val(),
+				startTime: smt.toSeconds(smt.secondsToRaw($('#hit_window_start').val())),
+				endTime: smt.toSeconds(smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val())))
 			},
 			success: (response) ->
-				console.log(response.link)
+				$('#downloading').html("<a href='"+response.link+"'>Listen here</a>"+response.command)
+			,
+			error: (xhr) ->
+				errors = $.parseJSON(xhr.responseText).errors
+				$('#downloading').text(errors)
 			
 		
 

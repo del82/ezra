@@ -28,21 +28,34 @@ class HitsController < ApplicationController
 
   def download_file
     @hit = Hit.find(params[:id])
-    # url = "http://"+@hit.audio_file[6,@hit.audio_file.length]
-    # name = params[:phrase].sub(/ /,'_') #+SecureRandom.uuid #is it better to use a timestamp?
-    # loc = 'app/assets/audios/'+name+'.mp3'
-    # open(url, 'rb') do |mp3|
-    #   File.open(loc, 'wb') do |file|
-    #     file.write(mp3.read)
-    #   end
-    # end
-    startTime = '0:09'
-    endTime = '0:13'
-    command = 'cutmp3 -i app/assets/audios/Tromboon-sample.mp3 -a '+startTime+' -b '+endTime+' -O app/assets/audios/test.mp3'
-    @cmd = `#{command}`
-    # @cmd = system 'cutmp3 -i app/assets/audios/voluptas_in.mp3 -a 0:03 -b 0:05 -O app/assets/audios/test.mp3'
-    flash[:success] = @cmd
-    render 'show'
+    raw = @hit.target.phrase+"_id-"+params[:id]
+    raw.gsub!(/ /,'_')
+    rawLoc = 'app/assets/audios/'+raw+'.mp3'
+    
+    if !File.exist?(rawLoc)
+      url = "http://parryc.com/files/mp3/Tromboon-sample.mp3" #"http://"+@hit.audio_file[6,@hit.audio_file.length]
+      open(url, 'rb') do |mp3|
+        File.open(rawLoc, 'wb') do |file|
+          file.write(mp3.read)
+        end
+      end
+    end
+
+    name = @hit.target.phrase+"_id-"+params[:id]+"_"+Time.now.strftime("%Y%m%dT%H%M")
+    name = name.gsub!(/ /,'_')
+    cutLoc = 'app/assets/audios/'+name+'.mp3'
+    startTime = params[:startTime]
+    endTime = params[:endTime]
+    command = 'cutmp3 -i '+rawLoc+' -a '+startTime+' -b '+endTime+' -O '+cutLoc#app/assets/audios/test.mp3'
+    @cmd = system command
+    respond_to do |format|
+      if @cmd
+        format.json { render :json => {:link => ActionController::Base.helpers.asset_path(name+".mp3"), :command => command}}
+      else
+        format.json { render :json => {:errors => "Something went wrong, shoot!", :status => 422, :command => command }}
+      end
+
+    end
   end
 
   def update  # PUT /hits/:id  -> hit_path(hit)

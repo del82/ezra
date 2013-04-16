@@ -1,9 +1,5 @@
 <% provide(:title, "Edit hit " + @hit.id.to_s ) %>
 
-<%= form_tag(:controller => "hits", :action => "download_file", :method => "post", :remote => true) %>
-<%= hidden_field_tag "phrase",@target.phrase %>
-<%= hidden_field_tag "id",@hit.id %>
-<div class="btn" id="download-clip">Download</div>
 <div class="row">
 
 <%= form_for(@hit) do |f| %>
@@ -49,6 +45,15 @@
             <li><a href="http://<%= @hit.audio_file[6,@hit.audio_file.length] %>">Click to play</a></li>
             </ul>
         </div>
+      </div>
+      <br/>
+      <div class="row"> 
+        <div class="span2">
+          <%= hidden_field_tag "phrase",@target.phrase %>
+          <%= hidden_field_tag "id",@hit.id %>
+          <div class="btn" id="download-clip">Download</div>
+        </div>
+        <div id="downloading" class="span4"></div>
       </div>
       <br/>
       <div id="hit-info" class="row">
