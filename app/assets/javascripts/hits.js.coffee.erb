@@ -2,79 +2,81 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $(document).ready ->
-	soundManager.url = "<%= asset_path('soundmanager2_debug.swf') %>"
-	soundManager.debug = false
-	soundManager.useHighPerformance = true
-	soundManager.useFastPolling = true
-	soundManager.useHTML5Audio = true
-	soundManager.autoLoad = true
-	window.smt = soundManagerTime();
+	# Because I don't want to deal with rails' asset pipeline conditional loading.
+	if window.location.pathname.indexOf("hits") isnt -1 
+		soundManager.url = "<%= asset_path('soundmanager2_debug.swf') %>"
+		soundManager.debug = false
+		soundManager.useHighPerformance = true
+		soundManager.useFastPolling = true
+		soundManager.useHTML5Audio = true
+		soundManager.autoLoad = true
+		window.smt = soundManagerTime();
 
-	PP_CONFIG = {
-		autoStart: false,      # begin playing first sound when page loads
-		playNext: true,        # stop after one sound, or play through list until end
-		useThrottling: false,  # try to rate-limit potentially-expensive calls (eg. dragging position around)</span>
-		usePeakData: true,     # [Flash 9 only] whether or not to show peak data (left/right channel values) - nor noticable on CPU
-		useWaveformData: false,# [Flash 9 only] show raw waveform data - WARNING: LIKELY VERY CPU-HEAVY
-		useEQData: false,      # [Flash 9 only] show EQ (frequency spectrum) data
-		useFavIcon: false      # try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?) - may be too heavy on CPU
-	}
+		PP_CONFIG = {
+			autoStart: false,      # begin playing first sound when page loads
+			playNext: true,        # stop after one sound, or play through list until end
+			useThrottling: false,  # try to rate-limit potentially-expensive calls (eg. dragging position around)</span>
+			usePeakData: true,     # [Flash 9 only] whether or not to show peak data (left/right channel values) - nor noticable on CPU
+			useWaveformData: false,# [Flash 9 only] show raw waveform data - WARNING: LIKELY VERY CPU-HEAVY
+			useEQData: false,      # [Flash 9 only] show EQ (frequency spectrum) data
+			useFavIcon: false      # try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?) - may be too heavy on CPU
+		}
 
-	confirmed = $('#selections').attr("data-loaded")
-	$('.status-box').tooltip()
-	$('[data-status='+confirmed+']').addClass('selected')
-	$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
-	$('#alertBox,#downloading').hide()
+		confirmed = $('#selections').attr("data-loaded")
+		$('.status-box').tooltip()
+		$('[data-status='+confirmed+']').addClass('selected')
+		$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
+		$('#alertBox,#downloading').hide()
 
-	$('.needs-validation, .transcript-time').change ->
-		changeSave()
+		$('.needs-validation, .transcript-time').change ->
+			changeSave()
 
-	$('.needs-validation').click ->
-		changeSave()
+		$('.needs-validation').click ->
+			changeSave()
 
-	$('.status-box').click ->
-		value = $(this).attr("data-status")
-		setStatus(value)
+		$('.status-box').click ->
+			value = $(this).attr("data-status")
+			setStatus(value)
 
-	$('#mark-hit').click ->
-		$('#location').html(smt.toText(smt.getTime()))
-		$('#hit_location').val(smt.toSeconds(smt.getTime()))
+		$('#mark-hit').click ->
+			$('#location').html(smt.toText(smt.getTime()))
+			$('#hit_location').val(smt.toSeconds(smt.getTime()))
 
-	$('.now').click ->
-		setWindowBound($(this))
+		$('.now').click ->
+			setWindowBound($(this))
 
-	$('.start-time-box input').change ->
-		manuallySetWindowBound('start')
+		$('.start-time-box input').change ->
+			manuallySetWindowBound('start')
 
-	$('.end-time-box input').change ->
-		manuallySetWindowBound('end')
+		$('.end-time-box input').change ->
+			manuallySetWindowBound('end')
 
-	$('#play-span').click ->
-		toWindowStart()
+		$('#play-span').click ->
+			toWindowStart()
 
-	$('#download-clip').click ->
-		$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
-		$.ajax 'download',
-			type: 'POST',
-			dataType: 'json',
-			data: {
-				id: $('#id').val(),
-				startTime: smt.toSeconds(smt.secondsToRaw($('#hit_window_start').val())),
-				endTime: smt.toSeconds(smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val())))
-			},
-			success: (response) ->
-				$('#downloading').html("Saved successfully! <a href='"+response.link+"'>Listen here</a>")
-			,
-			error: (xhr) ->
-				errors = $.parseJSON(xhr.responseText).errors
-				$('#downloading').text(errors)
+		$('#download-clip').click ->
+			$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
+			$.ajax 'download',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					id: $('#id').val(),
+					startTime: smt.toSeconds(smt.secondsToRaw($('#hit_window_start').val())),
+					endTime: smt.toSeconds(smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val())))
+				},
+				success: (response) ->
+					$('#downloading').html("Saved successfully! <a href='"+response.link+"'>Listen here</a>")
+				,
+				error: (xhr) ->
+					errors = $.parseJSON(xhr.responseText).errors
+					$('#downloading').text(errors)
+				
 			
-		
 
-	windowStart = smt.secondsToRaw($('#hit_window_start').val())
-	windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
-	setWindowTime('start', windowStart)
-	setWindowTime('end', windowDuration)
+		windowStart = smt.secondsToRaw($('#hit_window_start').val())
+		windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
+		setWindowTime('start', windowStart)
+		setWindowTime('end', windowDuration)
 
 
 changeSave = () ->

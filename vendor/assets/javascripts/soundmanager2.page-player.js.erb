@@ -1077,7 +1077,8 @@ function PagePlayer() {
 
 }
 
-
+//Because I don't want to deal with rails' asset pipeline conditional loading.
+if(window.location.pathname.indexOf("hits") !== -1) {
 
 soundManager.useFlashBlock = true;
 
@@ -1091,3 +1092,4 @@ soundManager.onready(function() {
   window.togglePlayer();
   window.setTimeout(window.togglePlayer,2000);
 });
+}

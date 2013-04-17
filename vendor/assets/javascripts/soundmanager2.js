@@ -33,7 +33,8 @@
 (function(window) {
 
 var soundManager = null;
-
+//Because I don't want to deal with rails' asset pipeline conditional loading.
+if(window.location.pathname.indexOf("hits") !== -1) {
 /**
  * The SoundManager constructor.
  *
@@ -5101,5 +5102,5 @@ if (typeof SM2_DEFER === 'undefined' || !SM2_DEFER) {
 
 window.SoundManager = SoundManager; // constructor
 window.soundManager = soundManager; // public API, flash callbacks etc.
-
+}
 }(window));
