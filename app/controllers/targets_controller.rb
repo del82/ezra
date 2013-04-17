@@ -16,6 +16,7 @@ class TargetsController < ApplicationController
     end
     @hits   = @target.hits.where(hits_params)
     @features = @target.features
+    @savedFiles = Dir.glob('app/assets/audios/voluptas_in_*_*.mp3')
   end
 
   def new     # GET /targets/new      -> new_target_path

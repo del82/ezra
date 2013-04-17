@@ -12,5 +12,27 @@
   <table class="table table-striped">
     <%= render @hits %>
   </table>
+  <h3>Saved Hits</h3>
+  <table class="table table-striped">
+    <thead>
+      <th>ID</th>
+      <th>Save Date</th>
+    </thead>
+    <%  @savedFiles.each do |f|
+          trimmed = f.gsub!(/app\/assets\/audios\//,'')
+          matches = trimmed.scan(/(.*)_id-(.*)_(.*).mp3/) [0]
+          id = matches[1]
+          date = DateTime.parse(matches[2]).strftime("%Y-%m-%d %H:%M")
+    %>
+      <tr>
+        <td>
+          <a href="<%= asset_path(f.gsub!(/app\/assets\/audios\//,'')) %>"><%= id%></a>
+        </td>
+        <td>
+          <%= date %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <br />
 
