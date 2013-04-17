@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'securerandom'
+require 'open3'
 class HitsController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, only: [:new, :create]
@@ -33,7 +33,7 @@ class HitsController < ApplicationController
     rawLoc = 'app/assets/audios/'+raw+'.mp3'
     
     if !File.exist?(rawLoc)
-      url = "http://parryc.com/files/mp3/Tromboon-sample.mp3" #"http://"+@hit.audio_file[6,@hit.audio_file.length]
+      url = "http://"+@hit.audio_file[6,@hit.audio_file.length]
       open(url, 'rb') do |mp3|
         File.open(rawLoc, 'wb') do |file|
           file.write(mp3.read)
@@ -44,15 +44,21 @@ class HitsController < ApplicationController
     name = @hit.target.phrase+"_id-"+params[:id]+"_"+Time.now.strftime("%Y%m%dT%H%M")
     name = name.gsub!(/ /,'_')
     cutLoc = 'app/assets/audios/'+name+'.mp3'
-    startTime = params[:startTime]
-    endTime = params[:endTime]
+    # Include the : to force cutmp3 to use seconds, otherwise, if there are no
+    # trailing decimals, it will assume minutes
+    startTime = ':'+params[:startTime]
+    endTime = ':'+params[:endTime]
     command = 'cutmp3 -i '+rawLoc+' -a '+startTime+' -b '+endTime+' -O '+cutLoc#app/assets/audios/test.mp3'
     @cmd = system command
     respond_to do |format|
-      if @cmd
-        format.json { render :json => {:link => ActionController::Base.helpers.asset_path(name+".mp3"), :command => command}}
+      if File.exist?(cutLoc)
+        format.json { render :json => {:link => ActionController::Base.helpers.asset_path(name+".mp3")}}
       else
-        format.json { render :json => {:errors => "Something went wrong, shoot!", :status => 422, :command => command }}
+        # cutmp3 doesn't output to stderr (only stdout), so in order to get the correct error
+        # we need to re-run the process. All other shell calling methods return stdout (which is useless when
+        # checking if successful in this case), except 'system'
+        error = `#{command}`
+        format.json { render :json => {:errors => error }, :status => 422}
       end
 
     end

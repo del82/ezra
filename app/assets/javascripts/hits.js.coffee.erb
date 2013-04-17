@@ -63,7 +63,7 @@ $(document).ready ->
 				endTime: smt.toSeconds(smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val())))
 			},
 			success: (response) ->
-				$('#downloading').html("<a href='"+response.link+"'>Listen here</a>"+response.command)
+				$('#downloading').html("Saved successfully! <a href='"+response.link+"'>Listen here</a>")
 			,
 			error: (xhr) ->
 				errors = $.parseJSON(xhr.responseText).errors
