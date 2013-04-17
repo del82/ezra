@@ -56,7 +56,7 @@ $(document).ready ->
 
 		$('#download-clip').click ->
 			$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
-			$.ajax 'download',
+			$.ajax 'save_clip',
 				type: 'POST',
 				dataType: 'json',
 				data: {

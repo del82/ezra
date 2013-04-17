@@ -12,6 +12,7 @@
   <table class="table table-striped">
     <%= render @hits %>
   </table>
+  <% if current_user.admin? %>
   <h3>Saved Hits</h3>
   <table class="table table-striped">
     <thead>
@@ -26,7 +27,7 @@
     %>
       <tr>
         <td>
-          <a href="<%= asset_path(f) %>"><%= id %></a>
+          <a href="/hits/listen/<%= f %>"><%= id %></a>
         </td>
         <td>
           <%= date %>
@@ -34,5 +35,6 @@
       </tr>
     <% end %>
   </table>
+  <% end %>
 <br />
 

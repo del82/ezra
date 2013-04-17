@@ -47,6 +47,7 @@
         </div>
       </div>
       <br/>
+      <% if current_user.admin? %>
       <div class="row"> 
         <div class="span2">
           <%= hidden_field_tag "phrase",@target.phrase %>
@@ -55,6 +56,7 @@
         </div>
         <div id="downloading" class="span4"></div>
       </div>
+      <% end %>
       <br/>
       <div id="hit-info" class="row">
         located at
@@ -108,7 +110,6 @@
 
 
     <div id="feature-box">
-      <%= @hit.feat_vals %>
       <% @features.each_with_index do |feature,index| %>
       <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
         <h2><%= feature.name %></h2>

@@ -26,7 +26,7 @@ class HitsController < ApplicationController
     @features = Target.find(@target.id).features
   end
 
-  def download_file
+  def save_clip
     @hit = Hit.find(params[:id])
     raw = @hit.target.phrase+"_id-"+params[:id]
     raw.gsub!(/ /,'_')
@@ -52,7 +52,7 @@ class HitsController < ApplicationController
     @cmd = system command
     respond_to do |format|
       if File.exist?(cutLoc)
-        format.json { render :json => {:link => ActionController::Base.helpers.asset_path(name+".mp3")}}
+        format.json { render :json => {:link => '/hits/listen/'+name+'.mp3'}}
       else
         # cutmp3 doesn't output to stderr (only stdout), so in order to get the correct error
         # we need to re-run the process. All other shell calling methods return stdout (which is useless when
@@ -62,6 +62,10 @@ class HitsController < ApplicationController
       end
 
     end
+  end
+
+  def listen
+    redirect_to ActionController::Base.helpers.asset_path(params[:clip]+".mp3")
   end
 
   def update  # PUT /hits/:id  -> hit_path(hit)

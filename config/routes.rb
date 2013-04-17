@@ -12,7 +12,8 @@ Ezra::Application.routes.draw do
   resources :targets
   resources :features
   resources :hits
-  match '/hits/:id/download', to: 'hits#download_file'
+  match '/hits/:id/save_clip', to: 'hits#save_clip'
+  match '/hits/listen/:clip', to: 'hits#listen'
   resources :activities, only: [:index]
   resources :statics, only: [:show]
 
