@@ -88,6 +88,7 @@ describe TargetsController do
   context "authenticated as user" do
     let(:user) { FactoryGirl.create(:user) }
     let(:target) { FactoryGirl.create(:target, id: 500) }
+    let(:invalid_target) { FactoryGirl.create(:target, id: 9999)}
     let(:stats) { FactoryGirl.create(:stats) }
     before { 
       sign_in user
@@ -101,6 +102,24 @@ describe TargetsController do
       it "renders the :index view" do
         response.should render_template :index
         assigns(:targets).should eq([target])
+      end
+    end
+
+    describe "should not allow access to GET #show if not assigned the target" do
+      before{ get :show, id: invalid_target}
+      it "renders the :index view with error message" do
+        flash[:notice].should eql("You are not authorized to edit this target")
+        response.should render_template "index" 
+      end
+    end
+
+    describe "should allow access to GET #show if no targets are assigned at all" do
+      before{ 
+        user.stats.availableTargets = []
+        get :show, id: invalid_target
+      }
+      it "renders :show" do
+        response.should render_template "show" 
       end
     end
 

@@ -58,7 +58,8 @@ class TargetsController < ApplicationController
     if !current_user.stats.availableTargets.include?(params[:id]) && !current_user.stats.availableTargets.empty?
       flash[:notice] = "You are not authorized to edit this target"
       @targets = Target.paginate(page: params[:page])
-      redirect_to '/targets'
+      #redirect_to :action => 'index'
+      render 'index'
     end
   end
 end
