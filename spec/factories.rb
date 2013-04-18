@@ -1,10 +1,16 @@
 FactoryGirl.define do
+  factory :stats do
+    recent 1
+    availableTargets ["1","2","3","500"]
+  end
+
   factory :user do
     sequence(:name)  { |n| "Person #{n}" }
     sequence(:email) { |n| "person_#{n}@example.com"}
     sequence(:username) { |n| "person_#{n}" }
     password "foobar"
     password_confirmation "foobar"
+    stats
 
     factory :admin do
       admin true

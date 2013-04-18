@@ -88,8 +88,13 @@ describe TargetsController do
   context "authenticated as user" do
     let(:user) { FactoryGirl.create(:user) }
     let(:target) { FactoryGirl.create(:target, id: 500) }
-
-    before { sign_in user }
+    let(:stats) { FactoryGirl.create(:stats) }
+    before { 
+      sign_in user
+      # RIP 1.5 hours of time googling how to do this... jesus
+      # does no one else in the world use 'current_user'?
+      ApplicationController.any_instance.stub(:current_user).and_return(user)
+    }
 
     describe "should allow access to GET #index" do
       before { get :index }

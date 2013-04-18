@@ -52,6 +52,9 @@ class TargetsController < ApplicationController
   private
 
   def check_available_targets
+    # current_user = User.new
+    # stats = Stats.new
+    # current_user.stats = stats
     if !current_user.stats.availableTargets.include?(params[:id]) && !current_user.stats.availableTargets.empty?
       flash[:notice] = "You are not authorized to edit this target"
       @targets = Target.paginate(page: params[:page])

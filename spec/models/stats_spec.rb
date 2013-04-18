@@ -7,7 +7,7 @@
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  availableTargets :array
+#  availableTargets :text
 #
 
 require 'spec_helper'
