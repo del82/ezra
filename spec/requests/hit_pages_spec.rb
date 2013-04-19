@@ -27,6 +27,30 @@ describe "Hit pages" do
     end
   end
 
+  context "while signed in as admin" do
+    let(:admin) { FactoryGirl.create(:admin) }
+
+    before do
+      visit signin_path
+      fill_in "Password", with: admin.password
+      fill_in "Username", with: admin.username
+      click_button "Sign in"
+    end
+
+    # why is it not switching to be an admin?!
+    pending "edit hit page" do
+      before { visit edit_hit_path(hit) }
+
+      describe "should see the download file button" do
+        it { should have_selector('#download', text: 'Download') }
+      end
+
+      pending "should be able to download the file" do
+        #I don't know what to do here?
+      end
+    end
+
+  end
 
   context "while signed-in as user" do
     before do
@@ -82,39 +106,42 @@ describe "Hit pages" do
         # like these tests will ever actually pass.
         # I tried switching to Capybara-webkit, but
         # it's keeps throwing errors.
-        # I've commented these tests out, even though
-        # I wrote code to pass them, if they worked
+
         # Capybara.javascript_driver = :webkit
-        # describe "should change to 'Save changes'", :js => true do
-        #   it "when transcript is changed" do
-        #     fill_in "hit-transcript", with: "test notes go here"
-        #     find('#hit-transcript').trigger("change")
-        #     page.should have_button("Save changes")
-        #     page.should_not have_button("No changes")
-        #   end
+        pending "should change to 'Save changes'", :js => true do
+          it "when transcript is changed" do
+            fill_in "hit-transcript", with: "test notes go here"
+            find('#hit-transcript').trigger("change")
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
 
-        #   it "when flag is changed"  do
-        #     find('#flag-checkbox').click
-        #     find('#flag-checkbox').trigger("change")
-        #     page.should have_button("Save changes")
-        #     page.should_not have_button("No changes")
-        #   end
+          it "when flag is changed"  do
+            find('#flag-checkbox').click
+            find('#flag-checkbox').trigger("change")
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
 
-        #   it "when notes field is changed" do
-        #     fill_in "hit-notes", with: "test notes go here"
-        #     find('#hit-notes').trigger("change")
-        #     page.should have_button("Save changes")
-        #     page.should_not have_button("No changes")
-        #   end
+          it "when notes field is changed" do
+            fill_in "hit-notes", with: "test notes go here"
+            find('#hit-notes').trigger("change")
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
 
-        #   it "when transcript boundary is changed" do
-        #     fill_in "start-time-hours", with: 1
-        #     find('#start-time-hours').trigger("change")
-        #     page.should have_button("Save changes")
-        #     page.should_not have_button("No changes")
-        #   end
-        # end
+          it "when transcript boundary is changed" do
+            fill_in "start-time-hours", with: 1
+            find('#start-time-hours').trigger("change")
+            page.should have_button("Save changes")
+            page.should_not have_button("No changes")
+          end
+        end
         # Capybara.use_default_driver
+
+        describe "should not be able to download file" do
+          it { should_not have_selector('#download', text: 'Download')}
+        end
       end
     end
   end

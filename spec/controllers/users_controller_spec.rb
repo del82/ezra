@@ -84,24 +84,23 @@ describe UsersController do
   end
 
 #-----
-  # context "authenticated user" do
-  #   let(:user) { FactoryGirl.create(:user) }
-  #   let(:target) { FactoryGirl.create(:target) }
-  #   before {
-  #     sign_in user
-  #     # user.stats.recent = target.id
-  #   }
-  #   describe "should redirect to 'recent' hit" do
-  #     before { 
-  #       get :show, id: user.id
-  #     }
-  #     it "renders the hit :show view" do
-  #       user.stats.recent.should eq(target.id)
-  #       # response.should redirect_to(:controller => 'hits', :action => 'edit')
-  #     end
-  #   end
-
-  # end
+  context "authenticated user" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:target) { FactoryGirl.create(:target) }
+    before {
+      sign_in user
+      # user.stats.recent = target.id
+    }
+    pending "should redirect to 'recent' hit" do
+      before { 
+        get :show, id: user.id
+      }
+      it "renders the hit :show view" do
+        user.stats.recent.should eq(target.id)
+        # response.should redirect_to(:controller => 'hits', :action => 'edit')
+      end
+    end
+  end
 
 
 #-----

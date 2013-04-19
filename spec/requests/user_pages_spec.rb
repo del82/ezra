@@ -24,6 +24,11 @@ describe "User pages" do
       before { visit edit_user_path(user) }
       it { should have_selector('title', text: "Sign in") }
     end
+
+    describe "visit manage_user_path" do
+      before { visit manage_path(user) }
+      it { should have_selector('title', text: "Sign in") }
+    end    
   end
 
   context "while signed-in as user" do
@@ -63,6 +68,14 @@ describe "User pages" do
 
       describe "should have the right title" do
         it { should have_selector('title', text: 'Update '+user.username) }
+      end
+    end
+
+    describe "manage user page" do
+      before { visit manage_path(user) }
+
+      pending "should be redirected anywhere but manage user" do
+        it { response.should_not have_selector('title', text: 'Manage "'+user.username+'"') }
       end
     end
   end
@@ -115,6 +128,24 @@ describe "User pages" do
         let(:user) { FactoryGirl.create(:user) }
         describe "should have the right title" do
           it { should have_selector('title', text: 'Update '+user.username) }
+        end
+      end
+    end
+
+    pending "manage user page" do
+
+      describe "for the admin" do
+        before { visit manage_path(admin) }
+        describe "should have the right title" do
+          it { response.should have_selector('title', text: 'Manage "'+admin.username+'"') }
+        end
+      end
+
+      describe "for another user" do
+        before { visit manage_path(user) }
+        let(:user) { FactoryGirl.create(:user) }
+        describe "should have the right title" do
+          it { response.should have_selector('title', text: 'Manage "'+user.username+'"') }
         end
       end
     end

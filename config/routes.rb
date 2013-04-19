@@ -4,16 +4,16 @@ Ezra::Application.routes.draw do
 
 
 
-  match '/users/manage/save', to: 'users#manage_save'
-  match '/users/manage/:id', to: 'users#manage'
-  match '/users/:id/recent', to: 'users#recent'
+  match '/users/manage/save' => 'users#manage_save', :as => :manage_save, :via => :post
+  match '/users/manage/:id' => 'users#manage', :as => :manage, :via => :get
+  match '/users/:id/recent' => 'users#recent', :as => :recent, :via => :get
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
   resources :hits
-  match '/hits/:id/save_clip', to: 'hits#save_clip'
-  match '/hits/listen/:clip', to: 'hits#listen'
+  match '/hits/:id/save_clip' => 'hits#save_clip', :as => :save_clip, :via => :post
+  match '/hits/listen/:clip' => 'hits#listen', :as => :listen, :via => :get
   resources :activities, only: [:index]
   resources :statics, only: [:show]
 
