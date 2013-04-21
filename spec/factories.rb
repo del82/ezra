@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :stats do
-    recent 1
+    recent 90
     availableTargets ["1","2","3","500"]
   end
 

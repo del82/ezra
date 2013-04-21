@@ -14,7 +14,6 @@ $(document).ready ->
 		no
 
 	Mousetrap.bind "ctrl+space", (e) ->
-		#TODO: initial playing doesn't work.
 		togglePlayer()
 		no
 
@@ -41,11 +40,11 @@ $(document).ready ->
 		  $("#flag-checkbox").attr "checked", yes
 		$("#flag-checkbox").change()
 
-	Mousetrap.bind "ctrl+s", (e) ->
-		save()
+	# Mousetrap.bind "ctrl+s", (e) ->
+	# 	save()
 
-	#Mousetrap.bind "ctrl+enter", (e) ->
-		next()
+	# #Mousetrap.bind "ctrl+enter", (e) ->
+	# 	next()
 
-	#Mousetrap.bind "ctrl+enter", (e) ->
-		prev()
+	# #Mousetrap.bind "ctrl+enter", (e) ->
+	# 	prev()

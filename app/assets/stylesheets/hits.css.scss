@@ -32,6 +32,34 @@
 }
 
 /****
+Keyboard shortcut help
+*****/
+
+dl.keyboard-help {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.keyboard-help dt {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 3px 6px;
+    min-width: 10px;
+    text-align: center;
+    font-family: Monaco, "Liberation Mono", Courier, monospace;
+    background: #333;
+    color: #EEE;
+    border-radius: 2px;
+    text-shadow: 1px 1px 0 black;
+}
+
+.keyboard-help dd {
+    display: inline;
+    margin: 0 0 0 5px;
+    color: #666;
+}
+
+/****
 General
 *****/
 

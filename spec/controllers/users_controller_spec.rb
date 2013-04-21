@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pp'
 
 describe UsersController do
 
@@ -89,15 +90,27 @@ describe UsersController do
     let(:target) { FactoryGirl.create(:target) }
     before {
       sign_in user
-      # user.stats.recent = target.id
+      user.stats.recent = target.id
     }
-    pending "should redirect to 'recent' hit" do
+    pending "should redirect to user show page when there are no unconfirmed hits" do
       before { 
-        get :show, id: user.id
+        user.stats.recent = target.id
+        get :recent, id: user.id
+      }
+      it "renders the user :show view" do
+        user.stats.recent.should eq(target.id)
+        # response.should render_template :show
+      end
+    end
+
+    pending "should redirect to first unconfirmed hit for that target's edit page" do
+      let(:hit) { FactoryGirl.create(:hit, confirmed: 0, target_id: target.id)}
+      before {
+        hit.target_id = target.id
+        get :recent, id: user.id
       }
       it "renders the hit :show view" do
-        user.stats.recent.should eq(target.id)
-        # response.should redirect_to(:controller => 'hits', :action => 'edit')
+        response.should render_template :show
       end
     end
   end

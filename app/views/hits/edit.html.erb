@@ -47,16 +47,68 @@
         </div>
       </div>
       <br/>
-      <% if current_user.admin? %>
       <div class="row"> 
-        <div class="span2">
-          <%= hidden_field_tag "phrase",@target.phrase %>
-          <%= hidden_field_tag "id",@hit.id %>
-          <div class="btn" id="download-clip">Download</div>
+        <div class="span3">
+          <a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a>
+          <br/>
+          <div class="modal hide fade" id="help">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3>Keyboard Shortcuts</h3>
+            </div>
+            <div class="modal-body">
+              All use <strong>[ctrl]</strong> and then the listed key<br/>
+              <div class="row">
+                <div class="span6">
+                  <dl class="keyboard-help">
+                    <dt>[left]</dt>
+                    <dd>Seek left</dd><br/>
+                    <dt>[right]</dt>
+                    <dd>Seek right</dd><br/>
+                    <dt>[up]</dt>
+                    <dd>Set window start</dd><br/>
+                    <dt>[down]</dt>
+                    <dd>Set window end</dd>
+                  </dl>
+                </div>
+                <div class="span6">
+                  <dl class="keyboard-help">
+                    <dt>[space]</dt>
+                    <dd>Toggle player</dd>
+                    <dt>[enter]</dt>
+                    <dd>Mark hit</dd>
+                  </dl>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span6">
+                  <dl class="keyboard-help">
+                    <dt>0</dt>
+                    <dd>Flag hit</dd><br/>
+                    <dt>1</dt>
+                    <dd>Mark confirmed</dd><br/>
+                    <dt>2</dt>
+                    <dd>Mark unconfirmed</dd><br/>
+                    <dt>3</dt>
+                    <dd>Mark not present</dd><br/>
+                    <dt>4</dt>
+                    <dd>Mark duplicate</dd><br/>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>  
+          <% if current_user.admin? %>        
+            <%= hidden_field_tag "phrase",@target.phrase %>
+            <%= hidden_field_tag "id",@hit.id %>
+            <div class="btn" id="download-clip">Download</div>
+          <% end %>
         </div>
+        <% if current_user.admin? %>
         <div id="downloading" class="span4"></div>
+        <% end %>
       </div>
-      <% end %>
       <br/>
       <div id="hit-info" class="row">
         located at

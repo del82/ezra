@@ -95,6 +95,14 @@ describe "Hit pages" do
         it { should have_selector('#sm-container ul li a', :href => hit.audio_file)}
       end
 
+      describe "should display help interface" do
+        it "on click" do
+          click_link 'help-link'
+          page.should have_selector('#help', visible: true)
+        end
+
+      end
+
       describe "commit button" do
         it "should start by saying 'No changes'" do
           page.should have_button("No changes")
