@@ -42,7 +42,7 @@
         <!-- Edit "getTime" in page-player.js -->
         <div id="sm-container">
             <ul class="playlist">
-            <li><a href="http://<%= @hit.audio_file[6,@hit.audio_file.length] %>">Click to play</a></li>
+            <li><a href="<%= asset_path(@hit.audio_file[6,@hit.audio_file.length]) %>">Click to play</a></li>
             </ul>
         </div>
       </div>

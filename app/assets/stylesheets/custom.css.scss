@@ -24,3 +24,7 @@ body {
 .duplicate {
 	color: $duplicate;
 }
+
+select[multiple="multiple"] {
+	height: 15em !important;
+}

@@ -16,18 +16,18 @@
   <h3>Saved Hits</h3>
   <table class="table table-striped">
     <thead>
-      <th>ID</th>
+      <th>Hit ID</th>
       <th>Save Date</th>
     </thead>
     <%  @savedFiles.each do |f|
-          trimmed = f.gsub!(/app\/assets\/audios\//,'')
+          trimmed = f.gsub!(/public\/clips\/.*\//,'')
           matches = trimmed.scan(/(.*)_id-(.*)_(.*).mp3/) [0]
           id = matches[1]
           date = DateTime.parse(matches[2]).strftime("%Y-%m-%d %H:%M")
     %>
       <tr>
         <td>
-          <a href="/hits/listen/<%= f %>"><%= id %></a>
+          <a href="/clips/<%= matches[0] %>/<%= f %>"><%= id %></a>
         </td>
         <td>
           <%= date %>
