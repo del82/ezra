@@ -12,3 +12,17 @@
  *= require_tree .
  *= require tablesorter.style.css
  */
+
+.footer {
+  font-size: 80%;
+  background-color: #F5F5F5;
+  border-top: 1px solid #E5E5E5;
+  margin-top: 30px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* don't center debug dump */
+pre {
+  text-align: left;
+}
