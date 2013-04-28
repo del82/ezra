@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user
+  before_filter :authenticate_user!
   #before_filter :correct_user, only: []
   before_filter :correct_user_or_admin, only: [:show, :edit, :update]
   before_filter :admin_user, only: [:index, :new, :create]
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
       redirect_to :controller => 'hits', :action => 'edit', :id => @next.id
     end
   end
-  
+
 
   def manage #GET/users/manage/:id
     @user = User.find(params[:id])

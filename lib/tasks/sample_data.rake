@@ -18,8 +18,8 @@ def make_users n_admins=2, n_users=10
     admin = User.create!(name:     "Example admin",
                          email:    "admin-example-#{n+1}@cornell.edu",
                          username: "admin-#{n+1}",
-                         password: "foobar",
-                         password_confirmation: "foobar")
+                         password: "password",
+                         password_confirmation: "password")
     admin.toggle!(:admin)
     admin.stats = Stats.create(:recent => 1, :availableTargets => [])
   end
@@ -132,7 +132,9 @@ speakers of English what prosody is most appropriate in a given
 sentence and context, and researchers in Linguistics and related
 fields have proposed numerous formalized hypotheses about it. But
 establishing the validity of these hypotheses is remarkably
-elusive. Much of the problem is that it is difficult to observe enough
+elusive.
+
+Much of the problem is that it is difficult to observe enough
 examples of a given phenomenon to evaluate hypotheses. The project
 aims to address this problem of a dearth of data by collecting or
 \"harvesting\" examples of specific word sequences or word patterns

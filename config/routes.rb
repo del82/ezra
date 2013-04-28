@@ -6,7 +6,6 @@ Ezra::Application.routes.draw do
   match '/users/manage/:id' => 'users#manage', :as => :manage, :via => :get
   match '/users/:id/recent' => 'users#recent', :as => :recent, :via => :get
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
   resources :targets
   resources :features
   resources :hits
@@ -15,8 +14,8 @@ Ezra::Application.routes.draw do
   resources :activities, only: [:index]
   resources :statics, only: [:show]
 
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  # match '/signin',  to: 'sessions#new'
+  # match '/signout', to: 'sessions#destroy', via: :delete
 
   # static pages
   # match '/about', to: "static_pages#about"
