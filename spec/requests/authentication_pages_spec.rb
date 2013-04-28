@@ -5,13 +5,13 @@ describe "Authentication" do
   subject { page }
 
   describe "signin page" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     it { should have_selector('title', text: "Sign in") }
   end
 
   describe "signin" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     describe "with invalid information" do
       before { click_button "Sign in" }
@@ -35,17 +35,17 @@ describe "Authentication" do
       end
 
       #it { should have_selector('title', text: user.name) }
-      it { should have_link('Sign out', href: signout_path) }
+      it { should have_link('Sign out', href: destroy_user_session_path, method: "delete") }
       it { should have_link('Targets', href: targets_path) }
       it { should have_link('Features', href: features_path) }
-      it { should_not have_link('Sign in', href: signin_path) }
+      it { should_not have_link('Sign in', href: new_user_session_path) }
 
       # static page links
       it { should have_link(static.short_title, href: static_path(static)) }
 
       describe "followed by signout" do
         before { click_link "Sign out" }
-        it { should have_link('Sign in', href: signin_path) }
+        it { should have_link('Sign in', href: new_user_session_path) }
       end
     end
 

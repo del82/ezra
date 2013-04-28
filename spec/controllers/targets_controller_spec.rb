@@ -12,7 +12,7 @@ describe TargetsController do
         response.should_not render_template :index
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -22,7 +22,7 @@ describe TargetsController do
         response.should_not render_template :show
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -32,7 +32,7 @@ describe TargetsController do
         response.should_not render_template :new
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -44,7 +44,7 @@ describe TargetsController do
       end
       it "redirects to signin page" do
         post :create, user: FactoryGirl.attributes_for(:target)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -54,7 +54,7 @@ describe TargetsController do
         response.should_not render_template :edit
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -67,7 +67,7 @@ describe TargetsController do
       end
       it "redirects to signin page" do
         put :update, id: target, target: FactoryGirl.attributes_for(:target)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -79,7 +79,7 @@ describe TargetsController do
     #   end
     #   it "redirects to signin page" do
     #     delete :destroy, id: user
-    #     response.should redirect_to(signin_path)
+    #     response.should redirect_to(new_user_session_path)
     #   end
     # end
   end
@@ -90,7 +90,7 @@ describe TargetsController do
     let(:target) { FactoryGirl.create(:target, id: 500) }
     let(:invalid_target) { FactoryGirl.create(:target, id: 9999)}
     let(:stats) { FactoryGirl.create(:stats) }
-    before { 
+    before {
       sign_in user
       # RIP 1.5 hours of time googling how to do this... jesus
       # does no one else in the world use 'current_user'?
@@ -109,17 +109,17 @@ describe TargetsController do
       before{ get :show, id: invalid_target}
       it "renders the :index view with error message" do
         flash[:notice].should eql("You are not authorized to edit this target")
-        response.should render_template "index" 
+        response.should render_template "index"
       end
     end
 
     describe "should allow access to GET #show if no targets are assigned at all" do
-      before{ 
+      before{
         user.stats.availableTargets = []
         get :show, id: invalid_target
       }
       it "renders :show" do
-        response.should render_template "show" 
+        response.should render_template "show"
       end
     end
 

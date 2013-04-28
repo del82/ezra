@@ -1,6 +1,8 @@
 Ezra::Application.routes.draw do
 
-  devise_for :user
+  devise_for :user do
+    get "signin", to: "devise/sessions#new"
+  end
 
   match '/users/manage/save' => 'users#manage_save', :as => :manage_save, :via => :post
   match '/users/manage/:id' => 'users#manage', :as => :manage, :via => :get

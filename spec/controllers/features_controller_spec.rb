@@ -12,7 +12,7 @@ describe FeaturesController do
         response.should_not render_template :index
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -22,7 +22,7 @@ describe FeaturesController do
         response.should_not render_template :show
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -32,7 +32,7 @@ describe FeaturesController do
         response.should_not render_template :new
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -44,7 +44,7 @@ describe FeaturesController do
       end
       it "redirects to signin page" do
         post :create, user: FactoryGirl.attributes_for(:feature)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -54,7 +54,7 @@ describe FeaturesController do
         response.should_not render_template :edit
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -67,7 +67,7 @@ describe FeaturesController do
       end
       it "redirects to signin page" do
         put :update, id: feature, feature: FactoryGirl.attributes_for(:feature)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
   end

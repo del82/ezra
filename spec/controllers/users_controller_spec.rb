@@ -12,7 +12,7 @@ describe UsersController do
         response.should_not render_template :index
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -22,7 +22,7 @@ describe UsersController do
         response.should_not render_template :show
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -32,7 +32,7 @@ describe UsersController do
         response.should_not render_template :new
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -44,7 +44,7 @@ describe UsersController do
       end
       it "redirects to signin page" do
         post :create, user: FactoryGirl.attributes_for(:user)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -54,7 +54,7 @@ describe UsersController do
         response.should_not render_template :edit
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -67,7 +67,7 @@ describe UsersController do
       end
       it "redirects to signin page" do
         put :update, id: user, user: FactoryGirl.attributes_for(:user)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -79,7 +79,7 @@ describe UsersController do
     #   end
     #   it "redirects to signin page" do
     #     delete :destroy, id: user
-    #     response.should redirect_to(signin_path)
+    #     response.should redirect_to(new_user_session_path)
     #   end
     # end
   end
@@ -93,7 +93,7 @@ describe UsersController do
       user.stats.recent = target.id
     }
     pending "should redirect to user show page when there are no unconfirmed hits" do
-      before { 
+      before {
         user.stats.recent = target.id
         get :recent, id: user.id
       }

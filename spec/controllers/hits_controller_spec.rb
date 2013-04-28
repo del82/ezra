@@ -12,7 +12,7 @@ describe HitsController do
         response.should_not render_template :index
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -22,7 +22,7 @@ describe HitsController do
         response.should_not render_template :show
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -32,7 +32,7 @@ describe HitsController do
         response.should_not render_template :new
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -44,7 +44,7 @@ describe HitsController do
       end
       it "redirects to signin page" do
         post :create, hit: FactoryGirl.attributes_for(:hit)
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -54,7 +54,7 @@ describe HitsController do
         response.should_not render_template :edit
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -69,7 +69,7 @@ describe HitsController do
         hit.audio_file.should_not eq("wrong")
       end
       it "redirects to signin page" do
-        response.should redirect_to(signin_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
   end

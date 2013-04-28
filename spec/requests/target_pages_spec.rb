@@ -37,7 +37,7 @@ describe "Target pages" do
     let(:hit_no_flag) { FactoryGirl.create(:hit, flagged: false, target: target) }
 
     before do
-      visit signin_path
+      visit new_user_session_path
       fill_in "Username", with: user.username
       fill_in "Password", with: user.password
       click_button "Sign in"
@@ -102,7 +102,7 @@ describe "Target pages" do
 
 
     before do
-      visit signin_path
+      visit new_user_session_path
       fill_in "Password", with: admin.password
       fill_in "Username", with: admin.username
       click_button "Sign in"

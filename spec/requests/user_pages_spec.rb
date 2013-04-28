@@ -28,12 +28,12 @@ describe "User pages" do
     describe "visit manage_user_path" do
       before { visit manage_path(user) }
       it { should have_selector('title', text: "Sign in") }
-    end    
+    end
   end
 
   context "while signed-in as user" do
     before do
-      visit signin_path
+      visit new_user_session_path
       fill_in "Password", with: user.password
       fill_in "Username", with: user.username
       click_button "Sign in"
@@ -84,7 +84,7 @@ describe "User pages" do
     let(:admin) { FactoryGirl.create(:admin) }
 
     before do
-      visit signin_path
+      visit new_user_session_path
       fill_in "Password", with: admin.password
       fill_in "Username", with: admin.username
       click_button "Sign in"

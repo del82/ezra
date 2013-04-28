@@ -7,7 +7,7 @@
           <%= render 'layouts/signedin_header' %>
         <% else %>
           <%= render 'layouts/public_links' %>
-        <li><%= link_to "Sign in",      signin_path %></li>
+        <li><%= link_to "Sign in",  new_user_session_path %></li>
         <% end %>
       </ul>
     </div>
