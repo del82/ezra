@@ -13,6 +13,7 @@ gem 'rdiscount', '~> 2.0.7'
 gem 'public_activity', '~> 1.0.3'
 gem 'friendly_id', '~> 4.0.9'
 gem 'redcarpet', '~> 2.2.2'
+gem 'devise', '~> 2.2.3'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
