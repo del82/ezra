@@ -16,8 +16,13 @@
 class User < ActiveRecord::Base
   include PublicActivity::Common
 
-  attr_accessible :name, :username, :email, :password, :password_confirmation
-  has_secure_password
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
+         :recoverable, :rememberable, :trackable, :validatable, :lockable
+
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me
+  #has_secure_password
 
   has_many :targets,  :inverse_of => :user
   has_many :features, :inverse_of => :user
@@ -29,22 +34,22 @@ class User < ActiveRecord::Base
 
   end
 
-  before_save :create_remember_token
+  #before_save :create_remember_token
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :username, presence: true, length: { maximum: 20, minimum: 3 },
                        uniqueness: { case_sensitive: false }
   # no password presence validation in order to avoid duplicate error messages
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  # validates :password, length: { minimum: 6 }
+  # validates :password_confirmation, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
 
-  private
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
-    end
+  # private
+  #   def create_remember_token
+  #     self.remember_token = SecureRandom.urlsafe_base64
+  #   end
 end

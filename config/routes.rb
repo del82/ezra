@@ -1,8 +1,6 @@
 Ezra::Application.routes.draw do
 
-
-
-
+  devise_for :user
 
   match '/users/manage/save' => 'users#manage_save', :as => :manage_save, :via => :post
   match '/users/manage/:id' => 'users#manage', :as => :manage, :via => :get
