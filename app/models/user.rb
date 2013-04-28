@@ -18,11 +18,15 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
+  devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me
-  #has_secure_password
+  attr_accessible :name, :username, :email, :password,
+                  :password_confirmation, :remember_me
+  # Virtual attribute for authenticating by either username or email
+  attr_accessor :login
+  attr_accessible :login
+
 
   has_many :targets,  :inverse_of => :user
   has_many :features, :inverse_of => :user
@@ -41,15 +45,21 @@ class User < ActiveRecord::Base
                        uniqueness: { case_sensitive: false }
   # no password presence validation in order to avoid duplicate error messages
   # validates :password, length: { minimum: 6 }
-  # validates :password_confirmation, presence: true
+  validates :password_confirmation, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
 
-  # private
-  #   def create_remember_token
-  #     self.remember_token = SecureRandom.urlsafe_base64
-  #   end
+  # redefine devise method to allow authentication by username or password
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
 end

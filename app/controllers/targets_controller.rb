@@ -1,5 +1,5 @@
 class TargetsController < ApplicationController
-  before_filter :signed_in_user
+  before_filter :authenticate_user!
   before_filter :admin_user, only: [:new, :create, :edit, :update]
   before_filter :check_available_targets, only: [:show,:edit]
 
@@ -16,7 +16,7 @@ class TargetsController < ApplicationController
     end
     @hits   = @target.hits.where(hits_params)
     @features = @target.features
-    phrase = @target.phrase.gsub!(/ /,'_')
+    phrase = @target.phrase.gsub(/ /,'_')
     @savedFiles = Dir.glob('public/clips/'+phrase+'/*.mp3')
   end
 

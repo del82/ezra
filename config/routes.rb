@@ -1,6 +1,7 @@
 Ezra::Application.routes.draw do
 
-  devise_for :user do
+  devise_for :user
+  devise_scope :user do
     get "signin", to: "devise/sessions#new"
   end
 

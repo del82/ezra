@@ -1,10 +1,10 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
   <h2><%= @target.phrase %></h2>
-  Total: <%= @hits.count %> <br/> 
+  Total: <%= @hits.count %> <br/>
   Confirmed: <span class="confirmed"> <%= @hits.where(:confirmed => 1).count %> </span> <br/>
   Unconfirmed: <span class="unconfirmed"> <%= @hits.where(:confirmed => 0).count %> </span> <br/>
   Not Present: <span class="not-present"> <%= @hits.where(:confirmed => -1).count %> </span>
-  <h3>Features 
+  <h3>Features
   <table class="table table-striped">
     <%= render @features %>
   </table>

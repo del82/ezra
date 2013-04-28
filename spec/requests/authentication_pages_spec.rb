@@ -17,7 +17,7 @@ describe "Authentication" do
       before { click_button "Sign in" }
 
       it { should have_selector('title', text: 'Sign in') }
-      it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+      it { should have_selector('div.alert.alert-alert', text: 'Invalid login or password') }
 
       describe "after visiting another page" do
         before { click_link "ezra" }
@@ -29,7 +29,7 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
       let!(:static) { FactoryGirl.create(:static) }
       before do
-        fill_in "Username", with: user.username
+        fill_in "Login", with: user.username
         fill_in "Password", with: user.password
         click_button "Sign in"
       end
@@ -52,7 +52,7 @@ describe "Authentication" do
     describe "as admin" do
       let(:admin) { FactoryGirl.create(:admin) }
       before do
-        fill_in "Username", with: admin.username
+        fill_in "Login", with: admin.username
         fill_in "Password", with: admin.password
         click_button "Sign in"
       end
@@ -67,7 +67,7 @@ describe "Authentication" do
       describe "when attempting to visit a protected page" do
         before do
           visit edit_user_path(user)
-          fill_in "Username",    with: user.username
+          fill_in "Login",    with: user.username
           fill_in "Password", with: user.password
           click_button "Sign in"
         end

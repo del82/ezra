@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'open3'
 class HitsController < ApplicationController
-  before_filter :signed_in_user
+  before_filter :authenticate_user!
   before_filter :admin_user, only: [:new, :create]
 
   def index
@@ -95,7 +95,7 @@ class HitsController < ApplicationController
       flash[:success] = "Successfully updated hit #"+params[:id]
       @hit.create_activity(:update, owner: current_user, recipient: @target,
                            params: { phrase: @target.phrase })
-      
+
       @next = Target.find(@target.id).hits.where(confirmed: '0').first
       if @next.nil?
         redirect_to current_user, :notice => "No more unconfirmed hits"

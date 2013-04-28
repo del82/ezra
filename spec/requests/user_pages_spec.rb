@@ -35,7 +35,7 @@ describe "User pages" do
     before do
       visit new_user_session_path
       fill_in "Password", with: user.password
-      fill_in "Username", with: user.username
+      fill_in "Login", with: user.username
       click_button "Sign in"
     end
 
@@ -86,7 +86,7 @@ describe "User pages" do
     before do
       visit new_user_session_path
       fill_in "Password", with: admin.password
-      fill_in "Username", with: admin.username
+      fill_in "Login", with: admin.username
       click_button "Sign in"
     end
 
@@ -172,7 +172,7 @@ end
     #   describe "with valid information" do
     #     before do
     #       fill_in "Full Name",      with: "Example User"
-    #       fill_in "Username",       with: "exampleuser"
+    #       fill_in "Login",       with: "exampleuser"
     #       fill_in "Email",          with: "user@example.com"
     #       fill_in "Password",       with: "foobar"
     #       fill_in "Confirmation",   with: "foobar"

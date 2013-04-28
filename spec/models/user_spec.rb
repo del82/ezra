@@ -18,8 +18,8 @@ require 'spec_helper'
 describe User do
   before do
     @user = User.new(name: "Example User", email: "user@example.com",
-                     username: "example", password: "foobar",
-                     password_confirmation: "foobar")
+                     username: "example", password: "password",
+                     password_confirmation: "password")
 
   end
 
@@ -32,8 +32,6 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:admin) }
-  it { should respond_to(:remember_token) }
-  it { should respond_to(:authenticate) }
   it { should respond_to(:targets) }
 
 
@@ -150,7 +148,8 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe "return value of authenticate method" do
+  pending "return value of authenticate method" do
+    # potentially obsolete with transition to devise
     before { @user.save }
     let(:found_user) { User.find_by_email(@user.email) }
 
@@ -172,11 +171,6 @@ describe User do
       @user.toggle!(:admin)
       end
     it { should be_admin }
-  end
-
-  describe "remember token" do
-    before { @user.save }
-    its(:remember_token) { should_not be_blank }
   end
 
   describe "target associations" do

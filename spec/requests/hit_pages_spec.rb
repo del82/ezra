@@ -11,8 +11,8 @@ describe "Hit pages" do
       it { should have_selector('title', text: "Sign in") }
     end
 
-    describe "visit hits_path" do
-      before { visit hits_path(hit) }
+    describe "visit hit_path" do
+      before { visit hit_path(hit) }
       it { should have_selector('title', text: "Sign in") }
     end
 
@@ -33,7 +33,7 @@ describe "Hit pages" do
     before do
       visit new_user_session_path
       fill_in "Password", with: admin.password
-      fill_in "Username", with: admin.username
+      fill_in "Login", with: admin.username
       click_button "Sign in"
     end
 
@@ -56,7 +56,7 @@ describe "Hit pages" do
     before do
       visit new_user_session_path
       fill_in "Password", with: user.password
-      fill_in "Username", with: user.username
+      fill_in "Login", with: user.username
       click_button "Sign in"
     end
 
