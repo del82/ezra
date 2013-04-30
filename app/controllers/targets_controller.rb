@@ -1,7 +1,9 @@
 class TargetsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :admin_user, only: [:new, :create, :edit, :update]
-  before_filter :check_available_targets, only: [:show,:edit]
+
+  # deferred in v1.0
+#  before_filter :check_available_targets, only: [:show,:edit]
 
   def index   # GET /targets          -> targets_path
     @targets = Target.paginate(page: params[:page])
