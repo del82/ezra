@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Feature do
   let(:user) { FactoryGirl.create(:user) }
-  before { @feature = user.features.build(name: "test feature",
+  before { @feature = user.features.build(name: "test feature ",
                                    instructions: "test feature instructions",
                                           ftype: 0,
                                           fvalues: [true,false] ) }
@@ -61,6 +61,32 @@ describe Feature do
 
   describe "with name that is too long" do
     before { @feature.name = "z" * 31 }
+    it { should_not be_valid }
+  end
+
+  describe "with duplicate name" do
+    before do
+      feature_with_same_name  = @feature.dup
+      feature_with_same_name.save
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with same name, different case" do
+    before do
+      feature_with_same_name  = @feature.dup
+      feature_with_same_name.name.upcase!
+      feature_with_same_name.save
+    end
+    it { should_not be_valid }
+  end
+
+  pending "with same name, different spacing" do
+    before do
+      feature_with_same_name  = @feature.dup
+      feature_with_same_name.name.gsub!(' ', '')
+      feature_with_same_name.save
+    end
     it { should_not be_valid }
   end
 
