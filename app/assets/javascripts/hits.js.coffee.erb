@@ -4,7 +4,7 @@
 $(document).ready ->
 	# Because I don't want to deal with rails' asset pipeline conditional loading.
 	if window.location.pathname.indexOf("hits") isnt -1 
-		soundManager.url = "<%= asset_path('soundmanager2_debug.swf') %>"
+		soundManager.url = "<%= '/ezra2' + asset_path('soundmanager2_debug.swf') %>"
 		soundManager.debug = false
 		soundManager.useHighPerformance = true
 		soundManager.useFastPolling = true
