@@ -22,7 +22,11 @@ class Feature < ActiveRecord::Base
   has_many :hits, :through => :targets
 
   validates :user_id, presence: true
-  validates :name, presence: true, length: { minimum: 4, maximum: 30 }
+  validates(:name, presence: true,
+            length: { minimum: 4, maximum: 30 },
+            uniqueness: { case_sensitive: false }
+              )
+
   validates :instructions, presence: true
   validates :ftype, presence: true, numericality: { only_integer: true,
                                                    greater_than: -1,
