@@ -5,7 +5,12 @@ class HitsController < ApplicationController
   before_filter :admin_user, only: [:new, :create]
 
   def index
-    @hits = Hit.paginate(page: params[:page] )
+    hits_params = params.slice(:target_id, :confirmed, :flagged)
+    if hits_params.has_key?(:flagged)
+      hits_params[:flagged] = (hits_params[:flagged] == "true")
+    end
+    # @hits   = Hit.where(hits_params).paginate(page: params[:page])
+    @hits = Hit.where(hits_params).paginate(page: params[:page] )
   end
 
   def show

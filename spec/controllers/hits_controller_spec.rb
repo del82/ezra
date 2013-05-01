@@ -95,26 +95,37 @@ describe HitsController do
           FactoryGirl.create(:target, id: 500)
           FactoryGirl.create(:hit, target_id: 500)
           FactoryGirl.create(:hit, confirmed: 1)
-         FactoryGirl.create(:hit, flagged: true)
+          FactoryGirl.create(:hit, flagged: true)
         end
 
-        pending "filtering by target" do
-          before { get :index, target: '500' }
+        describe "filtering by target" do
+          before { get :index, target_id: '500' }
           it "returns the right results" do
             assigns(:hits).length.should eq(1)
           end
         end
-        pending "filtering by confirmation status" do
+        describe "filtering by confirmation status" do
           before { get :index, confirmed: '1' }
           it "returns the right results" do
             assigns(:hits).length.should eq(1)
           end
         end
-        pending "filtering by flagged status" do
+        describe "filtering by flagged status" do
           before { get :index, flagged: 'true' }
           it "returns the right results" do
             assigns(:hits).length.should eq(1)
           end
+        end
+      end
+      describe "should paginate" do
+        before do
+          31.times do |n|
+            FactoryGirl.create(:hit)
+          end
+          get :index
+        end
+        it "returns fewer than 30 hits" do
+          assigns(:hits).length.should be < 31
         end
       end
     end # GET #index
@@ -152,7 +163,7 @@ describe HitsController do
     end
 
     # I uh... don't know how to fix this. Something about setting recent.
-    pending "should allow access to PUT #update" do
+    describe "should allow access to PUT #update" do
       it "changes the hit" do
         put :update, id: hit,
                 hit: FactoryGirl.attributes_for(:hit, audio_file: 'right')
