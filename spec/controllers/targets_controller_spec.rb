@@ -120,6 +120,7 @@ describe TargetsController do
         get :show, id: invalid_target
       }
       it "renders :show" do
+        pending "disabled target assignment"
         response.should render_template "show"
       end
     end
@@ -160,6 +161,14 @@ describe TargetsController do
             response.should render_template :show
             assigns(:hits).length.should eq(1)
           end
+        end
+
+        describe "paginates hits" do
+          before do
+            31.times do FactoryGirl.create(:hit, target_id: target.id) end
+            get :show, id: target
+          end
+          it { assigns(:hits).length.should be < 31 }
         end
       end
     end

@@ -9,9 +9,11 @@
     <%= render @features %>
   </table>
   <h3>Hits</h3>
+  <%= will_paginate @hits %>
   <table class="table table-striped">
     <%= render @hits %>
   </table>
+  <%= will_paginate @hits %>
   <% if current_user.admin? %>
   <h3>Saved Hits</h3>
   <table class="table table-striped">

@@ -16,7 +16,8 @@ class TargetsController < ApplicationController
     if hits_params.has_key?(:flagged)
       hits_params[:flagged] = (hits_params[:flagged] == "true")
     end
-    @hits   = @target.hits.where(hits_params)
+    @hits = @target.hits.where(hits_params).paginate(page: params[:page])
+
     @features = @target.features
     phrase = @target.phrase.gsub(/ /,'_')
     @savedFiles = Dir.glob('public/clips/'+phrase+'/*.mp3')

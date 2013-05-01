@@ -66,6 +66,14 @@ describe "Hit pages" do
      describe "should have the right title" do
         it { should have_selector('title', text: 'Hits') }
       end
+
+      describe "should paginate" do
+        before do
+          31.times do FactoryGirl.create(:hit) end
+          visit hits_path
+        end
+        it { should have_selector('div.pagination') }
+      end
     end
 
     describe "individual hit page" do

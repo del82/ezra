@@ -142,6 +142,15 @@ describe "Target pages" do
       end
     end
 
+    describe "should paginate" do
+      before do
+        35.times do FactoryGirl.create(:hit, target: target) end
+        visit target_path(target)
+      end
+      it { should have_selector('div.pagination') }
+    end
+
+
     describe "create target page" do
       before { visit new_target_path }
 
