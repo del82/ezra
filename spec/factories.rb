@@ -23,7 +23,7 @@ FactoryGirl.define do
   end
 
   factory :feature do
-    name "test feature"
+    sequence(:name) { |n| "test feature #{n}" }
     instructions "description of test feature"
     ftype 0
     fvalues [true, false]
