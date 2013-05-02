@@ -1,4 +1,7 @@
+
 # ezra on rails
+
+[![Code Climate](https://codeclimate.com/github/del82/ezra.png)](https://codeclimate.com/github/del82/ezra)
 
 ezra is a server-side tool for harvesting specialized corpora of annotated audio files for phonetics research.
 
