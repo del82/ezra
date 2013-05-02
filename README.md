@@ -1,6 +1,14 @@
-Ezra on rails.
+# ezra on rails
 
-Set up:
+ezra is a server-side tool for harvesting specialized corpora of annotated audio files for phonetics research.
+
+## Documentation
+
+A basic [tutorial for annotators](https://github.com/del82/ezra/wiki/Tutorial-for-annotators) is available,
+as is basic [developer documentation](https://github.com/del82/ezra/wiki).
+Tutorials for supervisors will be available soon.
+
+## Installation
 
 1. Install [RVM](https://rvm.io/) (may need to run with the `--ruby` flag)
 2. Install ruby 1.9.3: `$ rvm install 1.9.3`
@@ -27,7 +35,8 @@ Set up:
 10. If you like, start guard/spork to detect code changes and run tests
   automatically.
   - `$ guard`
-11. Hack away
+11. To start a server, run `ruby s`
+12. Hack away
 
 Notes:
 
