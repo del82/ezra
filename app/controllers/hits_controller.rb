@@ -105,9 +105,9 @@ class HitsController < ApplicationController
       if @next.nil?
         redirect_to current_user, :notice => "No more unconfirmed hits"
       else
-        @userStats = current_user.stats
-        @userStats.recent = @target.id
-        @userStats.save()
+        # @userStats = current_user.stats
+        # @userStats.recent = @target.id
+        # @userStats.save()
         redirect_to :action => 'edit', :id => @next.id
       end
     else
