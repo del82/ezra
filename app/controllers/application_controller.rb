@@ -23,5 +23,6 @@ protected
 
   def make_version_available
     @version = Ezra::Application.config.version
+    @updated_date = Ezra::Application.config.updated_date
   end
 end

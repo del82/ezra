@@ -17,7 +17,11 @@ end
 
 module Ezra
   class Application < Rails::Application
+
+    # applciation information
+
     config.version = `git describe --always --tags`.squish()
+    config.updated_date = `git show -s --format="%ci" HEAD`
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
