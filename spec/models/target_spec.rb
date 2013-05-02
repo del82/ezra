@@ -49,4 +49,13 @@ describe Target do
     it { should_not be_valid }
   end
 
+  describe "target" do
+    it "doesn't allow duplicate features" do
+      @target = FactoryGirl.create(:target)
+      @feature = FactoryGirl.create(:feature)
+      @target.features = [@feature, @feature, @feature]
+      @target.save!
+      @target.features.count.should eq(1)
+    end
+  end
 end

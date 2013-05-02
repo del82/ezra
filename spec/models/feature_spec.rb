@@ -81,13 +81,16 @@ describe Feature do
     it { should_not be_valid }
   end
 
-  pending "with same name, different spacing" do
+  describe "with same name, different spacing" do
     before do
       feature_with_same_name  = @feature.dup
       feature_with_same_name.name.gsub!(' ', '')
       feature_with_same_name.save
     end
-    it { should_not be_valid }
+    it "should not be valid" do
+      pending "deferred, complex validation required."
+      should_not be_valid
+    end
   end
 
   describe "with blank instructions" do
@@ -120,4 +123,13 @@ describe Feature do
     it { should_not be_valid }
   end
 
+  describe "feature" do
+    it "doesn't allow duplicate features" do
+      @target = FactoryGirl.create(:target)
+      @feature = FactoryGirl.create(:feature)
+      @feature.targets = [@target, @target, @target]
+      @feature.save!
+      @feature.targets.count.should eq(1)
+    end
+  end
 end

@@ -18,7 +18,7 @@ class Feature < ActiveRecord::Base
   attr_accessible :instructions, :name, :ftype, :fvalues
   serialize :fvalues, Array
   belongs_to :user, :inverse_of => :features
-  has_and_belongs_to_many :targets
+  has_and_belongs_to_many :targets, uniq: true
   has_many :hits, :through => :targets
 
   validates :user_id, presence: true
