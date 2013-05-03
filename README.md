@@ -5,21 +5,20 @@
 ezra is a server-side tool for producing research-quality datasets of annotated audio files
 from recordings available on the web.
 
-Before it can constitute data for speech research, the vast quantities of recorded speech available on
-the web and discoverable via search engines must be manually processed. Each hit
+Before it can constitute data for speech research, the vast quantities of recorded speech
+available on the web and discoverable via search engines must be manually processed. Each hit
 must be manually validated, and each token must be extracted with the required amount of 
 context and annotated with the appropriate metadata.
 
-ezra is a simple but powerful web
-interface allowing non-expert users to perform this processing efficiently.
-Its effectiveness as a corpus annotation tool has been demonstrated in the production of
-corpora consisting of thousands of annotated tokens.
+ezra is a simple but powerful web interface allowing non-expert users to perform this
+processing efficiently. Its effectiveness as a corpus annotation tool has been demonstrated
+in the production of corpora consisting of thousands of annotated tokens.
 
 
 ## Documentation
 
-A basic [tutorial for annotators](https://github.com/del82/ezra/wiki/Tutorial-for-annotators) is available,
-as is basic [developer documentation](https://github.com/del82/ezra/wiki).
+A basic [tutorial for annotators](https://github.com/del82/ezra/wiki/Tutorial-for-annotators)
+is available, as is basic [developer documentation](https://github.com/del82/ezra/wiki).
 Tutorials for supervisors will be available soon.
 
 ## Installation
