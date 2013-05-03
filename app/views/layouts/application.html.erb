@@ -12,7 +12,10 @@
 
   <div class="container">
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <%# devise adds a :timedout key that shouldn't be displayed %>
+      <% if key != :timedout %>
+        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% end %>
     <% end %>
     <%= yield %>
     <footer class="footer"><%= render 'layouts/footer' %><footer>
