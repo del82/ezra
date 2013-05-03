@@ -1,4 +1,4 @@
-# ezra on rails
+# ezra
 
 [![Code Climate](https://codeclimate.com/github/del82/ezra.png)](https://codeclimate.com/github/del82/ezra)
 
