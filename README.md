@@ -8,9 +8,9 @@ from recordings available on the web.
 The web contains vast quantities of recorded speech, and much of it is accompanied by
 transcripts and is therefore discoverable by search engine queries. The web is thus a
 potentially valuable source of data for speech research. But before audio files harvested
-from the web can constitute research data , they must be subjected to processing. Each
-hit must be manually validated, and each token must be extracted with the required
-amount of context and annotated with the appropriate metadata.
+from the web can constitute research data, they must be subjected to processing. Each
+search engine hit must be manually validated, and each token must be extracted with
+the required amount of context and annotated with the appropriate metadata.
 
 ezra is a simple but powerful web interface allowing non-expert users to perform this
 processing efficiently. Its effectiveness as a corpus annotation tool has been demonstrated
