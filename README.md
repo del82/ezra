@@ -1,9 +1,20 @@
-
 # ezra on rails
 
 [![Code Climate](https://codeclimate.com/github/del82/ezra.png)](https://codeclimate.com/github/del82/ezra)
 
-ezra is a server-side tool for harvesting specialized corpora of annotated audio files for phonetics research.
+ezra is a server-side tool for producing research-quality datasets of annotated audio files
+from recordings available on the web.
+
+Before it can constitute data for speech research, the vast quantities of recorded speech available on
+the web and discoverable via search engines must be manually processed. Each hit
+must be manually validated, and each token must be extracted with the required amount of 
+context and annotated with the appropriate metadata.
+
+ezra is a simple but powerful web
+interface allowing non-expert users to perform this processing efficiently.
+Its effectiveness as a corpus annotation tool has been demonstrated in the production of
+corpora consisting of thousands of annotated tokens.
+
 
 ## Documentation
 
