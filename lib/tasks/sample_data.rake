@@ -54,21 +54,30 @@ def make_feature(ftype = 0, admin = nil)
   case ftype
   when 0
     fvalues = ["single", "choice", "options"]
+    name = "single "
   when 1
-    fvalues = ["multiple", "options", "possible"]
+    fvalues = ["multiple", "options", "possible", "sandwich"]
+    name="multiple "
   when 2
-    fvalues = []
+    fvalues = ["string"]
+    name="string "
   end
-    admins.sample.features.create!(name:    Faker::Lorem.words(2).join(' '),
+    admins.sample.features.create!(name: name+ Faker::Lorem.words(1)[0],
                                    instructions: Faker::Lorem.sentence,
                                    ftype: ftype,
                                    fvalues: fvalues)
 end
 
 
-def make_features(n=5)
+def make_features(n=3, m=2, o=1)
   n.times do |f|
     make_feature
+  end
+  m.times do |f|
+    make_feature(ftype=1)
+  end
+  o.times do |f|
+    make_feature(ftype=2)
   end
 end
 

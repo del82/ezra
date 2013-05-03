@@ -28,6 +28,11 @@ FactoryGirl.define do
     ftype 0
     fvalues [true, false]
     user
+    factory :multi_feature do
+      sequence(:name) { |n| "test multiple #{n}" }
+      ftype 1
+      fvalues ["multiple 1","multiple 2","multiple 3","multiple 4","sandwich"]
+    end
   end
 
   factory :hit do
