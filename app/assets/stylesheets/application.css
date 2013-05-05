@@ -13,6 +13,11 @@
  *= require tablesorter.style.css
  */
 
+/* For inline buttons */
+span.btn {
+	margin-top: -5px;
+}
+
 .footer {
   font-size: 80%;
   background-color: #F5F5F5;
@@ -25,4 +30,12 @@
 /* don't center debug dump */
 pre {
   text-align: left;
+}
+
+/* Overwrite default Bootstrap-SASS sizes */
+.container,
+.navbar-static-top .container,
+.navbar-fixed-top .container,
+.navbar-fixed-bottom .container {
+  width: 90% !important;
 }
