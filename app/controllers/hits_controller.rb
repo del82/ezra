@@ -28,7 +28,8 @@ class HitsController < ApplicationController
   def edit
     @hit = Hit.find(params[:id])
     @target = @hit.target
-    @features = Target.find(@target.id).features
+    @features = @target.features
+    # @features = Target.find(@target.id).features
   end
 
   def save_clip
