@@ -7,3 +7,10 @@ $(document).ready ->
 	$('#add-new').click ->
 		count++
 		$('#feature-list').append('<input type="text" value="" name="feature[fvalues][]" placeholder="Add feature" data-count="'+count+'" /><br/>')
+
+	# Edit features
+	$('#edit-box').hide()
+	$('#edit-feature-alert').alert()
+	$('.yes').click ->
+		$('#edit-feature-alert').alert('close')
+		$('#edit-box').show()

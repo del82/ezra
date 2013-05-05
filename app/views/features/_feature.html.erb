@@ -1,3 +1,10 @@
 <tr>
-  <td><%= link_to feature.name, feature %></td>
+  <td>
+	<%= link_to feature.name, feature %>
+  	<% if current_user.admin? %>
+		(<%= link_to "Edit", edit_feature_path(feature) %>)
+	<% elsif feature.user_id == current_user.id %>
+		(<%= link_to "Edit", edit_feature_path(feature) %>)
+	<% end %>
+  </td>
 </tr>

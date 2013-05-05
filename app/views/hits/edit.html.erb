@@ -158,7 +158,7 @@
       <div id="feature-box">
         <% @features.each_with_index do |feature,index| %>
         <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
-          <h2><%= feature.name %> <i class="icon-chevron-up feature-chevron"></i></h2>
+          <h3><%= feature.name %> <i class="icon-chevron-up feature-chevron"></i></h3>
           <div class="feature-data">
             <%= feature.created_at %> by <%= feature.user.name %><br/>
             <%= feature.instructions %><br/>

@@ -14,29 +14,5 @@
     <%= render @hits %>
   </table>
   <%= will_paginate @hits %>
-  <% if current_user.admin? %>
-  <h3>Saved Hits</h3>
-  <table class="table table-striped">
-    <thead>
-      <th>Hit ID</th>
-      <th>Save Date</th>
-    </thead>
-    <%  @savedFiles.each do |f|
-          trimmed = f.gsub!(/public\/clips\/.*\//,'')
-          matches = trimmed.scan(/(.*)_id-(.*)_(.*).mp3/) [0]
-          id = matches[1]
-          date = DateTime.parse(matches[2]).strftime("%Y-%m-%d %H:%M")
-    %>
-      <tr>
-        <td>
-          <a href="/clips/<%= matches[0] %>/<%= f %>"><%= id %></a>
-        </td>
-        <td>
-          <%= date %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <% end %>
 <br />
 
