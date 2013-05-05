@@ -14,7 +14,7 @@
     <%= f.submit "No changes", id: "commit-button", class: "btn btn-large btn-primary" %>
   <br/>
   <div class="alert alert-error" id="alertBox"></div>
-  <div class="span12">
+  <div class="span10">
     <div id="title">
       <div style="float: left">
         <h2 id="hit-title"><%= @target.phrase+' '+@hit.id.to_s %></h2>
@@ -120,8 +120,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="span4">
-            transcript start 
+          <div class="span3">
             <div class="start-time-box" style="display: inline;">
               <span class="beginning-time transcript-time-span">
                 <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000"> 
@@ -129,12 +128,13 @@
             </div>
           </div>
           <div class="span4">
-            <span class="now btn needs-validation" id="start-now" title="set start to current time">current time</span> 
+            <span class="now btn needs-validation" id="start-now" title="set start to current time">
+              start <i class="icon-time"></i>
+            </span>
           </div>
         </div>
         <div class="row">
-          <div class="span4">
-            transcript end
+          <div class="span3">
             <div class="end-time-box" style="display: inline;">
               <span class="ending-time transcript-time-span">
                 <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000"> 
@@ -142,75 +142,78 @@
             </div>
           </div>
           <div class="span4">
-            <span class="now btn needs-validation" id="end-now" title="set end to current time">current time</span>
+            <span class="now btn needs-validation" id="end-now" title="set end to current time">
+              end <i class="icon-time"></i>
+            </span>
           </div>  
         </div>
       </div>
       <div class="row">
-          <span class="btn" id="play-span">play transcript</span>
+          <span class="btn" id="play-span">play selection</span>
       </div>
       <div class="row">
         Notes: <br/>
         <%= f.text_area :notes, :value => @hit.notes, :class => 'clip-textarea needs-validation'%>
       </div>
     </div>
+    <div class="span4">
 
-
-    <div id="feature-box">
-      <% @features.each_with_index do |feature,index| %>
-      <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
-        <h2><%= feature.name %></h2>
-        <%= feature.created_at %> by <%= feature.user.name %><br/>
-        <%= feature.instructions %><br/>
-        <div class="feature-form">
-          <%  has_saved_feature = true
-              if(@hit.feat_vals.blank?)
-                has_saved_feature = false
-              end
-          %>
-          <%  if(feature.ftype == 0) %>
-            <% feature.fvalues.each do |value| %>
-              <label class="radio">
-                <%  if(has_saved_feature)
-                      if(!@hit.feat_vals["#{index}"].blank?)
-                        has_value = (@hit.feat_vals["#{index}"][0] == value)
+      <div id="feature-box">
+        <% @features.each_with_index do |feature,index| %>
+        <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
+          <h2><%= feature.name %></h2>
+          <%= feature.created_at %> by <%= feature.user.name %><br/>
+          <%= feature.instructions %><br/>
+          <div class="feature-form">
+            <%  has_saved_feature = true
+                if(@hit.feat_vals.blank?)
+                  has_saved_feature = false
+                end
+            %>
+            <%  if(feature.ftype == 0) %>
+              <% feature.fvalues.each do |value| %>
+                <label class="radio">
+                  <%  if(has_saved_feature)
+                        if(!@hit.feat_vals["#{index}"].blank?)
+                          has_value = (@hit.feat_vals["#{index}"][0] == value)
+                        end
                       end
-                    end
-                %>
-                <%= radio_button_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
-                <%= value %>
-              </label>
+                  %>
+                  <%= radio_button_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
+                  <%= value %>
+                </label>
+              <% end %>
             <% end %>
-          <% end %>
-          <%  if(feature.ftype == 1) %>
-            <%= hidden_field_tag "hit[feat_vals][#{index}][]", 'dummy'%>
-            <% feature.fvalues.each_with_index do |value,val_index| %>
-              <label class="checkbox">
-                <% if(has_saved_feature)
-                    has_value = @hit.feat_vals["#{index}"].include?(value)
-                  end
-                %>
-                <%= check_box_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
-                <%= value %>
-              </label>
-            <% end %>
-          <% end %>
-          <%  if(feature.ftype == 2) %>
-            <% feature.fvalues.each_with_index do |value,val_index| %>
-              <label class="textbox">
-                <%  if(@hit.feat_vals["#{index}"].blank?)
-                      feat_val = ""
-                    else
-                      feat_val = @hit.feat_vals["#{index}"][val_index]
+            <%  if(feature.ftype == 1) %>
+              <%= hidden_field_tag "hit[feat_vals][#{index}][]", 'dummy'%>
+              <% feature.fvalues.each_with_index do |value,val_index| %>
+                <label class="checkbox">
+                  <% if(has_saved_feature)
+                      has_value = @hit.feat_vals["#{index}"].include?(value)
                     end
                   %>
-                <%= text_field_tag("hit[feat_vals][#{index}][]",feat_val,:placeholder => value,:class => "needs-validation") %>
-              </label>
+                  <%= check_box_tag("hit[feat_vals][#{index}][]",value,has_value,:class => "needs-validation") %>
+                  <%= value %>
+                </label>
+              <% end %>
             <% end %>
-          <% end %>
+            <%  if(feature.ftype == 2) %>
+              <% feature.fvalues.each_with_index do |value,val_index| %>
+                <label class="textbox">
+                  <%  if(@hit.feat_vals["#{index}"].blank?)
+                        feat_val = ""
+                      else
+                        feat_val = @hit.feat_vals["#{index}"][val_index]
+                      end
+                    %>
+                  <%= text_field_tag("hit[feat_vals][#{index}][]",feat_val,:placeholder => value,:class => "needs-validation") %>
+                </label>
+              <% end %>
+            <% end %>
+          </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>
