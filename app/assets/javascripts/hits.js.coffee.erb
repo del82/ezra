@@ -28,7 +28,7 @@ $(document).ready ->
 		$('.status-box').tooltip()
 		$('[data-status='+confirmed+']').addClass('selected')
 		$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
-		$('#alertBox,#downloading').hide()
+		$('#alertBox,#downloading,.feature-data').hide()
 
 		$('.needs-validation, .transcript-time').change ->
 			changeSave()
@@ -84,6 +84,12 @@ $(document).ready ->
 					$('#downloading').text(errors)
 				
 			
+		$('.feature-chevron').click ->
+			$(this).parent().next().toggle()
+			if($(this).hasClass('icon-chevron-up'))
+				$(this).removeClass('icon-chevron-up').addClass('icon-chevron-down')
+			else
+				$(this).removeClass('icon-chevron-down').addClass('icon-chevron-up')
 
 		windowStart = smt.secondsToRaw($('#hit_window_start').val())
 		windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
