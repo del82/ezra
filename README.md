@@ -1,14 +1,26 @@
-
-# ezra on rails
+# ezra
 
 [![Code Climate](https://codeclimate.com/github/del82/ezra.png)](https://codeclimate.com/github/del82/ezra)
 
-ezra is a server-side tool for harvesting specialized corpora of annotated audio files for phonetics research.
+ezra is a server-side tool for producing research-quality datasets of annotated audio files
+from recordings available on the web.
+
+The web contains vast quantities of recorded speech, and much of it is accompanied by
+transcripts and is therefore discoverable by search engine queries. The web is thus a
+potentially valuable source of data for speech research. But before audio files harvested
+from the web can constitute research data, they must be subjected to processing. Each
+search engine hit must be manually validated, and each token must be extracted with
+the required amount of context and annotated with the appropriate metadata.
+
+ezra is a simple but powerful web interface allowing non-expert users to perform this
+processing efficiently. Its effectiveness as a corpus annotation tool has been demonstrated
+in the production of corpora consisting of thousands of annotated tokens.
+
 
 ## Documentation
 
-A basic [tutorial for annotators](https://github.com/del82/ezra/wiki/Tutorial-for-annotators) is available,
-as is basic [developer documentation](https://github.com/del82/ezra/wiki).
+A basic [tutorial for annotators](https://github.com/del82/ezra/wiki/Tutorial-for-annotators)
+is available, as is basic [developer documentation](https://github.com/del82/ezra/wiki).
 Tutorials for supervisors will be available soon.
 
 ## Installation
@@ -38,7 +50,7 @@ Tutorials for supervisors will be available soon.
 10. If you like, start guard/spork to detect code changes and run tests
   automatically.
   - `$ guard`
-11. To start a server, run `ruby s`
+11. To start a server, run `rails s`
 12. Hack away
 
 Notes:

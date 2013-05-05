@@ -26,7 +26,7 @@ $(document).ready ->
 		$('.status-box').tooltip()
 		$('[data-status='+confirmed+']').addClass('selected')
 		$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
-		$('#alertBox,#downloading').hide()
+		$('#alertBox,#downloading,.feature-data').hide()
 
 		$('.needs-validation, .transcript-time').change ->
 			changeSave()
@@ -39,7 +39,6 @@ $(document).ready ->
 			setStatus(value)
 
 		$('#mark-hit').click ->
-			$('#location').html(smt.toText(smt.getTime()))
 			$('#hit_location').val(smt.toSeconds(smt.getTime()))
 
 		$('.now').click ->
@@ -51,8 +50,19 @@ $(document).ready ->
 		$('.end-time-box input').change ->
 			manuallySetWindowBound('end')
 
+		$('.hit-time-box input').change ->
+			manuallySetWindowBound('hit')
+
 		$('#play-span').click ->
-			toWindowStart()
+			playSpan(-1,-1)
+		
+		$('#play-start').click ->
+			spanEnd = smt.toMilliseconds(smt.getWindowTime('start'))+2000
+			playSpan(-1,""+spanEnd)
+
+		$('#play-end').click ->
+			spanStart = smt.toMilliseconds(smt.getWindowTime('end'))-2000
+			playSpan(spanStart,-1)
 
 		$('#download-clip').click ->
 			$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
@@ -72,24 +82,42 @@ $(document).ready ->
 					$('#downloading').text(errors)
 				
 			
+		$('.feature-chevron').click ->
+			$(this).parent().next().toggle()
+			if($(this).hasClass('icon-chevron-up'))
+				$(this).removeClass('icon-chevron-up').addClass('icon-chevron-down')
+			else
+				$(this).removeClass('icon-chevron-down').addClass('icon-chevron-up')
 
 		windowStart = smt.secondsToRaw($('#hit_window_start').val())
 		windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
+		hitLocation = smt.secondsToRaw($('#hit_location').val())
 		setWindowTime('start', windowStart)
 		setWindowTime('end', windowDuration)
+		setWindowTime('hit', hitLocation)
+		playingSpan = false
 
 
 changeSave = () ->
 	validate()
 	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save changes")
 
-window.toWindowStart = () ->
-	if(soundManager.getSoundById('pagePlayerMP3Sound0').paused)
+window.playSpan = (start, end) ->
+	if(not soundManager.getSoundById('pagePlayerMP3Sound0') || soundManager.getSoundById('pagePlayerMP3Sound0').paused)
 		togglePlayer()
-	time = ""+smt.toMilliseconds(smt.getWindowTime('start'))
-	soundManager.setPosition("pagePlayerMP3Sound0",time)
-	end = ""+smt.toMilliseconds(smt.getWindowTime('end'))
-	soundManager.onPosition("pagePlayerMP3Sound0",end,(eventPosition) -> togglePlayer())
+	if(start is -1)
+		start = smt.toMilliseconds(smt.getWindowTime('start'))
+	if(end is -1)
+		end = smt.toMilliseconds(smt.getWindowTime('end'))
+	console.log(start + " " + end)
+	soundManager.setPosition("pagePlayerMP3Sound0",start)
+	playingSpan = true
+	console.log(playingSpan)
+	soundManager.onPosition("pagePlayerMP3Sound0",end,(eventPosition) -> 
+		if(playingSpan)
+			togglePlayer()
+		playingSpan = false
+	)
 
 window.setWindowTime = (loc, time) ->
 	$('#'+loc+'-time-hours').val(~~(time.hours))
@@ -101,13 +129,17 @@ window.setWindowTime = (loc, time) ->
 # loc is a string, rather than an actual node
 window.manuallySetWindowBound = (loc) ->
 	time = smt.getWindowTime(loc)
-	if(loc is 'start')
-		end = smt.getWindowTime('end')
-		$('#hit_window_start').val(smt.toSeconds(time))
-		$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
-	else 
-		start = smt.getWindowTime('start')
-		$('#hit_window_duration').val((smt.toSeconds(time)-smt.toSeconds(start)))
+	switch loc
+		when 'start' 
+			end = smt.getWindowTime('end')
+			$('#hit_window_start').val(smt.toSeconds(time))
+			$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
+		when 'end'
+			start = smt.getWindowTime('start')
+			$('#hit_window_duration').val((smt.toSeconds(time)-smt.toSeconds(start)))
+		when 'hit'
+			$('#hit_location').val(smt.toSeconds(time))
+		else console.log("Error setting time!")
 	changeSave()
 
 # Set window bound by clicking the one of the buttons
@@ -115,10 +147,11 @@ window.setWindowBound = (loc) ->
 	loc = loc.attr("id").split("-")[0]
 	time = smt.getTime()
 	setWindowTime(loc, time)
-	if(loc is 'start')
-		$('#hit_window_start').val(smt.toSeconds(time))
-	else 
-		$('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+	switch loc
+		when 'start' then $('#hit_window_start').val(smt.toSeconds(time))
+		when 'end' then $('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+		when 'hit' then $('#hit_location').val(smt.toSeconds(smt.getTime()))
+		else console.log("Error!")
 	changeSave()
 
 window.setStatus = (num) ->
