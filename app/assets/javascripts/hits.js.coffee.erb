@@ -95,7 +95,7 @@ changeSave = () ->
 	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save changes")
 
 window.playSpan = (start, end) ->
-	if(soundManager.getSoundById('pagePlayerMP3Sound0').paused)
+	if(not soundManager.getSoundById('pagePlayerMP3Sound0') || soundManager.getSoundById('pagePlayerMP3Sound0').paused)
 		togglePlayer()
 	if(start is -1)
 		start = smt.toMilliseconds(smt.getWindowTime('start'))
