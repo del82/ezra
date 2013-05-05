@@ -188,7 +188,7 @@
               <%= hidden_field_tag "hit[feat_vals][#{index}][]", 'dummy'%>
               <% feature.fvalues.each_with_index do |value,val_index| %>
                 <label class="checkbox">
-                  <% if(has_saved_feature)
+                  <% if(has_saved_feature && !@hit.feat_vals["#{index}"].nil?)
                       has_value = @hit.feat_vals["#{index}"].include?(value)
                     end
                   %>
