@@ -36,4 +36,3 @@ config/initializers/secret_token.rb
 
 # ignore coverage reports
 /coverage
-

@@ -34,11 +34,20 @@
       <div id="window-start-static" style="display:none;"></div>
 
       <div id="audio-row" class="row">
-        <!-- Edit "getTime" in page-player.js -->
-        <div id="sm-container">
-            <ul class="playlist">
-            <li><a href="<%= "/ezra2/small#{@hit.audio_file}" %>">Click to play</a></li>
-            </ul>
+        <div class="pull-left side-button-container">
+          <span id="play-start" class="btn btn-mini side-button"><i class="icon-play"></i> start 2s</span><br/>
+          <span id="play-span" class="btn btn-mini side-button"><i class="icon-play"></i> selection</span><br/>
+          <span id="play-end" class="btn btn-mini side-button"><i class="icon-play"></i> last 2s</span>
+        </div>
+        <div class="span8">
+          <div id="sm-container">
+              <ul class="playlist">
+              <li><a href="<%= asset_path(@hit.audio_file[6,@hit.audio_file.length])
+
+              #"/ezra2/small#{@hit.audio_file}"
+               %>">Click to play</a></li>
+              </ul>
+          </div>
         </div>
       </div>
       <br/>
@@ -94,15 +103,7 @@
             </div>
           </div>
           <br/>  
-          <% if current_user.admin? %>        
-            <%= hidden_field_tag "phrase",@target.phrase %>
-            <%= hidden_field_tag "id",@hit.id %>
-            <div class="btn" id="download-clip">Download</div>
-          <% end %>
         </div>
-        <% if current_user.admin? %>
-        <div id="downloading" class="span4"></div>
-        <% end %>
       </div>
       <br/>
       <div id="hit-info" class="row">
@@ -147,9 +148,6 @@
             </span>
           </div>  
         </div>
-      </div>
-      <div class="row">
-          <span class="btn" id="play-span">play selection</span>
       </div>
       <div class="row">
         Notes: <br/>
