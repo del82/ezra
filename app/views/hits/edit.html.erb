@@ -52,7 +52,15 @@
       </div>
       <br/>
       <div class="row"> 
-        <div class="span3">
+        <div class="span3" id="hit-info">
+          <span class="hit-time-box transcript-time-span">
+            <input class="transcript-time" id="hit-time-hours" type="text" value="00">:<input class="transcript-time" id="hit-time-minutes" type="text" value="00">:<input class="transcript-time" id="hit-time-seconds" type="text" value="00">:<input class="transcript-time" id="hit-time-milliseconds" type="text" value="000"> 
+          </span>
+        </div>
+        <div class="span2">
+          <span id="hit-now" class="btn needs-validation now">hit <i class="icon-time"></i></span>
+        </div>
+        <div class="span3 pull-right">
           <a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a>
           <br/>
           <div class="modal hide fade" id="help">
@@ -104,12 +112,6 @@
           </div>
           <br/>  
         </div>
-      </div>
-      <br/>
-      <div id="hit-info" class="row">
-        located at
-        <span id="location" data-value="<%= @hit.location %>"></span>
-        <span id="mark-hit" class="btn needs-validation">mark hit</span>
       </div>
 
       </div>

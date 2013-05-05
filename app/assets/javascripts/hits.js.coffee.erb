@@ -41,7 +41,6 @@ $(document).ready ->
 			setStatus(value)
 
 		$('#mark-hit').click ->
-			$('#location').html(smt.toText(smt.getTime()))
 			$('#hit_location').val(smt.toSeconds(smt.getTime()))
 
 		$('.now').click ->
@@ -52,6 +51,9 @@ $(document).ready ->
 
 		$('.end-time-box input').change ->
 			manuallySetWindowBound('end')
+
+		$('.hit-time-box input').change ->
+			manuallySetWindowBound('hit')
 
 		$('#play-span').click ->
 			playSpan(-1,-1)
@@ -85,8 +87,10 @@ $(document).ready ->
 
 		windowStart = smt.secondsToRaw($('#hit_window_start').val())
 		windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
+		hitLocation = smt.secondsToRaw($('#hit_location').val())
 		setWindowTime('start', windowStart)
 		setWindowTime('end', windowDuration)
+		setWindowTime('hit', hitLocation)
 		playingSpan = false
 
 
@@ -121,13 +125,17 @@ window.setWindowTime = (loc, time) ->
 # loc is a string, rather than an actual node
 window.manuallySetWindowBound = (loc) ->
 	time = smt.getWindowTime(loc)
-	if(loc is 'start')
-		end = smt.getWindowTime('end')
-		$('#hit_window_start').val(smt.toSeconds(time))
-		$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
-	else 
-		start = smt.getWindowTime('start')
-		$('#hit_window_duration').val((smt.toSeconds(time)-smt.toSeconds(start)))
+	switch loc
+		when 'start' 
+			end = smt.getWindowTime('end')
+			$('#hit_window_start').val(smt.toSeconds(time))
+			$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
+		when 'end'
+			start = smt.getWindowTime('start')
+			$('#hit_window_duration').val((smt.toSeconds(time)-smt.toSeconds(start)))
+		when 'hit'
+			$('#hit_location').val(smt.toSeconds(time))
+		else console.log("Error setting time!")
 	changeSave()
 
 # Set window bound by clicking the one of the buttons
@@ -135,10 +143,11 @@ window.setWindowBound = (loc) ->
 	loc = loc.attr("id").split("-")[0]
 	time = smt.getTime()
 	setWindowTime(loc, time)
-	if(loc is 'start')
-		$('#hit_window_start').val(smt.toSeconds(time))
-	else 
-		$('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+	switch loc
+		when 'start' then $('#hit_window_start').val(smt.toSeconds(time))
+		when 'end' then $('#hit_window_duration').val((smt.toSeconds(time)-$('#hit_window_start').val()))
+		when 'hit' then $('#hit_location').val(smt.toSeconds(smt.getTime()))
+		else console.log("Error!")
 	changeSave()
 
 window.setStatus = (num) ->
