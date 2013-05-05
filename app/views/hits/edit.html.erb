@@ -25,12 +25,7 @@
         <div id="not-present" class="status-box needs-validation" data-toggle="tooltip" data-status="-1" title="Not Present"></div>
         <div id="duplicate" class="status-box needs-validation" data-toggle="tooltip" data-status="-2" title="Duplicate"></div>
         <span id="flag" class="needs-validation">
-          <input type="checkbox" id="flag-checkbox" 
-          <%  if(@hit.flagged) 
-                concat 'checked="checked"'
-              end %>
-          >
-          flag this
+          <%= f.check_box :flagged, :checked=>@hit.flagged, :style=>"margin-top: -5px" %> Flag
         </span>
 
       </div>

@@ -50,7 +50,7 @@ Tutorials for supervisors will be available soon.
 10. If you like, start guard/spork to detect code changes and run tests
   automatically.
   - `$ guard`
-11. To start a server, run `ruby s`
+11. To start a server, run `rails s`
 12. Hack away
 
 Notes:
