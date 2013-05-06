@@ -12,6 +12,7 @@ class FeaturesController < ApplicationController
 
   def new     # GET /features/new      -> new_feature_path
     @feature = Feature.new
+    @targets = Target.where('user_id = ?',current_user.id)
   end
 
   def create  # POST /features         -> features_path
@@ -27,6 +28,7 @@ class FeaturesController < ApplicationController
 
   def edit    # GET /features/:id/edit -> edit_feature_path(feature)
     @feature = Feature.find(params[:id])
+    @targets = Target.where('user_id = ?',current_user.id)
   end
 
   def update  # PUT /features/1        -> feature_path(feature)

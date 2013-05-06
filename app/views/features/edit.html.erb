@@ -1,8 +1,8 @@
 <% provide(:title, "Edit \"" + @feature.name + "\"") %>
 <h1> Update feature "<%= @feature.name %>"</h1>
 <div class="row">
+  <% if @feature.targets.count > 0 %>
   <div class="alert alert-block alert-warning fade in span6" id="edit-feature-alert">
-    <button type="button" class="close" data-dismiss="alert">×</button>
     <h4 class="alert-heading">Feature Already Contains Targets</h4>
     <p>This feature already has these associated targets:
       <ul>
@@ -18,6 +18,7 @@
       <a class="btn btn-warning yes" href="#">Yes</a> <a class="btn" href="/features">No (return to index)</a>
     </p>
   </div>
+  <% end %>
   <div id="edit-box">
    <div class="row">
       <%= form_for(@feature) do |f| %>
@@ -27,7 +28,7 @@
         <%= f.text_field :name %>
         <span class="help" title="Tell the annotators how they should mark features for each hit."> Instructions <i class="icon-question-sign"></i></span>
         <%= f.text_area :instructions, :rows=>10 %>
-        <%= f.submit "Create feature", class: "btn btn-large btn-primary" %>
+        <%= f.submit "Save update", class: "btn btn-large btn-primary" %>
       </div>
       <div class="span3">
         <span class="help" title="Single - Pick one from a list.<br/> Multiple - Can pick multiple from a list.<br/> Text - Unrestricted text input."> Feature Type <i class="icon-question-sign"></i></span>
@@ -36,13 +37,17 @@
         <div id="feature-list">
           <div class="btn" id="add-new">Add value</div>
           <br/><br/>
-          <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %><br/>
-          <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %><br/>
+          <% @feature.fvalues.each_with_index do |value,index| %>
+          <div id="row-<%= index %>">
+            <%= text_field_tag("feature[fvalues][]",value,:placeholder => "Add feature", 'data-count'=>index, :class=>'feature-box') %> 
+            <i class="icon-remove-sign remove-button" data-remove="<%= index %>"></i>
+          </div>
+          <% end %>
         </div>   
       </div>
       <div class="span3">
         <span class="help" title="Which targets have this feature?"> Targets <i class="icon-question-sign"></i></span>
-        <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+        <%= f.select :target_ids, @targets.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
       </div> 
       <% end %>
     </div>

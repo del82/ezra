@@ -6,6 +6,10 @@ $(document).ready ->
 	$('.tablesorter').tablesorter()
 	$('.help').tooltip({html: true})
 
+	# Remove feature
+	$('.remove-button').click -> 
+		removeValue($(this))
+
 	# Look up if feature name exists
 	$('#nonunique').hide()
 	$('#feature_name').keyup ->
@@ -27,15 +31,32 @@ $(document).ready ->
 
 
 	# Update feature
-	count = 1
+	count = $('.feature-box').length-1
 	$('#add-new').click ->
 		count++
-		$('#feature-list').append('<input type="text" value="" name="feature[fvalues][]" placeholder="Add feature" data-count="'+count+'" /><br/>')
+		newValue = document.createElement('div')
+		newValue.innerHTML = ['<input type="text" value="" class="feature-box" name="feature[fvalues][]" placeholder="Add feature" data-count="'+count+'" />',
+		'<i class="icon-remove-sign remove-button" data-remove="'+count+'"></i>'
+		].join('\n')
+		newValue.setAttribute("id","row-"+count)
+
+		$('#feature-list').append(newValue)
+		$('.remove-button').click -> 
+			removeValue($(this))
 
 	# Edit features
-	$('#edit-box').hide()
+	if $('#edit-feature-alert').length
+		$('#edit-box').hide()
 	$('#edit-feature-alert').alert()
 	$('.yes').click ->
 		$('#edit-feature-alert').alert('close')
 		$('#edit-box').show()
 
+	removeValue = (el) ->
+		toRemove = el.data("remove")
+		if $('#row-'+toRemove+' input').val() isnt ""
+			answer = confirm("Are you sure you want to delete this? It has a value already.")
+			if answer
+				$('#row-'+toRemove).remove()
+		else
+			$('#row-'+toRemove).remove()

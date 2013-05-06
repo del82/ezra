@@ -17,13 +17,17 @@
     <div id="feature-list">
       <div class="btn" id="add-new">Add value</div>
       <br/><br/>
-      <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %><br/>
-      <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %><br/>
+      <% (0..1).each do |value,index| %>
+      <div id="row-<%= index %>">
+        <%= text_field_tag("feature[fvalues][]","",:placeholder => "Add feature", 'data-count'=>index, :class=>'feature-box') %> 
+        <i class="icon-remove-sign remove-button" data-remove="<%= index %>"></i>
+      </div>
+      <% end %>
     </div>   
   </div>
   <div class="span3">
     <span class="help" title="Which targets have this feature?"> Targets <i class="icon-question-sign"></i></span>
-    <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+    <%= f.select :target_ids, @targets.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
   </div> 
   <% end %>
 </div>
