@@ -4,8 +4,14 @@
   Confirmed: <span class="confirmed"> <%= @hits.where(:confirmed => 1).count %> </span> <br/>
   Unconfirmed: <span class="unconfirmed"> <%= @hits.where(:confirmed => 0).count %> </span> <br/>
   Not Present: <span class="not-present"> <%= @hits.where(:confirmed => -1).count %> </span>
-  <h3>Features
+  <h3>Features </h3>
   <table class="table table-striped">
+    <thead>
+      <th>Name</th>
+      <th>Created by</th>
+      <th>Number of targets</th>
+      <th>Instructions</th>
+    </thead>
     <%= render @features %>
   </table>
   <h3>Hits</h3>

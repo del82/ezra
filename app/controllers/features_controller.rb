@@ -38,7 +38,12 @@ class FeaturesController < ApplicationController
     else
       render 'edit'
     end
-    redirect_to :action=>'index'
+
+    if params[:commit] === 'Save targets'
+      render 'show'
+    else
+      redirect_to :action=>'index'
+    end
   end
 
 

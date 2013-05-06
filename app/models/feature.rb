@@ -16,6 +16,7 @@ class Feature < ActiveRecord::Base
   include PublicActivity::Common
 
   attr_accessible :instructions, :name, :ftype, :fvalues
+  attr_accessible :target_ids
   serialize :fvalues, Array
   belongs_to :user, :inverse_of => :features
   has_and_belongs_to_many :targets, uniq: true
