@@ -1,11 +1,30 @@
 <tr>
-  <td><a class="btn btn-small" href="<%= edit_hit_path(hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a><%= link_to hit.id, hit %></td>
+  <td><a class="btn btn-mini" href="<%= edit_hit_path(hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a><%= link_to hit.id, hit %></td>
   <td><%= link_to hit.target.phrase, hit.target %></td>
-  <td><%= hit.confirmed %></td>
-  <td><%= hit.flagged %></td>
   <td>
-  	<audio>
-  	  Audio temporarily disabled
-  	</audio>
+    <%
+    case hit.confirmed
+    when 1
+      concat raw "<span class='confirmed'>Confirmed</span>"
+    when 0
+      concat raw "<span class='unconfirmed'>Unconfirmed</span>"
+    when -1
+      concat raw "<span class='not-present'>Not Present</span>"
+    when -2
+      concat raw "<span class='duplicate'>Duplicate</span>"
+    end
+    %>
+  </td>
+  <td>
+    <%
+      if hit.flagged
+        concat 'Flagged' 
+      end
+    %>
+  </td>
+  <td>
+    <audio>
+      Audio temporarily disabled
+    </audio>
   </td>
 </tr>

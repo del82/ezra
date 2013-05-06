@@ -27,6 +27,7 @@ $(document).ready ->
 		$('[data-status='+confirmed+']').addClass('selected')
 		$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
 		$('#alertBox,#downloading,.feature-data').hide()
+		$('.tablesorter').tablesorter()
 
 		$('.needs-validation, .transcript-time').change ->
 			changeSave()

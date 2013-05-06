@@ -1,7 +1,13 @@
 <% provide(:title, "Hits") %>
 <%= will_paginate %>
 
-<table class="hits table">
+<table class="hits table tablesorter">
+  <thead>
+    <th>Hit Number</th>
+    <th>Target</th>
+    <th>Status</th>
+    <th>Flagged</th>
+  </thead>
   <%= render @hits %>
 </table>
 
