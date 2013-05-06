@@ -16,6 +16,9 @@ class TargetsController < ApplicationController
     if hits_params.has_key?(:flagged)
       hits_params[:flagged] = (hits_params[:flagged] == "true")
     end
+    if hits_params.has_key?(:confirmed)
+      @status = hits_params[:confirmed]
+    end
     @hits = @target.hits.where(hits_params).paginate(page: params[:page])
 
     @features = @target.features

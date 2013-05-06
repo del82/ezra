@@ -1,11 +1,32 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
-  <h2><%= @target.phrase %></h2>
+  <h2>
+    <%= @target.phrase %>
+    <%
+    if @status
+      case @status.to_i
+      when 1
+        concat raw "<span class='confirmed'>Confirmed</span>"
+      when 0
+        concat raw "<span class='unconfirmed'>Unconfirmed</span>"
+      when -1
+        concat raw "<span class='not-present'>Not Present</span>"
+      when -2
+        concat raw "<span class='duplicate'>Duplicate</span>"
+      end
+    end
+    %>
+  </h2>
+  <% if @status %>
+    Count: <%= @hits.where(:confirmed => @status.to_i).count %>
+  <% end %>
+  <% if !@status %>
   Total: <%= @hits.count %> <br/>
-  Confirmed: <span class="confirmed"> <%= @hits.where(:confirmed => 1).count %> </span> <br/>
-  Unconfirmed: <span class="unconfirmed"> <%= @hits.where(:confirmed => 0).count %> </span> <br/>
-  Not Present: <span class="not-present"> <%= @hits.where(:confirmed => -1).count %> </span>
+  Confirmed: <%= link_to @hits.where(:confirmed => 1).count, target_path(@target, { confirmed: 1 }), class: "confirmed"%><br/>
+  Unconfirmed: <%= link_to @hits.where(:confirmed => 0).count, target_path(@target, { confirmed: 0 }), class: "unconfirmed"%> <br/>
+  Not Present: <%= link_to @hits.where(:confirmed => -1).count, target_path(@target, { confirmed: -1 }), class: "not-present"%> </span>
+  <% end %>
   <h3>Features </h3>
-  <table class="table table-striped">
+  <table class="table table-striped tablesorter">
     <thead>
       <th>Name</th>
       <th>Created by</th>
@@ -16,8 +37,42 @@
   </table>
   <h3>Hits</h3>
   <%= will_paginate @hits %>
-  <table class="table table-striped">
-    <%= render @hits %>
+  <table class="table table-striped tablesorter" style="width: 50%">
+    <thead>
+      <th>Hit Number</th>
+      <% if !@status %>
+        <th>Status</th>
+      <% end %>
+      <th>Flagged</th>
+    </thead>
+    <% @hits.each do |hit| %>
+      <tr>
+        <td><a class="btn btn-mini" href="<%= edit_hit_path(hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a><%= link_to hit.id, hit %></td>
+        <td>
+          <%
+          if !@status
+            case hit.confirmed
+            when 1
+              concat raw "<span class='confirmed'>Confirmed</span>"
+            when 0
+              concat raw "<span class='unconfirmed'>Unconfirmed</span>"
+            when -1
+              concat raw "<span class='not-present'>Not Present</span>"
+            when -2
+              concat raw "<span class='duplicate'>Duplicate</span>"
+            end
+          end
+          %>
+        </td>
+        <td>
+          <%
+            if hit.flagged
+              concat 'Flagged' 
+            end
+          %>
+        </td>
+      </tr>
+    <% end  %>
   </table>
   <%= will_paginate @hits %>
 <br />
