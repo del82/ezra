@@ -7,4 +7,13 @@
 		(<%= link_to "Edit", edit_feature_path(feature) %>)
 	<% end %>
   </td>
+  <td>
+	<%= feature.user_id %>
+  </td>
+  <td>
+	<%= feature.targets.count %>
+  </td>
+  <td>
+	<%= feature.instructions.split(' ')[0..10].join(' ') %>
+  </td>
 </tr>

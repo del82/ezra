@@ -1,7 +1,13 @@
 <% provide(:title, "Features") %>
 <%= will_paginate %>
 
-<table class="features table">
+<table class="features table tablesorter">
+	<thead>
+		<th>Feature</th>
+		<th>Created by</th>
+		<th>Number of targets</th>
+		<th>Instructions</th>
+	</thead>
   <%= render @features %>
 </table>
 
