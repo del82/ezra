@@ -7,7 +7,7 @@
       </h3>
     </section>
   </aside>
-  <%= link_to @hit.audio_file, "/ezra2/small#{@hit.audio_file}" %>  <!-- total hack to make this work for us for now.  FIXME! -->
+  <%= link_to @hit.audio_file, "/small#{@hit.audio_file}" %>
   <br/>
   <a class="btn btn-small" href="<%= edit_hit_path(@hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a>
 </div>
