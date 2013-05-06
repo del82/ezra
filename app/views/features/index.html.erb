@@ -2,7 +2,7 @@
 <%= will_paginate %>
 
 <% if current_user.admin? %>
-<%= link_to "New feature", '/features/new', :class=>"btn" %>
+<%= link_to "New feature", new_feature_path, :class=>"btn" %>
 <% end %>
 <br/>
 <table class="features table tablesorter">
