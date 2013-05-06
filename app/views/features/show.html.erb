@@ -2,7 +2,11 @@
 <div class="row">
   <div class="span4">
       <%= link_to "Back", {:controller=>"features", :action=>"index"}, :class=>"btn" %>
-    <h3> <%= @feature.name %> </h3>
+    <h3> <%= @feature.name %> 
+      <% if current_user.id == @feature.user_id || current_user.admin? %>
+        (<%= link_to "Edit", edit_feature_path(@feature) %>)
+      <% end %>
+    </h3>
   </div>
 </div>
 <div class="row">
@@ -53,7 +57,6 @@
     <%= form_for(@feature) do |f| %>
       <%= render 'error_messages' %>
       <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
-  
   </div>
   <div class="modal-footer">
     <div class="btn btn-large" data-dismiss="modal">Close</div>
