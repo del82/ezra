@@ -56,7 +56,7 @@
   <div class="modal-body">
     <%= form_for(@feature) do |f| %>
       <%= render 'error_messages' %>
-      <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+      <%= f.select :target_ids, @targets.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
   </div>
   <div class="modal-footer">
     <div class="btn btn-large" data-dismiss="modal">Close</div>

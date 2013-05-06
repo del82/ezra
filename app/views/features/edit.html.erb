@@ -47,7 +47,11 @@
       </div>
       <div class="span3">
         <span class="help" title="Which targets have this feature?"> Targets <i class="icon-question-sign"></i></span>
-        <%= f.select :target_ids, @targets.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+        <br/>
+        <% @targets.each do |v| %>
+          <%= check_box_tag "feature[target_ids][]", v.id , @feature.target_ids.include?(v.id), :class=>'feature-checkbox' %> 
+          <%= link_to v.phrase, :controller=>"targets", :action=>"show", :id=>v.id %> <br/>
+        <% end %>
       </div> 
       <% end %>
     </div>

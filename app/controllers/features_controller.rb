@@ -8,6 +8,7 @@ class FeaturesController < ApplicationController
 
   def show    # GET /features/:id      -> feature_path(feature)
     @feature = Feature.find(params[:id])
+    @targets = Target.where('user_id = ?',current_user.id)
   end
 
   def new     # GET /features/new      -> new_feature_path
@@ -33,6 +34,7 @@ class FeaturesController < ApplicationController
 
   def update  # PUT /features/1        -> feature_path(feature)
     @feature = Feature.find(params[:id])
+    @targets = Target.where('user_id = ?',current_user.id)
     if params[:commit] === 'Cancel'
       flash[:success] = "No updates"
     elsif @feature.update_attributes(params[:feature], user: @user)
