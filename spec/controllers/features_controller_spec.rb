@@ -225,7 +225,7 @@ describe FeaturesController do
           feature.name.should eq("New Name")
         end
         it "should render the :show template on success" do
-          response.should render_template :show
+          response.should redirect_to :features
         end
       end
     end
