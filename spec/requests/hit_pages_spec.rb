@@ -160,5 +160,27 @@ describe "Hit pages" do
         end
       end
     end
+
+    describe "doesn't crash when features are added" do
+      # test for 500 bug when attempting to edit a hit which had features
+      #  valued, and then had new features added to its target
+      let(:feature1) { FactoryGirl.create(:feature, id: 100) }
+      let(:feature2) { FactoryGirl.create(:multi_feature, id: 101) }
+      let(:target)   { FactoryGirl.create(:target, features: [feature1]) }
+      let(:hit) { FactoryGirl.create(:hit, target: target) }
+      it "should not return a 500" do
+        hit.feat_vals[feature1.id] = true
+        hit.save!
+        visit edit_hit_path(hit)
+
+        page.should have_selector("title", text: "Edit hit #{hit.id}")
+        target.features.push(feature2)
+        target.save!
+        hit.reload
+        visit edit_hit_path(hit)
+        page.should have_selector("title", text: "Edit hit #{hit.id}")
+
+      end
+    end
   end
 end
