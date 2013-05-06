@@ -1,6 +1,6 @@
 <% provide(:title, "Edit \"" + @feature.name + "\"") %>
 <h1> Update feature "<%= @feature.name %>"</h1>
-<div class="row">
+  <div class="row">
   <div class="alert alert-block alert-warning fade in span6" id="edit-feature-alert">
     <button type="button" class="close" data-dismiss="alert">×</button>
     <h4 class="alert-heading">Feature Already Contains Targets</h4>
@@ -18,26 +18,30 @@
       <a class="btn btn-warning yes" href="#">Yes</a> <a class="btn" href="/features">No (return to index)</a>
     </p>
   </div>
-  <div class="span6 offset3" id="edit-box">
-    <%= form_for(@feature) do |f| %>
-      <%= render 'error_messages' %>
+  <div class="row" id="edit-box">
+      <%= form_for(@feature) do |f| %>
+        <%= render 'error_messages' %>
+    <div class="offset3 span3">
+        <%= f.label :name, "Name" %>
+        <%= f.text_field :name %>
 
-      <%= f.label :name, "Name" %>
-      <%= f.text_field :name %>
-
-      <%= f.label :name, "Instructions" %>
-      <%= f.text_area :instructions %>
-      <br/>
-      <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]],:selected => @feature.ftype)) %>
-      <div id="feature-list">
-        <div class="btn" id="add-new">Add</div>
-        <br/><br/>
-        <% @feature.fvalues.each_with_index do |value,index| %>
-          <%= text_field_tag("feature[fvalues][]",value,:placeholder => "Add feature", 'data-count'=>index) %>
-          <br/>
-        <% end %>
-      </div>
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
+        <%= f.label :name, "Instructions" %>
+        <%= f.text_area :instructions, :rows=>10 %>
+     </div>
+     <div class="span3">
+        <%= f.label :ftype, "Feature type" %>
+        <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]],:selected => @feature.ftype)) %>
+        <div id="feature-list">
+          <div class="btn" id="add-new">Add value</div>
+          <br/><br/>
+          <% @feature.fvalues.each_with_index do |value,index| %>
+            <%= text_field_tag("feature[fvalues][]",value,:placeholder => "Add feature", 'data-count'=>index) %>
+            <br/>
+          <% end %>
+        </div>
+        <%= f.submit "Save changes", class: "btn btn-large btn-primary" %><br/>
+        <%= f.submit "Cancel", class: "btn btn-large btn-danger" %>
+      <% end %>
+    </div>
   </div>
-</div>
+  </div>

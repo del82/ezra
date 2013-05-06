@@ -31,12 +31,14 @@ class FeaturesController < ApplicationController
 
   def update  # PUT /features/1        -> feature_path(feature)
     @feature = Feature.find(params[:id])
-    if @feature.update_attributes(params[:feature], user: @user)
+    if params[:commit] === 'Cancel'
+      flash[:success] = "No updates"
+    elsif @feature.update_attributes(params[:feature], user: @user)
       flash[:success] = "Update successful."
-      render 'show'
     else
       render 'edit'
     end
+    redirect_to :action=>'index'
   end
 
 
