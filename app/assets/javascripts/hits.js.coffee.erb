@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $(document).ready ->
 	# Because I don't want to deal with rails' asset pipeline conditional loading.
-	if window.location.pathname.indexOf("hits") isnt -1 
-		soundManager.url = "<%= '/ezra2' + asset_path('soundmanager2_debug.swf') %>"
+	if window.location.pathname.indexOf("hits") isnt -1
+		soundManager.url = "<%= asset_path('soundmanager2_debug.swf') %>"
 		soundManager.debug = false
 		soundManager.useHighPerformance = true
 		soundManager.useFastPolling = true
@@ -56,7 +56,7 @@ $(document).ready ->
 
 		$('#play-span').click ->
 			playSpan(-1,-1)
-		
+
 		$('#play-start').click ->
 			spanEnd = smt.toMilliseconds(smt.getWindowTime('start'))+2000
 			playSpan(-1,""+spanEnd)
@@ -81,8 +81,8 @@ $(document).ready ->
 				error: (xhr) ->
 					errors = $.parseJSON(xhr.responseText).errors
 					$('#downloading').text(errors)
-				
-			
+
+
 		$('.feature-chevron').click ->
 			$(this).parent().next().toggle()
 			if($(this).hasClass('icon-chevron-up'))
@@ -114,7 +114,7 @@ window.playSpan = (start, end) ->
 	soundManager.setPosition("pagePlayerMP3Sound0",start)
 	playingSpan = true
 	console.log(playingSpan)
-	soundManager.onPosition("pagePlayerMP3Sound0",end,(eventPosition) -> 
+	soundManager.onPosition("pagePlayerMP3Sound0",end,(eventPosition) ->
 		if(playingSpan)
 			togglePlayer()
 		playingSpan = false
@@ -131,7 +131,7 @@ window.setWindowTime = (loc, time) ->
 window.manuallySetWindowBound = (loc) ->
 	time = smt.getWindowTime(loc)
 	switch loc
-		when 'start' 
+		when 'start'
 			end = smt.getWindowTime('end')
 			$('#hit_window_start').val(smt.toSeconds(time))
 			$('#hit_window_duration').val((smt.toSeconds(end)-smt.toSeconds(time)))
@@ -177,7 +177,7 @@ window.seeker = (dir) ->
 	if(soundManager.onPosition("pagePlayerMP3Sound0").position is orig+step and dir isnt -1)
 		soundManager.setPosition("pagePlayerMP3Sound0",time+step)
 
-soundManagerTime = () -> 
+soundManagerTime = () ->
 	getTime: ->
 		time = $('.sm2_position').text()
 		if(time isnt "")

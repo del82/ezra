@@ -3,14 +3,14 @@
 <div class="row">
 
 <%= form_for(@hit) do |f| %>
-    
+
     <%= render 'error_messages' %>
 
     <%= f.hidden_field :confirmed, :value => @hit.confirmed %>
     <%= f.hidden_field :location, :value => @hit.location %>
     <%= f.hidden_field :window_duration, :value => @hit.window_duration, :class => 'needs-validation' %>
     <%= f.hidden_field :window_start, :value => @hit.window_start, :class => 'needs-validation' %>
-    
+
     <%= f.submit "No changes", id: "commit-button", class: "btn btn-large btn-primary" %>
   <br/>
   <div class="alert alert-error" id="alertBox"></div>
@@ -30,7 +30,7 @@
 
       </div>
     </div>
-    <div id="hit-container"> 
+    <div id="hit-container">
       <div id="window-start-static" style="display:none;"></div>
 
       <div id="audio-row" class="row">
@@ -42,16 +42,16 @@
         <div class="span8">
           <div id="sm-container">
               <ul class="playlist">
-              <li><a href="<%= "/ezra2/small#{@hit.audio_file}" %>">Click to play</a></li>
+              <li><a href="<%= audio_path(@hit.audio_file) %>">Click to play</a></li>
               </ul>
           </div>
         </div>
       </div>
       <br/>
-      <div class="row"> 
+      <div class="row">
         <div class="span3" id="hit-info">
           <span class="hit-time-box transcript-time-span">
-            <input class="transcript-time" id="hit-time-hours" type="text" value="00">:<input class="transcript-time" id="hit-time-minutes" type="text" value="00">:<input class="transcript-time" id="hit-time-seconds" type="text" value="00">:<input class="transcript-time" id="hit-time-milliseconds" type="text" value="000"> 
+            <input class="transcript-time" id="hit-time-hours" type="text" value="00">:<input class="transcript-time" id="hit-time-minutes" type="text" value="00">:<input class="transcript-time" id="hit-time-seconds" type="text" value="00">:<input class="transcript-time" id="hit-time-milliseconds" type="text" value="000">
           </span>
         </div>
         <div class="span2">
@@ -107,7 +107,7 @@
               </div>
             </div>
           </div>
-          <br/>  
+          <br/>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
           <div class="span3">
             <div class="start-time-box" style="display: inline;">
               <span class="beginning-time transcript-time-span">
-                <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000"> 
+                <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000">
               </span>
             </div>
           </div>
@@ -137,7 +137,7 @@
           <div class="span3">
             <div class="end-time-box" style="display: inline;">
               <span class="ending-time transcript-time-span">
-                <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000"> 
+                <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000">
               </span>
             </div>
           </div>
@@ -145,7 +145,7 @@
             <span class="now btn needs-validation" id="end-now" title="set end to current time">
               end <i class="icon-time"></i>
             </span>
-          </div>  
+          </div>
         </div>
       </div>
       <div class="row">

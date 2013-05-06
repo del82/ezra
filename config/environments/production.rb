@@ -20,6 +20,10 @@ Ezra::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # set relative url root (FIXME del82)
+  config.relative_url_root = "/ezra2/"
+  config.audio_root="small"
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
