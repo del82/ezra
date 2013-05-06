@@ -46,6 +46,18 @@ class FeaturesController < ApplicationController
     end
   end
 
+  def check_feature_uniqueness
+    results = Feature.find_by_name(params[:name])
+    if results.nil? || results.id == params[:id].to_i
+      exists = false
+    else
+      exists = true
+    end
+    respond_to do |format|
+      format.json { render :json => {:exists => exists}}
+    end
+  end
+
 
   # def destroy # DELETE /features/1     -> feature_path(feature)
   # end

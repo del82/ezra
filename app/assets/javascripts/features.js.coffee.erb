@@ -5,6 +5,27 @@
 $(document).ready ->
 	$('.tablesorter').tablesorter()
 	$('.help').tooltip({html: true})
+
+	# Look up if feature name exists
+	$('#nonunique').hide()
+	$('#feature_name').keyup ->
+		$.ajax '/features/check_feature_uniqueness',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					id: window.location.pathname.split('/')[2],
+					name: $(this).val(),
+				},
+				success: (response) ->
+					console.log(response)
+					if response.exists
+						$('#nonunique').show()
+						$('input[name=commit]').attr("disabled",true)
+					else
+						$('#nonunique').hide()
+						$('input[name=commit]').attr("disabled",false)
+
+
 	# Update feature
 	count = 1
 	$('#add-new').click ->
@@ -17,3 +38,4 @@ $(document).ready ->
 	$('.yes').click ->
 		$('#edit-feature-alert').alert('close')
 		$('#edit-box').show()
+

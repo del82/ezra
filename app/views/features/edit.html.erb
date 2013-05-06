@@ -19,38 +19,32 @@
     </p>
   </div>
   <div id="edit-box">
-    <div class="row">
-        <%= form_for(@feature) do |f| %>
-          <%= render 'error_messages' %>
+   <div class="row">
+      <%= form_for(@feature) do |f| %>
+        <%= render 'error_messages' %>
       <div class="offset3 span3">
-          <%= f.label :name, "Name" %>
-          <%= f.text_field :name %>
-
-          <%= f.label :name, "Instructions" %>
-          <%= f.text_area :instructions, :rows=>10 %>
-       </div>
-       <div class="span3">
-          <%= f.label :ftype, "Feature type" %>
-          <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]],:selected => @feature.ftype)) %>
-          <div id="feature-list">
-            <div class="btn" id="add-new">Add value</div>
-            <br/><br/>
-            <% @feature.fvalues.each_with_index do |value,index| %>
-              <%= text_field_tag("feature[fvalues][]",value,:placeholder => "Add feature", 'data-count'=>index) %>
-              <br/>
-            <% end %>
-          </div>
+        <span class="help" title="The name of your feature. Make sure to pick something descriptive!"> Name <i class="icon-question-sign"></i></span> <span id="nonunique" class="alert-danger">This name is in use</span>
+        <%= f.text_field :name %>
+        <span class="help" title="Tell the annotators how they should mark features for each hit."> Instructions <i class="icon-question-sign"></i></span>
+        <%= f.text_area :instructions, :rows=>10 %>
+        <%= f.submit "Create feature", class: "btn btn-large btn-primary" %>
       </div>
       <div class="span3">
-          <%= f.label :targets_ids, "Targets" %>
-          <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+        <span class="help" title="Single - Pick one from a list.<br/> Multiple - Can pick multiple from a list.<br/> Text - Unrestricted text input."> Feature Type <i class="icon-question-sign"></i></span>
+        <%= f.select(:ftype, options_for_select([['Single',0],['Multiple',1],['Text',2]])) %>
+        Options:
+        <div id="feature-list">
+          <div class="btn" id="add-new">Add value</div>
+          <br/><br/>
+          <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>0) %><br/>
+          <%= text_field_tag("feature[fvalues][]",nil,:placeholder => "Add feature", 'data-count'=>1) %><br/>
+        </div>   
       </div>
+      <div class="span3">
+        <span class="help" title="Which targets have this feature?"> Targets <i class="icon-question-sign"></i></span>
+        <%= f.select :target_ids, Target.all.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
+      </div> 
+      <% end %>
     </div>
-    <div class="row">
-      <div class="offset3 span6">
-          <%= f.submit "Save changes", class: "btn btn-large btn-primary" %> <%= f.submit "Cancel", class: "btn btn-large btn-danger" %>
-      </div>
-    </div>
-        <% end %>
   </div>
-  </div>
+</div>

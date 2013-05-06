@@ -11,6 +11,7 @@ Ezra::Application.routes.draw do
   resources :users
   resources :targets
   resources :features
+  match '/features/check_feature_uniqueness' => 'features#check_feature_uniqueness', :as => :feature_unique, :via => :post
   resources :hits
   match '/hits/:id/save_clip' => 'hits#save_clip', :as => :save_clip, :via => :post
   match '/hits/listen/:clip' => 'hits#listen', :as => :listen, :via => :get
