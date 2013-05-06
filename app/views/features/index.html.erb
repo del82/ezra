@@ -1,6 +1,10 @@
 <% provide(:title, "Features") %>
 <%= will_paginate %>
 
+<% if current_user.admin? %>
+<%= link_to "New feature", '/features/new', :class=>"btn" %>
+<% end %>
+<br/>
 <table class="features table tablesorter">
 	<thead>
 		<th>Feature</th>
