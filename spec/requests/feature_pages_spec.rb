@@ -106,6 +106,23 @@ describe "Feature pages" do
       describe "should have the right title" do
         it { should have_selector('title', text: 'New feature' ) }
       end
+
+      describe "should allow creation" do
+        before { visit new_feature_path }
+
+        describe "of a single-selection feature" do
+          before do
+            fill_in "feature_name", with: "a test single feature"
+            fill_in "feature_instructions", with: "some instructions"
+            select "Single", from: "feature_ftype"
+            fill_in "feature_fvalues_", with: "test value"
+          end
+          it "should save a good feature" do
+            click_button "Create feature"
+            page.should have_selector('title', text: "Features")
+          end
+        end
+      end
     end
 
     describe "edit feature page" do
