@@ -5,6 +5,13 @@
       <h3>
         <%= @user.name %>
       </h3>
+      <%= will_paginate @activities %>
+      <table>
+        <% @activities.each do |activity| %>
+        <%= render_activity(activity) %>
+        <% end %>
+      </table>
+      <%= will_paginate @activities %>
     </section>
   </aside>
 </div>
