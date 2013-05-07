@@ -1,4 +1,5 @@
 <tr>
+  <td> <%= link_to target.id, target %> </td>
   <td> <%= link_to target.phrase, target %> </td>
   <td><%=  link_to target.hits.count, target, class: "tgt-total" %></td>
   <td><%=  link_to target.hits.where(confirmed: 1).count,  target_path(target, { confirmed: 1 }),  class: "confirmed"  %></td>
