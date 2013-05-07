@@ -18,6 +18,7 @@ class FeaturesController < ApplicationController
 
   def create  # POST /features         -> features_path
     @feature = current_user.features.build(params[:feature])
+    @targets = Target.where('user_id = ?',current_user.id)
     if @feature.save
       flash[:success] = "Feature \"#{@feature.name}\" created successfully."
       render 'show'
