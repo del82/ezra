@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/del82/ezra.png)](https://codeclimate.com/github/del82/ezra)
 
-ezra is a server-side tool for producing research-quality datasets of annotated audio files
+ezra is a web application for producing research-quality datasets of annotated audio files
 from recordings available on the web.
 
 The web contains vast quantities of recorded speech, and much of it is accompanied by
