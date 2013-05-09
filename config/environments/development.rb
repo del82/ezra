@@ -37,4 +37,9 @@ Ezra::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # set relative url root
+  config.relative_url_root = ""
+  config.audio_root=""
+
 end
