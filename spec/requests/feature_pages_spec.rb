@@ -119,7 +119,7 @@ describe "Feature pages" do
           end
           it "should save a good feature" do
             click_button "Create feature"
-            page.should have_selector('title', text: "Features")
+            page.should have_selector('title', text: "Feature | a test single feature")
           end
         end
       end
