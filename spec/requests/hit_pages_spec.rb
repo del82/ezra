@@ -112,10 +112,43 @@ describe "Hit pages" do
       end
 
       describe "commit button" do
-        it "should start by saying 'No changes'" do
-          page.should have_button("No changes")
-          page.should_not have_button("Save changes")
+        it "should start by having three buttons, Save, Save and Next, and Cancel" do
+          page.should have_button("Save")
+          page.should have_button("Save and Next")
+          page.should have_button("Cancel")
         end
+
+      describe "Save button" do
+        before do
+          click_button "Save"
+        end
+        it "should refresh same hit when clicked" do
+          page.should have_selector('title', text: 'Edit hit '+hit.id.to_s)
+        end
+      end
+
+      pending "Save and Next button" do
+        let(:target)   { FactoryGirl.create(:target )}
+        let(:hit) { FactoryGirl.create(:hit, confirmed: 1, target: target, id: 1) }
+        let(:hit2) { FactoryGirl.create(:hit, confirmed: 0, target: target, id: 2) }
+        before do
+          click_button "Save and Next"
+        end
+        it "should refresh to next hit when clicked" do
+          page.should have_selector('title', text: 'Edit hit '+hit2.id.to_s)
+        end
+      end
+
+      describe "Cancel button" do
+        before do
+          fill_in "hit_notes", with: "this shouldn't be saved"
+          click_button "Cancel"
+        end
+        it "should refresh same hit without saving" do
+          page.should have_selector('title', text: 'Edit hit '+hit.id.to_s)
+          page.should_not have_selector('hit_notes', text: "this shouldn't be saved")
+        end
+      end
 
         # Capybara does not register a change event
         # while using fill_in, so it doesn't look

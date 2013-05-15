@@ -18,13 +18,31 @@ span.btn {
 	margin-top: -5px;
 }
 
+
+/* pushed down footer */
+html,body {
+	height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow: auto;
+  padding-bottom: 75px; /* this needs to be bigger than footer height*/
+}
+
 .footer {
   font-size: 80%;
   background-color: #F5F5F5;
   border-top: 1px solid #E5E5E5;
-  margin-top: 30px;
+  margin-top: -150px;
+  height: 150px;
   padding: 10px 0;
   text-align: center;
+  position: relative;
+  clear: both;
 }
 
 /* don't center debug dump */

@@ -101,7 +101,7 @@ $(document).ready ->
 
 changeSave = () ->
 	validate()
-	$('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save changes")
+	# $('[name=commit]').removeClass('btn-primary').addClass('btn-danger').val("Save changes")
 
 window.playSpan = (start, end) ->
 	if(not soundManager.getSoundById('pagePlayerMP3Sound0') || soundManager.getSoundById('pagePlayerMP3Sound0').paused)

@@ -97,19 +97,21 @@ class HitsController < ApplicationController
   def update  # PUT /hits/:id  -> hit_path(hit)
     @hit = Hit.find(params[:id])
     @target = @hit.target
-    if @hit.update_attributes(params[:hit], user: @user)
+    @features = @target.features
+    if !params.has_key?(:cancel) && @hit.update_attributes(params[:hit], user: @user)
       flash[:success] = "Successfully updated hit #"+params[:id]
       @hit.create_activity(:update, owner: current_user, recipient: @target,
                            params: { phrase: @target.phrase })
 
-      @next = Target.find(@target.id).hits.where(confirmed: '0').first
-      if @next.nil?
-        redirect_to current_user, :notice => "No more unconfirmed hits"
+      if params[:commit] === 'Save and Next'
+        @next = Target.find(@target.id).hits.where(confirmed: '0').first
+        if @next.nil?
+          redirect_to current_user, :notice => "No more unconfirmed hits"
+        else 
+          redirect_to :action => 'edit', :id => @next.id
+        end
       else
-        # @userStats = current_user.stats
-        # @userStats.recent = @target.id
-        # @userStats.save()
-        redirect_to :action => 'edit', :id => @next.id
+        render 'edit'
       end
     else
       render 'edit'
