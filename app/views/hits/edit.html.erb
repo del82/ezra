@@ -3,7 +3,6 @@
 <div class="row">
 
 <%= form_for(@hit) do |f| %>
-
     <%= render 'error_messages' %>
 
     <%= f.hidden_field :confirmed, :value => @hit.confirmed %>
@@ -15,7 +14,8 @@
     <%= f.submit "Save and Next", id: "commit-button", class: "btn btn-large btn-primary" %>
     <%= f.submit "Cancel", id: "commit-button", name: "cancel", class: "btn btn-large btn-warning" %>
   <br/>
-  <div class="alert alert-error" id="alertBox"></div>
+  <br/>
+  <div class="alert alert-error span6" id="alertBox"></div>
   <div class="span10">
     <div id="title">
       <div style="float: left">
