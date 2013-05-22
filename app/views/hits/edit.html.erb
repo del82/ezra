@@ -21,7 +21,7 @@
   <div class="span10">
     <div id="title">
       <div style="float: left">
-        <h2 id="hit-title"><%= @target.phrase+' '+@hit.id.to_s %></h2>
+        <h2 id="hit-title"><%= link_to @target.phrase, @target %> <%= @hit.id.to_s %></h2>
       </div>
       <div id="selections" data-loaded="<%= @hit.confirmed %>">
         <div id="confirmed" class="status-box needs-validation" data-toggle="tooltip" data-status="1" title="Confirmed"></div>

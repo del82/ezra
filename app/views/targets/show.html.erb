@@ -1,7 +1,7 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
   <h2>
     <%= link_to(@target) do %>
-      <%= @target.phrase %> <%= @target.id %>
+    <%= @target.id %>. <%= @target.phrase %>
     <% end %>
     <%
     if @status
@@ -69,7 +69,7 @@
         <td>
           <%
             if hit.flagged
-              concat 'Flagged' 
+              concat 'Flagged'
             end
           %>
         </td>
