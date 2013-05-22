@@ -112,9 +112,11 @@ describe "Hit pages" do
       end
 
       describe "commit button" do
-        it "should start by having three buttons, Save, Save and Next, and Cancel" do
+        it "should start by having five buttons" do
           page.should have_button("Save")
-          page.should have_button("Save and Next")
+          page.should have_button("Previous")
+          page.should have_button("Next")
+          page.should have_button("Next Unconfirmed")
           page.should have_button("Cancel")
         end
 
