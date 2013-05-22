@@ -1,6 +1,8 @@
 <% provide(:title, 'Target | ' + @target.phrase) %>
   <h2>
-    <%= @target.phrase %>
+    <%= link_to(@target) do %>
+      <%= @target.phrase %> <%= @target.id %>
+    <% end %>
     <%
     if @status
       case @status.to_i
