@@ -18,7 +18,7 @@ $(document).ready ->
 		no
 
 	Mousetrap.bind "ctrl+enter", (e) ->
-		$("#mark-hit").click()
+		$("#hit-now").click()
 
 	Mousetrap.bind "ctrl+1", (e) ->
 		setStatus 1
@@ -39,12 +39,3 @@ $(document).ready ->
 		else
 		  $("#flag-checkbox").attr "checked", yes
 		$("#flag-checkbox").change()
-
-	# Mousetrap.bind "ctrl+s", (e) ->
-	# 	save()
-
-	# #Mousetrap.bind "ctrl+enter", (e) ->
-	# 	next()
-
-	# #Mousetrap.bind "ctrl+enter", (e) ->
-	# 	prev()
