@@ -2,8 +2,11 @@
   <td> <%= link_to target.id, target %> </td>
   <td> <%= link_to target.phrase, target %> </td>
   <td><%=  link_to target.hits.count, target, class: "tgt-total" %></td>
-  <td><%=  link_to target.hits.where(confirmed: 1).count,  target_path(target, { confirmed: 1 }),  class: "confirmed"  %></td>
-  <td><%=  link_to target.hits.where(confirmed: 0).count,  target_path(target, { confirmed: 0 }),  class: "unconfirmed" %></td>
-  <td><%=  link_to target.hits.where(confirmed: -1).count, target_path(target, { confirmed: -1 }), class: "not-present" %></td>
+  <td>
+  	<%=  link_to target.hits.where(confirmed: 1).count.to_s+" ("+target.hits.where('confirmed = ? AND flagged = ? ', 1, true).count.to_s+")",  target_path(target, { confirmed: 1 }),  class: "confirmed"  %>
+  </td>
+  <td>
+  	<%=  link_to target.hits.where(confirmed: 0).count.to_s+" ("+target.hits.where('confirmed = ? AND flagged = ? ', 0, true).count.to_s+")",  target_path(target, { confirmed: 0 }),  class: "unconfirmed" %></td>
+  <td><%=  link_to target.hits.where(confirmed: -1).count.to_s+" ("+target.hits.where('confirmed = ? AND flagged = ? ', -1, true).count.to_s+")", target_path(target, { confirmed: -1 }), class: "not-present" %></td>
   <td><%=  link_to target.hits.where(flagged: true).count, target_path(target, { flagged: true }), class: "flags"  %></td>
 </tr>
