@@ -103,15 +103,21 @@ class HitsController < ApplicationController
       @hit.create_activity(:update, owner: current_user, recipient: @target,
                            params: { phrase: @target.phrase })
 
-      if params[:commit] === 'Save and Next'
-        @next = Target.find(@target.id).hits.where(confirmed: '0').first
-        if @next.nil?
-          redirect_to current_user, :notice => "No more unconfirmed hits"
-        else 
-          redirect_to :action => 'edit', :id => @next.id
-        end
+      @next = @hit
+      if params[:commit] === 'Next Unconfirmed'
+        @next = Target.find(@target.id).hits.where('confirmed = ? AND flagged = ?', 0, false).first
+      elsif params[:commit] === 'Next'
+        # @next = Target.find(@target.id).hits.where("id > ?", @hit.id).order("id ASC").first
+        @next = Hit.where("id > ?", @hit.id).order("id ASC").first
+      elsif params[:commit] === 'Previous'
+        # @next = Target.find(@target.id).hits.where("id < ?", @hit.id).order("id DESC").first
+        @next = Hit.where("id < ?", @hit.id).order("id DESC").first
+      end
+
+      if @next.nil?
+        redirect_to current_user, :notice => "No more hits"
       else
-        render 'edit'
+        redirect_to :action => 'edit', :id => @next.id
       end
     else
       render 'edit'

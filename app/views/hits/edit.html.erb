@@ -11,7 +11,9 @@
     <%= f.hidden_field :window_start, :value => @hit.window_start, :class => 'needs-validation' %>
 
     <%= f.submit "Save", id: "commit-button", class: "btn btn-large btn-primary" %>
-    <%= f.submit "Save and Next", id: "commit-button", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Previous", id: "commit-button", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Next", id: "commit-button", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Next Unconfirmed", id: "commit-button", class: "btn btn-large btn-primary" %>
     <%= f.submit "Cancel", id: "commit-button", name: "cancel", class: "btn btn-large btn-warning" %>
   <br/>
   <br/>
