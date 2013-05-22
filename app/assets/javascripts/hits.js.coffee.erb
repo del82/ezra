@@ -226,25 +226,28 @@ window.togglePlayer = () ->
 
 validate = () ->
 	alertBox = $('#alertBox')
+
+	# Checked for every hit
+	if(+$('#hit_location').val() is 0)
+		alertBox.text("Location cannot be 0")
+	else
+		alertBox.text("")
+
+	# Only important for confirmed hits
 	if(+$('#hit_confirmed').val() is 1)
 		alertBox.text("")
-		if(+$('#hit_location').val() is 0)
-			alertBox.text("Location cannot be 0")
-		else if(not +$('#hit_window_start').val())
+		if(not +$('#hit_window_start').val())
 			alertBox.text("Transcript start cannot be 0")
 		else if(+$('#hit_window_duration').val() is 0)
 			alertBox.text("Transcript end cannot be 0")
 		else if(+$('#hit_window_duration').val() < -1)
 			alertBox.text("Transcript end must be after transcript start")
 
-		if(alertBox.text() isnt "")
-			alertBox.show()
-			$('[name=commit]').addClass("disabled")
-			$('[name=commit]').attr("disabled",true)
-		else
-			alertBox.text("").hide()
-			$('[name=commit]').removeClass("disabled")
-			$('[name=commit]').attr("disabled",false)
+	if(alertBox.text() isnt "")
+		alertBox.show()
+		$('[name=commit]').addClass("disabled")
+		$('[name=commit]').attr("disabled",true)
 	else
 		alertBox.text("").hide()
 		$('[name=commit]').removeClass("disabled")
+		$('[name=commit]').attr("disabled",false)

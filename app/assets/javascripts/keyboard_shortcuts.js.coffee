@@ -33,9 +33,4 @@ $(document).ready ->
 		setStatus -2
 
 	Mousetrap.bind "ctrl+0", (e) ->
-		isChecked = $("#flag-checkbox").attr("checked")
-		if isChecked
-		  $("#flag-checkbox").attr "checked", no
-		else
-		  $("#flag-checkbox").attr "checked", yes
-		$("#flag-checkbox").change()
+		$("#hit_flagged").click()
