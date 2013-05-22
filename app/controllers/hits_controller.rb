@@ -105,7 +105,8 @@ class HitsController < ApplicationController
 
       @next = @hit
       if params[:commit] === 'Next Unconfirmed'
-        @next = Target.find(@target.id).hits.where('confirmed = ? AND flagged = ?', 0, false).first
+        # @next = Target.find(@target.id).hits.where('confirmed = ? AND flagged = ?', 0, false).first
+        @next = Hit.where('confirmed = ? AND flagged = ?', 0, false).first
       elsif params[:commit] === 'Next'
         # @next = Target.find(@target.id).hits.where("id > ?", @hit.id).order("id ASC").first
         @next = Hit.where("id > ?", @hit.id).order("id ASC").first
