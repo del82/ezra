@@ -11,3 +11,14 @@
   <br/>
   <a class="btn btn-small" href="<%= edit_hit_path(@hit) %>" style="margin-right: 10px; margin-top: -5px"><i class="icon-pencil"></i></a>
 </div>
+
+<section>
+  <h3>Activity</h3>
+<%# will_paginate @activities %>
+<table>
+  <% @activities.each do |activity| %>
+  <%= render_activity(activity) %>
+  <% end %>
+</table>
+<%# will_paginate @activities %>
+</section>

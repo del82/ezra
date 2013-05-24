@@ -120,11 +120,10 @@ end
 def create_activity n_times=20
   hits = Hit.all
   users = User.all
-  targets = Target.all
   n_times.times do |n|
-    t = targets.sample
-    hits.sample.create_activity(:update, owner: users.sample, recipient: t,
-                                params: { phrase: t.phrase })
+    h = hits.sample
+    h.create_activity(:update, owner: users.sample, recipient: h,
+                                params: { phrase: h.target.phrase })
   end
 end
 

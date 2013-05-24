@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show    # GET /users/:id      -> user_path(user)
     @user = User.find(params[:id])
+    @activities = PublicActivity::Activity.where(owner_id: params[:id]).paginate(page: params[:page])
   end
 
   def new     # GET /users/new      -> new_user_path

@@ -15,6 +15,7 @@ class HitsController < ApplicationController
 
   def show
     @hit = Hit.find(params[:id])
+    @activities = PublicActivity::Activity.where(trackable_type: "Hit", trackable_id: params[:id]).order("created_at DESC")
   end
 
   def new
@@ -96,12 +97,13 @@ class HitsController < ApplicationController
 
   def update  # PUT /hits/:id  -> hit_path(hit)
     @hit = Hit.find(params[:id])
+    changes = params[:hit].diff(@hit.attributes.to_options)
     @target = @hit.target
     @features = @target.features
     if !params.has_key?(:cancel) && @hit.update_attributes(params[:hit], user: @user)
       flash[:success] = "Successfully updated hit #"+params[:id]
       @hit.create_activity(:update, owner: current_user, recipient: @target,
-                           params: { phrase: @target.phrase })
+                           params: {changes: changes,  phrase: @target.phrase})
 
       @next = @hit
       if params[:commit] === 'Next Unconfirmed'

@@ -20,7 +20,6 @@ class TargetsController < ApplicationController
       @status = hits_params[:confirmed]
     end
     @hits = @target.hits.where(hits_params).paginate(page: params[:page])
-
     @features = @target.features
     phrase = @target.phrase.gsub(/ /,'_')
     @savedFiles = Dir.glob('public/clips/'+phrase+'/*.mp3')
