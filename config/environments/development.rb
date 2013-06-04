@@ -41,5 +41,6 @@ Ezra::Application.configure do
   # set relative url root
   config.relative_url_root = ""
   config.audio_root=""
+  config.big_audio_root = "public/"
 
 end

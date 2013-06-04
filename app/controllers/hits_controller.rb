@@ -35,7 +35,7 @@ class HitsController < ApplicationController
 
   def save_clip
     @hit = Hit.find(params[:id])
-    phrase = @hit.target.phrase.gsub!(/ /,'_')
+    phrase = @hit.target.phrase.gsub(/ /,'_')
 
     # Check to see if directory stucture is correct
     # TODO: Move to an install script
@@ -47,7 +47,7 @@ class HitsController < ApplicationController
     end
 
 
-    rawLoc = 'app/assets/audios/'+@hit.audio_file[6,@hit.audio_file.length]
+    rawLoc = 'app/assets/audios/'+@hit.audio_file[6..-1]
     fileExists = File.exists?(rawLoc)
 
     # This is the code to download from the web.  Should be moved to an import controller
