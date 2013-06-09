@@ -1,7 +1,6 @@
 <% provide(:title, "Edit hit " + @hit.id.to_s ) %>
 
-<div class="row">
-
+<div class="row-fluid" style="margin-top: 5px">
 <%= form_for(@hit) do |f| %>
     <%= render 'error_messages' %>
 
@@ -46,77 +45,69 @@
         <div class="span8">
           <div id="sm-container">
               <ul class="playlist">
-              <li><a href="<%= asset_path('voluptas_in_id-1.mp3')
-              #audio_path(@hit.audio_file) 
-              %>">Click to play</a></li>
+              <li><a href="<%= audio_path(@hit.audio_file) %>">Click to play</a></li>
               </ul>
           </div>
         </div>
       </div>
       <br/>
       <div class="row">
-        <div class="span3" id="hit-info">
+        <div class="span9" id="hit-info">
           <span class="hit-time-box transcript-time-span">
             <input class="transcript-time" id="hit-time-hours" type="text" value="00">:<input class="transcript-time" id="hit-time-minutes" type="text" value="00">:<input class="transcript-time" id="hit-time-seconds" type="text" value="00">:<input class="transcript-time" id="hit-time-milliseconds" type="text" value="000">
           </span>
-        </div>
-        <div class="span2">
           <span id="hit-now" class="btn needs-validation now">mark hit <i class="icon-time"></i></span> 
           <span id="play-hit" class="btn">play hit <i class="icon-play"></i></span>
+          <span class="pull-right"><a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a></span>
         </div>
-        <div class="span3 pull-right">
-          <a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a>
-          <br/>
-          <div class="modal hide fade" id="help">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h3>Keyboard Shortcuts</h3>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="span6">
-                  <dl class="keyboard-help">
-                    <dt>[ctrl]+[left]</dt>
-                    <dd>Seek left</dd><br/>
-                    <dt>[ctrl]+[right]</dt>
-                    <dd>Seek right</dd><br/>
-                    <dt>[ctrl]+[up]</dt>
-                    <dd>Set window start</dd><br/>
-                    <dt>[ctrl]+[down]</dt>
-                    <dd>Set window end</dd>
-                  </dl>
-                </div>
-                <div class="span6">
-                  <dl class="keyboard-help">
-                    <dt>[ctrl]+[space]</dt>
-                    <dd>Toggle player</dd>
-                    <dt>[ctrl]+[enter]</dt>
-                    <dd>Mark hit</dd>
-                  </dl>
-                </div>
+        <div class="modal hide fade" id="help">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Keyboard Shortcuts</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="span6">
+                <dl class="keyboard-help">
+                  <dt>[ctrl]+[left]</dt>
+                  <dd>Seek left</dd><br/>
+                  <dt>[ctrl]+[right]</dt>
+                  <dd>Seek right</dd><br/>
+                  <dt>[ctrl]+[up]</dt>
+                  <dd>Set window start</dd><br/>
+                  <dt>[ctrl]+[down]</dt>
+                  <dd>Set window end</dd>
+                </dl>
               </div>
-              <div class="row">
-                <div class="span6">
-                  <dl class="keyboard-help">
-                    <dt>[ctrl]+0</dt>
-                    <dd>Flag hit</dd><br/>
-                    <dt>[ctrl]+1</dt>
-                    <dd>Mark confirmed</dd><br/>
-                    <dt>[ctrl]+2</dt>
-                    <dd>Mark unconfirmed</dd><br/>
-                    <dt>[ctrl]+3</dt>
-                    <dd>Mark not present</dd><br/>
-                    <dt>[ctrl]+4</dt>
-                    <dd>Mark duplicate</dd><br/>
-                  </dl>
-                </div>
+              <div class="span6">
+                <dl class="keyboard-help">
+                  <dt>[ctrl]+[space]</dt>
+                  <dd>Toggle player</dd>
+                  <dt>[ctrl]+[enter]</dt>
+                  <dd>Mark hit</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span6">
+                <dl class="keyboard-help">
+                  <dt>[ctrl]+0</dt>
+                  <dd>Flag hit</dd><br/>
+                  <dt>[ctrl]+1</dt>
+                  <dd>Mark confirmed</dd><br/>
+                  <dt>[ctrl]+2</dt>
+                  <dd>Mark unconfirmed</dd><br/>
+                  <dt>[ctrl]+3</dt>
+                  <dd>Mark not present</dd><br/>
+                  <dt>[ctrl]+4</dt>
+                  <dd>Mark duplicate</dd><br/>
+                </dl>
               </div>
             </div>
           </div>
-          <br/>
         </div>
+        <br/>
       </div>
-
       </div>
 
       <div id="transcript" class="row">
@@ -126,31 +117,27 @@
           </div>
         </div>
         <div class="row">
-          <div class="span3">
+          <div class="span8">
             <div class="start-time-box" style="display: inline;">
               <span class="beginning-time transcript-time-span">
                 <input class="transcript-time" id="start-time-hours" type="text" value="00">:<input class="transcript-time" id="start-time-minutes" type="text" value="00">:<input class="transcript-time" id="start-time-seconds" type="text" value="00">:<input class="transcript-time" id="start-time-milliseconds" type="text" value="000">
               </span>
+              <span class="now btn needs-validation" id="start-now" title="set start to current time">
+                start <i class="icon-time"></i>
+              </span>
             </div>
-          </div>
-          <div class="span4">
-            <span class="now btn needs-validation" id="start-now" title="set start to current time">
-              start <i class="icon-time"></i>
-            </span>
           </div>
         </div>
         <div class="row">
-          <div class="span3">
+          <div class="span8">
             <div class="end-time-box" style="display: inline;">
               <span class="ending-time transcript-time-span">
                 <input class="transcript-time" id="end-time-hours" type="text" value="00">:<input class="transcript-time" id="end-time-minutes" type="text" value="00">:<input class="transcript-time" id="end-time-seconds" type="text" value="00">:<input class="transcript-time" id="end-time-milliseconds" type="text" value="000">
               </span>
+              <span class="now btn needs-validation" id="end-now" title="set end to current time">
+                end <i class="icon-time"></i>
+              </span>
             </div>
-          </div>
-          <div class="span4">
-            <span class="now btn needs-validation" id="end-now" title="set end to current time">
-              end <i class="icon-time"></i>
-            </span>
           </div>
         </div>
       </div>
