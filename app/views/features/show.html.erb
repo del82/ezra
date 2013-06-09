@@ -55,8 +55,13 @@
   </div>
   <div class="modal-body">
     <%= form_for(@feature) do |f| %>
+      <div class="checkbox-list">
+        <% @targets.each do |v| %>
+          <%= check_box_tag "feature[target_ids][]", v.id , @feature.target_ids.include?(v.id), :class=>'feature-checkbox' %> 
+          <%= link_to v.phrase, :controller=>"targets", :action=>"show", :id=>v.id %> <br/>
+        <% end %>
+      </div>
       <%= render 'error_messages' %>
-      <%= f.select :target_ids, @targets.collect {|x| [x.phrase, x.id]}, {}, :multiple => true %>
   </div>
   <div class="modal-footer">
     <div class="btn btn-large" data-dismiss="modal">Close</div>
