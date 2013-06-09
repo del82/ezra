@@ -19,7 +19,7 @@
       <br/><br/>
       <% (0..0).each do |value,index| %>
       <div id="row-<%= index %>">
-        <%= text_field_tag("feature[fvalues][]","",:placeholder => "Add feature", 'data-count'=>index, :class=>'feature-box') %> 
+        <%= text_field_tag("feature[fvalues][]","",:placeholder => "Add value", 'data-count'=>index, :class=>'feature-box') %> 
         <i class="icon-remove-sign remove-button" data-remove="<%= index %>"></i>
       </div>
       <% end %>

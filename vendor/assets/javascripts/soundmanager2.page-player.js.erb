@@ -366,7 +366,7 @@ function PagePlayer() {
       pl.removeClass(this._data.oLI,this._data.className);
       this._data.className = pl.css.sPlaying;
       pl.addClass(this._data.oLI,this._data.className);
-      document.getElementById("player_picture").src = "<%= image_path('control_play.png') %>";
+      document.getElementById("player_picture").src = "<%= image_path('control_pause.png') %>";
     },
 
     finish: function() {

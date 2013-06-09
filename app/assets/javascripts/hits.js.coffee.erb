@@ -63,6 +63,12 @@ $(document).ready ->
 			spanStart = smt.toMilliseconds(smt.getWindowTime('end'))-2000
 			playSpan(spanStart,-1)
 
+		$('#play-hit').click ->
+			hit = smt.secondsToRaw($('#hit_location').val())
+			spanStart = smt.toMilliseconds(hit)-2000
+			spanEnd = smt.toMilliseconds(hit)+2000
+			playSpan(spanStart,spanEnd)
+
 		$('#download-clip').click ->
 			$('#downloading').show().text("Downloading file... May take a few minutes for large files or slow internet connections")
 			$.ajax 'save_clip',

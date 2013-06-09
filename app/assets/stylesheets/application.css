@@ -24,9 +24,10 @@ html,body {
 	height: 100%;
 }
 
-#wrap {
-  min-height: 100%;
+#holder {
+  min-height: 100% !important;
 }
+
 
 #main {
   overflow: auto;
@@ -37,13 +38,8 @@ html,body {
   font-size: 80%;
   background-color: #F5F5F5;
   border-top: 1px solid #E5E5E5;
-  margin-top: -150px;
-  height: 150px;
   padding: 10px 0;
-  text-align: center;
-  position: relative;
-  clear: both;
-}
+  text-align: center;}
 
 /* don't center debug dump */
 pre {

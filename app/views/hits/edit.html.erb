@@ -46,7 +46,9 @@
         <div class="span8">
           <div id="sm-container">
               <ul class="playlist">
-              <li><a href="<%= audio_path(@hit.audio_file) %>">Click to play</a></li>
+              <li><a href="<%= asset_path('voluptas_in_id-1.mp3')
+              #audio_path(@hit.audio_file) 
+              %>">Click to play</a></li>
               </ul>
           </div>
         </div>
@@ -59,7 +61,8 @@
           </span>
         </div>
         <div class="span2">
-          <span id="hit-now" class="btn needs-validation now">hit <i class="icon-time"></i></span>
+          <span id="hit-now" class="btn needs-validation now">mark hit <i class="icon-time"></i></span> 
+          <span id="play-hit" class="btn">play hit <i class="icon-play"></i></span>
         </div>
         <div class="span3 pull-right">
           <a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a>
