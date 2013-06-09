@@ -26,7 +26,7 @@ $(document).ready ->
 		$('.status-box').tooltip()
 		$('[data-status='+confirmed+']').addClass('selected')
 		$('#location').html(smt.toText(smt.secondsToRaw($('#location').attr("data-value"))));
-		$('#alertBox,#downloading,.feature-data').hide()
+		$('#alertBox,#downloading,#show-features').hide()
 		$('.tablesorter').tablesorter()
 
 		$('.needs-validation, .transcript-time').change ->
@@ -87,12 +87,30 @@ $(document).ready ->
 					$('#downloading').text(errors)
 
 
-		$('.feature-chevron').click ->
-			$(this).parent().next().toggle()
-			if($(this).hasClass('icon-chevron-up'))
-				$(this).removeClass('icon-chevron-up').addClass('icon-chevron-down')
+		$('.feature-title').click ->
+			$(this).next().toggle()
+			if($(this).find(">:first-child").hasClass('icon-chevron-up'))
+				$(this).find(">:first-child").removeClass('icon-chevron-up').addClass('icon-chevron-down')
 			else
-				$(this).removeClass('icon-chevron-down').addClass('icon-chevron-up')
+				$(this).find(">:first-child").removeClass('icon-chevron-down').addClass('icon-chevron-up')
+			if($('.icon-chevron-up').length > $('.icon-chevron-down').length)
+				$('#show-features').show()
+				$('#hide-features').hide()
+			else
+				$('#show-features').hide()
+				$('#hide-features').show()
+
+		$('.feature-toggle').click ->
+			if($(this).attr('id') is 'show-features')
+				$('.feature-data').show()
+				$('.icon-chevron-up').removeClass('icon-chevron-up').addClass('icon-chevron-down')
+				$('#show-features').hide()
+				$('#hide-features').show()
+			else
+				$('.feature-data').hide()
+				$('.icon-chevron-down').removeClass('icon-chevron-down').addClass('icon-chevron-up')
+				$('#show-features').show()
+				$('#hide-features').hide()
 
 		windowStart = smt.secondsToRaw($('#hit_window_start').val())
 		windowDuration = smt.secondsToRaw(Number($('#hit_window_start').val()) + Number($('#hit_window_duration').val()))
