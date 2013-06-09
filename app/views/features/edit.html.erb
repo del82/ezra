@@ -27,7 +27,7 @@
         <span class="help" title="The name of your feature. Make sure to pick something descriptive!"> Name <i class="icon-question-sign"></i></span> <span id="nonunique" class="alert-danger">This name is in use</span>
         <%= f.text_field :name %>
         <span class="help" title="Tell the annotators how they should mark features for each hit."> Instructions <i class="icon-question-sign"></i></span>
-        <%= f.text_area :instructions, :rows=>10 %>
+        <%= f.text_area :instructions, :rows=>10, :class=>"no-resize" %>
         <%= f.submit "Save update", class: "btn btn-large btn-primary" %>
       </div>
       <div class="span3">

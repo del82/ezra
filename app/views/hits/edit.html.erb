@@ -45,9 +45,7 @@
         <div class="span8">
           <div id="sm-container">
               <ul class="playlist">
-              <li><a href="<%= asset_path('voluptas_in_id-1.mp3')
-              #audio_path(@hit.audio_file) 
-              %>">Click to play</a></li>
+              <li><a href="<%= audio_path(@hit.audio_file) %>">Click to play</a></li>
               </ul>
           </div>
         </div>
@@ -59,7 +57,7 @@
             <input class="transcript-time" id="hit-time-hours" type="text" value="00">:<input class="transcript-time" id="hit-time-minutes" type="text" value="00">:<input class="transcript-time" id="hit-time-seconds" type="text" value="00">:<input class="transcript-time" id="hit-time-milliseconds" type="text" value="000">
           </span>
           <span id="hit-now" class="btn needs-validation now">mark hit <i class="icon-time"></i></span> 
-          <span id="play-hit" class="btn">play hit <i class="icon-play"></i></span>
+          <span id="play-hit" class="btn-inline btn">play hit <i class="icon-play"></i></span>
           <span class="pull-right"><a id="help-link" href="#help" data-toggle="modal"><%= image_tag('keyboard-icon.png', width: '25px')%> Keyboard shortcuts</a></span>
         </div>
         <div class="modal hide fade" id="help">
