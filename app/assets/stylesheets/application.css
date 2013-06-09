@@ -53,3 +53,9 @@ pre {
 .navbar-fixed-bottom .container {
   width: 90% !important;
 }
+
+#sm2-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

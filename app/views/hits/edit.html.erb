@@ -17,7 +17,7 @@
   <br/>
   <br/>
   <div class="alert alert-error span6" id="alertBox"></div>
-  <div class="span10">
+  <div class="span8">
     <div id="title">
       <div style="float: left">
         <h2 id="hit-title"><%= link_to @target.phrase, @target %> <%= @hit.id.to_s %></h2>
@@ -45,7 +45,9 @@
         <div class="span8">
           <div id="sm-container">
               <ul class="playlist">
-              <li><a href="<%= audio_path(@hit.audio_file) %>">Click to play</a></li>
+              <li><a href="<%= asset_path('voluptas_in_id-1.mp3')
+              #audio_path(@hit.audio_file) 
+              %>">Click to play</a></li>
               </ul>
           </div>
         </div>
@@ -146,12 +148,13 @@
         <%= f.text_area :notes, :value => @hit.notes, :class => 'clip-textarea needs-validation'%>
       </div>
     </div>
-    <div class="span5">
+    <div class="span3">
       <h2>Features</h2>
+      <div id="hide-features" class="feature-toggle">Hide All</div><div id="show-features" class="feature-toggle">Show All</div>
       <div id="feature-box">
         <% @features.each_with_index do |feature,index| %>
         <div id="feature-<%= index %>" class="feature pull-left" style="margin-right: 45px">
-          <h3><%= feature.name %> <i class="icon-chevron-up feature-chevron"></i></h3>
+          <h3 class="feature-title"><i class="icon-chevron-down feature-chevron"></i> <%= feature.name %></h3>
           <div class="feature-data">
             <%= feature.created_at %> by <%= feature.user.name %><br/>
             <%= feature.instructions %><br/>
