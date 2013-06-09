@@ -336,7 +336,7 @@ function PagePlayer() {
       this._data.className = pl.css.sPlaying;
       pl.addClass(this._data.oLI,this._data.className);
       self.setPageTitle(this._data.originalTitle);
-      document.getElementById("player_picture").src = "<%= image_path('control_play.png') %>";
+      document.getElementById("player_picture").src = "<%= image_path('control_pause.png') %>";
     },
 
     stop: function() {
@@ -356,7 +356,7 @@ function PagePlayer() {
       pl.addClass(this._data.oLI,this._data.className);
       self.setPageTitle();
       self.resetPageIcon();
-      document.getElementById("player_picture").src = "<%= image_path('control_pause.png') %>";
+      document.getElementById("player_picture").src = "<%= image_path('control_play.png') %>";
     },
 
     resume: function() {
