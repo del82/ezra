@@ -56,11 +56,11 @@ $(document).ready ->
 			playSpan(-1,-1)
 
 		$('#play-start').click ->
-			spanEnd = smt.toMilliseconds(smt.getWindowTime('start'))+2000
+			spanEnd = smt.toMilliseconds(smt.getWindowTime('start'))+700
 			playSpan(-1,""+spanEnd)
 
 		$('#play-end').click ->
-			spanStart = smt.toMilliseconds(smt.getWindowTime('end'))-2000
+			spanStart = smt.toMilliseconds(smt.getWindowTime('end'))-100
 			playSpan(spanStart,-1)
 
 		$('#play-hit').click ->
