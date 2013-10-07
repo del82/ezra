@@ -4,7 +4,7 @@ if !Ezra::Application.config.respond_to?(:big_audio_root)
 end
 
 module Export
-  def export_target(target)
+  def self.export_target(target)
     to_dir = "tmp/#{target.id}_#{target.phrase.gsub(/ /,'_')}"
     if Dir.exists?(to_dir)
       Dir.foreach(to_dir) {|f| File.delete(File.join(to_dir,f)) if f != '.' && f != '..' }
@@ -12,7 +12,7 @@ module Export
     end
     Dir.mkdir(to_dir)
     target.hits.each do |h|
-      if h.confirmed == 0 # FIXME
+      if h.confirmed == 1
         export_hit(h, to_dir, target.phrase.gsub(/ /,'_'))
       end
     end
@@ -20,9 +20,9 @@ module Export
 
   private
 
-  def export_hit(hit, to_dir, phrase)
+  def self.export_hit(hit, to_dir, phrase)
     # files for this hit will have the same name and different extensions
-    file_prefix = File.join(to_dir, "#{hit.id}_#{phrase}") 
+    file_prefix = File.join(to_dir, "#{hit.id}_#{phrase}")
     if !_export_mp3(hit, file_prefix, phrase)
       raise "cutmp3 failed for hit #{h.id}, fp #{file_prefix}"
     end
@@ -31,7 +31,7 @@ module Export
     _export_notes(hit, file_prefix, phrase)
   end
 
-  def _export_mp3(h, file_prefix, phrase)
+  def self._export_mp3(h, file_prefix, phrase)
     outfile = "#{file_prefix}.mp3"
     bar = Ezra::Application.config.big_audio_root
     infile = File.join(bar, h.audio_file)
@@ -46,14 +46,15 @@ module Export
   end
 
 
-  def _export_transcript(h, file_prefix, phrase)
+  def self._export_transcript(h, file_prefix, phrase)
     File.open("#{file_prefix}.lab", 'w') do |f|
       # there has got to be a better way to do this.
-      f.write(h.transcript.upcase.tr('^ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ','').strip)
+      # f.write(h.transcript.upcase.tr('^ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ','').strip) # mats wants the bare transcript
+      f.write(h.transcript.strip)
     end
   end
 
-  def _export_notes(h, file_prefix, phrase)
+  def self._export_notes(h, file_prefix, phrase)
     if !(h.notes.nil? or h.notes == "")
       File.open("#{file_prefix}.note",'w') do |f|
         f.write(h.notes)
