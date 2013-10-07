@@ -16,8 +16,6 @@ module Export
         export_hit(h, to_dir, target.phrase.gsub(/ /,'_'))
       end
     end
-
-
   end
 
   private
@@ -29,7 +27,7 @@ module Export
       raise "cutmp3 failed for hit #{h.id}, fp #{file_prefix}"
     end
     _export_transcript(hit, file_prefix, phrase)
-    #_export_feat_vals(hit, file_prefix, phrase)
+    _export_feat_vals(hit, file_prefix, phrase)
     _export_notes(hit, file_prefix, phrase)
   end
 
@@ -63,4 +61,19 @@ module Export
     end
   end
 
-end
+  def export_feat_vals(h, file_prefix, phrase)
+    def safe_feature_name(h, id)
+      begin
+        h.features.find(id).name
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
+    end
+    fv = Hash[h.feat_vals.map{|k,v| [safe_feature_name(h, k.to_i) ,v] } ].except(nil)
+    File.open("#{file_prefix}.feat", 'w') do |f|
+      f.write(JSON.dump(fv))
+    end    
+  end
+
+
+end # export module
