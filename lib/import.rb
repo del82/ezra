@@ -4,13 +4,13 @@
 # end
 
 require 'json'
-  
+
 module Import
 
   def self.load_json(filename)
     File.open(filename, 'r') do |f|
       JSON.load(f)
-    end 
+    end
   end
 
   def self.load_param(filename)
@@ -24,19 +24,30 @@ module Import
   end
 
   def self.process_audio_file(current_file, dest_dir, dest_fname)
-    if File.exist? File.join(dest_dir, dest_fname)
-      puts ("destination file already exists: "+ File.join(dest_dir, dest_fname))
+    full_dest = File.join(dest_dir, dest_fname)
+    if File.exist? full_dest
+      puts ("destination file already exists: "+ full_dest)
       return false
     end
     if not File.exist? current_file
       puts "file not found: " + current_file
       return false
     end
-    FileUtils.cp current_file, (File.join dest_dir, dest_fname)
+    dir = File.dirname full_dest
+    begin
+      Dir.mkdir dir
+    rescue SystemCallError
+      # dir already exists
+    end
+    FileUtils.cp current_file, full_dest
     return true
   end
 
-  def self.load_target(username, target_string, target_directory)  
+  def self.load_target(username, target_string, target_directory)
+    if not File.directory? target_directory
+      puts "target_directory doesn't exist."
+      return
+    end
     user = User.where(username: username).first
     target = Target.new(phrase: target_string)
     target.user_id = user.id
@@ -49,14 +60,14 @@ module Import
         ### audio file
         audio_file_dest = p_hash["MP3"].gsub(/http:\/\//, "")
         audio_file_src  = File.join(target_directory, f.gsub(/param$/,"mp3"))
-        audio_root = "/home/ezra/ezra/audio"
+        audio_root = "/home/ezra/audio"
         puts "copy " + audio_file_src + " to " + File.join(audio_root, audio_file_dest)
         self.process_audio_file(audio_file_src, audio_root, audio_file_dest)
-        h.audio_file = audio_file_dest
+        h.audio_file = "audio/" + audio_file_dest
 
         ### transcript / timing
         h.transcript = p_hash["LEFTCONTEXT"] + " " + target_string + " " + p_hash["RIGHTCONTEXT"]
-        h.window_start = h.location - 12.0
+        h.window_start = [h.location - 12.0, 0].max
         h.window_duration = 20.0
         puts h.attributes
         h.save!

@@ -62,18 +62,18 @@ module Export
     end
   end
 
-  def export_feat_vals(h, file_prefix, phrase)
-    def safe_feature_name(h, id)
-      begin
-        h.features.find(id).name
-      rescue ActiveRecord::RecordNotFound
-        nil
-      end
-    end
+  def self._export_feat_vals(h, file_prefix, phrase)
     fv = Hash[h.feat_vals.map{|k,v| [safe_feature_name(h, k.to_i) ,v] } ].except(nil)
     File.open("#{file_prefix}.feat", 'w') do |f|
       f.write(JSON.dump(fv))
-    end    
+    end
+  end
+  def self.safe_feature_name(h, id)
+    begin
+      h.features.find(id).name
+    rescue ActiveRecord::RecordNotFound
+      nil
+    end
   end
 
 
