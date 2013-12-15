@@ -70,7 +70,8 @@ module Export
   end
   def self.safe_feature_name(h, id)
     begin
-      h.features.find(id).name
+      h.features[id].name
+      #h.features.find(id).name
     rescue ActiveRecord::RecordNotFound
       nil
     end
