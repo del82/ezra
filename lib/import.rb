@@ -5,13 +5,13 @@
 
 require 'json'
 require 'fileutils'
-  
+
 module Import
 
   def self.load_json(filename)
     File.open(filename, 'r') do |f|
       JSON.load(f)
-    end 
+    end
   end
 
   def self.load_param(filename)
@@ -65,7 +65,7 @@ module Import
     return command
   end
 
-  def self.load_target(username, target_string, target_directory)  
+  def self.load_target(username, target_string, target_directory)
     user = User.where(username: username).first
     target = Target.new(phrase: target_string)
     target.user_id = user.id
@@ -76,7 +76,7 @@ module Import
       if f =~ /param$/
         p_hash = self.load_param (File.join target_directory, f)
         h = Hit.new(confirmed: 0)
-        h.location =  [p_hash["SEEK"].to_f, 1.0].max 
+        h.location =  [p_hash["SEEK"].to_f, 1.0].max
         h.target_id = target.id
         ### audio file
         audio_file_dest = p_hash["MP3"].gsub(/http:\/\//, "")
@@ -84,7 +84,7 @@ module Import
         audio_root = "/home/ezra/ezra/audio"
 	small_audio_root = "/home/ezra/ezra/public/smallaudio"
         full_dest = File.join(audio_root, audio_file_dest)
-        puts "copy #{audio_file_src} to #{full_dest}" 
+        puts "copy #{audio_file_src} to #{full_dest}"
         self.process_audio_file(audio_file_src, audio_root, audio_file_dest)
 	new_sa_command = self.make_small_audio_file(audio_file_src, small_audio_root, audio_file_dest)
 	if not new_sa_command.nil?
@@ -94,8 +94,15 @@ module Import
 
         ### transcript / timing
         h.transcript = "#{p_hash["LEFTCONTEXT"]} #{target_string} #{p_hash["RIGHTCONTEXT"]}"
-        h.window_start = [h.location - 12.0, 0.5].max
-        h.window_duration = 20.0
+        h.window_offset = p_hash['WINDOWOFFSET']
+        h.window_duration = p_hash['WINDOWDURATION']
+
+        # defaults if unspecified in param file
+        h.window_offset ||= 12
+        h.window_duration ||= 20
+
+        h.window_start = [h.location - h.window_offset, 0.5].max
+
         puts h.attributes
         h.save!
       end
@@ -104,4 +111,3 @@ module Import
   end
 
 end # import module
-
