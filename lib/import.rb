@@ -65,9 +65,10 @@ module Import
     return command
   end
 
-  def self.load_target(username, target_string, target_directory)
+  def self.load_target(username, target_string, target_directory, target_name = nil)
     user = User.where(username: username).first
-    target = Target.new(phrase: target_string)
+    target_name ||= target_string
+    target = Target.new(phrase: target_name)
     target.user_id = user.id
     target.save!
     small_file = File.join("/home/ezra/import/", target_string.gsub(/\s+/, "")) + ".smallaudio"
@@ -94,14 +95,14 @@ module Import
 
         ### transcript / timing
         h.transcript = "#{p_hash["LEFTCONTEXT"]} #{target_string} #{p_hash["RIGHTCONTEXT"]}"
-        h.window_offset = p_hash['WINDOWOFFSET']
-        h.window_duration = p_hash['WINDOWDURATION']
+        window_offset = p_hash['WINDOWOFFSET'].to_f
+        h.window_duration = p_hash['WINDOWDURATION'].to_f
 
         # defaults if unspecified in param file
-        h.window_offset ||= 12
-        h.window_duration ||= 20
+        window_offset ||= 12.0
+        h.window_duration ||= 20.0
 
-        h.window_start = [h.location - h.window_offset, 0.5].max
+        h.window_start = [h.location - window_offset, 0.5].max
 
         puts h.attributes
         h.save!
